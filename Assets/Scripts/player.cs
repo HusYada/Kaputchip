@@ -1,3 +1,4 @@
+// https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
 using UnityEngine;
 
 public class player : MonoBehaviour
@@ -150,10 +151,13 @@ public class player : MonoBehaviour
 
     	if(Input.GetKeyDown(k_rarm))
     	{
+            int layerMask = 1 << 6;
+            layerMask = ~layerMask;
+
     		Ray rayOrigin = new Ray(transform.position, cam.transform.forward);
     		RaycastHit hitInfo;
 
-    		if(Physics.Raycast(rayOrigin, out hitInfo)) 
+    		if(Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity, layerMask)) 
     		{
     			var hitObject = hitInfo.collider.GetComponent<Transform>();
 
@@ -164,10 +168,11 @@ public class player : MonoBehaviour
     			}
     		}
     	}
+
         if(Input.GetKey(k_rarm))
         {
         	cam.transform.LookAt(moviereel.transform.position);
-			rb.AddRelativeForce(cam.transform.forward * plyr_jump/5, ForceMode.Force);
+			rb.AddRelativeForce(cam.transform.forward * plyr_jump/10, ForceMode.Force);
 			lr.SetPosition(1, moviereel.transform.position);
         }
 
