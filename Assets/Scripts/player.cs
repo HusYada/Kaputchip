@@ -20,7 +20,8 @@ public class player : MonoBehaviour
 	plyr_jump = 250,
 	plyr_butterfly = 20;
 	private bool
-	grounded;
+	grounded,
+    reeling;
 
 	// Camera Variables
 	private int
@@ -165,11 +166,12 @@ public class player : MonoBehaviour
     			{
     				//Instantiate(moviereel, hitInfo.point, Quaternion.identity);
     				moviereel.transform.position = hitInfo.point;
+                    reeling = true;
     			}
     		}
     	}
 
-        if(Input.GetKey(k_rarm))
+        if(Input.GetKey(k_rarm) && reeling)
         {
         	cam.transform.LookAt(moviereel.transform.position);
 			rb.AddRelativeForce(cam.transform.forward * plyr_jump/10, ForceMode.Force);
@@ -178,7 +180,7 @@ public class player : MonoBehaviour
 
         if(Input.GetKeyUp(k_rarm))
         {
-        	//
+        	reeling = false;
         }
 
 		// --------------------------------------------------------------------------
