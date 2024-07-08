@@ -15,6 +15,10 @@ public class player : MonoBehaviour
 	k_rarm = KeyCode.Mouse1;
 
 	// Player Variables
+    public int
+    plyr_shields;
+    public bool
+    has_key;
 	private int 
 	plyr_spd = 2,
 	plyr_jump = 250,
@@ -43,6 +47,8 @@ public class player : MonoBehaviour
     	rb = GetComponent<Rigidbody>();
     	lr = GetComponent<LineRenderer>();
     	cam = GameObject.FindWithTag("MainCamera");
+        // Lock cursor, unlock with Esc
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void FixedUpdate()
@@ -56,7 +62,7 @@ public class player : MonoBehaviour
         cam.transform.eulerAngles = new Vector3(cam_v, cam_h, 0);
 
         // Lock cursor, unlock with Esc
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         // Reset the camera
         if(Input.GetKey("f")) 
@@ -184,5 +190,22 @@ public class player : MonoBehaviour
         }
 
 		// --------------------------------------------------------------------------
+        // Custom / Interaction Time
+
+        // Ray bnrayOrigin = new Ray(transform.position, cam.transform.forward);
+        // RaycastHit bnhitInfo;
+
+        // if(Physics.Raycast(rayOrigin, out bnhitInfo, Mathf.Infinity)) 
+        // {
+        //     var hitObject = bnhitInfo.collider.GetComponent<Transform>();
+
+        //     if(hitObject)
+        //     {
+        //         //hmm
+        //     }
+        // }
+
+
+        // --------------------------------------------------------------------------
     }
 }

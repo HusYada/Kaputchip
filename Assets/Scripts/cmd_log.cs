@@ -7,6 +7,7 @@ public class cmd_log : MonoBehaviour
 {
 
 	public string[] all_dialog_text;
+	public int whichline;				// The string that will appear
 	private float typespd = 0.02f;
 	private TMP_Text txt_line;
 	private IEnumerator ts;
@@ -20,11 +21,11 @@ public class cmd_log : MonoBehaviour
 
     void Update()
     {   
-    	ts = Type_Text(all_dialog_text[0]);
-        if(Input.GetKeyDown("p"))
+    	ts = Type_Text(all_dialog_text[whichline]);
+        if(Input.GetKeyDown("q"))
         {
-        	//print(all_dialog_text[0]);
         	StartCoroutine(ts);
+        	whichline++;			// temporary
         }
     }
 

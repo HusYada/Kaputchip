@@ -12,7 +12,7 @@ public class mouse : MonoBehaviour
 	public bool looking = true;
 	public int
 	rando = 0,										// Random Number
-	behaviour = 0;									// 0 = still, 1 = chasing, 2 = ??
+	behaviour;										// 0 = still, 1 = chasing, 2 = reeling, 3 = move to folder, 4 = dvdlogo, 5 = close
 	public float patrol_speed, chasing_speed;		// 1
 	private float speed;
 	public GameObject rr;
