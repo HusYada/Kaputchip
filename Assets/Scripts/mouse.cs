@@ -56,7 +56,7 @@ public class mouse : MonoBehaviour
 	            else
 	            {
 	            	behaviour = 0;
-	            	BC(Time_Until_Folder_Open, 3);
+	            	//BC(Time_Until_Folder_Open, 3);
 	            }
 	            break;
 
