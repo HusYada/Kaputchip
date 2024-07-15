@@ -11,11 +11,6 @@ public class game : MonoBehaviour
 
     void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        //p
     }
 }

@@ -195,13 +195,15 @@ public class player : MonoBehaviour
         // Ray bnrayOrigin = new Ray(transform.position, cam.transform.forward);
         // RaycastHit bnhitInfo;
 
-        // if(Physics.Raycast(rayOrigin, out bnhitInfo, Mathf.Infinity)) 
+        // if(Physics.Raycast(bnrayOrigin, out bnhitInfo, Mathf.Infinity)) 
         // {
-        //     var hitObject = bnhitInfo.collider.GetComponent<Transform>();
-
-        //     if(hitObject)
+        //     if(bnhitInfo.collider.gameObject.tag == "Card")
         //     {
-        //         //hmm
+        //         if(Input.GetKeyDown(k_larm))
+        //         {
+        //             //bnhitInfo.collider.sd
+        //             print("bnhitInfo.collider.gameObject.name");
+        //         }
         //     }
         // }
 
