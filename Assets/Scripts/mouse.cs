@@ -38,7 +38,7 @@ public class mouse : MonoBehaviour
         	case 3:
         		targetpos.transform.position = documents.position;
 	            speed = chasing_speed;
-	         //    if(!rr.GetComponent<range>().inrange)
+	        //    if(!rr.GetComponent<range>().inrange)
 		        // {
 		        // 	behaviour = 2;
 		        // }
