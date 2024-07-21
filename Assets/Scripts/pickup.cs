@@ -1,30 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class pickup : MonoBehaviour
 {
-
-	//public GameObject gm;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       // gm = gm.GetComponent<game>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject UI_Shields;
+    public GameObject Command_Log;
+    public int which_pickup;            // 0 = triple shield
+    private int shields = 3;
 
     void OnTriggerEnter(Collider col) 
 	{
-		if(col.gameObject.tag == "Player") 
+        // Triple Shield
+		if(which_pickup == 0 && col.gameObject.tag == "Player" && shields > 0) 
 		{
-			Destroy(this);
-
+            UI_Shields.GetComponent<ui_shield>().GainShield(UI_Shields.GetComponent<ui_shield>().shields_current);
+            Destroy(this.gameObject.transform.GetChild(0).gameObject);
+            shields--;
+            //Command_Log.GetComponent<cmd_log>().playtext = true;
 		}
 	}
 }

@@ -8,6 +8,7 @@ public class cmd_log : MonoBehaviour
 
 	public string[] all_dialog_text;
 	public int whichline;				// The string that will appear
+    public bool playtext;
 	private float typespd = 0.02f;
 	private TMP_Text txt_line;
 	private IEnumerator ts;
@@ -15,14 +16,21 @@ public class cmd_log : MonoBehaviour
 
     void Start()
     {
-        txt_line = GetComponent<TextMeshProUGUI>();
+        txt_line = GetComponent<TMPro.TextMeshProUGUI>();
         source = GetComponent<AudioSource>();
+        ts = Type_Text(all_dialog_text[whichline]);
+        if(Input.GetKeyDown("q"))
+        {
+            playtext = false;
+            StartCoroutine(ts);
+            whichline++;            // temporary
+        }
     }
 
     void Update()
     {   
     	ts = Type_Text(all_dialog_text[whichline]);
-        if(Input.GetKeyDown("q"))
+        if(Input.GetKeyDown("q") || playtext)
         {
         	StartCoroutine(ts);
         	whichline++;			// temporary

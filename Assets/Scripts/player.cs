@@ -51,7 +51,7 @@ public class player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void FixedUpdate()
+    void Update()
     {
     	// --------------------------------------------------------------------------
     	// Camera Movement

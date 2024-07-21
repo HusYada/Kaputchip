@@ -7,10 +7,10 @@ using TMPro;
 public class game : MonoBehaviour
 {
 	public TMP_Text shields;
-	public Image key;
+	//public Image key;
 
     void Start()
     {
-        //p
+        shields = GetComponent<TMP_Text>();
     }
 }
