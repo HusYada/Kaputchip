@@ -1,47 +1,106 @@
 // https://docs.unity3d.com/ScriptReference/Vector3.MoveTowards.html
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class mouse : MonoBehaviour
 {
 	[Header("Timer")]
     public float 
-    Time_Until_Folder_Open = 30.0f;
+    Time_Until_Folder_Open = 10.0f;
+    public int 
+    second_passed = 0;
     //==========
 	public GameObject player;
-	public bool looking = true;
+	public bool 
+	window_opened,
+	looking = true;
 	public int
 	rando = 0,										// Random Number
-	behaviour;										// 0 = still, 1 = chasing, 2 = reeling, 3 = move to folder, 4 = dvdlogo, 5 = close
-	public float patrol_speed, chasing_speed;		// 1
+	behaviour;										// 0 = find, 1 = chasing, 2 = reeling, 3 = move to folder, 4 = browse, 5 = close
+	public float patrol_speed, chasing_speed;		// 3.5 patrol, 7 chasing
 	private float speed;
-	public GameObject rr;
-	public Transform 
+	public GameObject 
+	rr,
 	targetpos,
 	documents,
 	internet,
 	mycomputer,
-	solitaire;
+	solitaire,
+	recylingbin;
 	private IEnumerator bc;							// Behaviour Change
+	private AudioSource aud;
+	public AudioClip open_window;
 
 	void Start()
 	{
-        bc = BChange(Time_Until_Folder_Open, 3);
+        //bc = BChange(Time_Until_Folder_Open, 3);
+        bc = Seconds(1);
 		StartCoroutine(bc);
+		aud = GetComponent<AudioSource>();
 	}
 
     void Update()
     {
 		switch (behaviour)
         {
-        	// Move to folder
+        	// Close Window
+        	case 5:
+        		//
+        		break;
+
+        	// Browsing
+        	case 4:
+        		//
+        		break;
+
+        	// Move to file shortcut
         	case 3:
-        		targetpos.transform.position = documents.position;
+        		switch (rando) {
+        			// Folder
+        			case 4:
+        				targetpos.transform.position = documents.transform.position;
+        				break;
+        			// Internet
+        			case 3:
+        				targetpos.transform.position = internet.transform.position;
+        				break;
+        			// Computer
+        			case 2:
+        				targetpos.transform.position = mycomputer.transform.position;
+        				break;
+        			// Solitaire
+        			case 1:
+        				targetpos.transform.position = solitaire.transform.position;
+        				break;
+        			// Bin
+        			case 0:
+        				targetpos.transform.position = recylingbin.transform.position;
+        				break;
+        			// Browsing
+        			default:
+        				targetpos.transform.position = documents.transform.position;
+        				break;
+        		}
 	            speed = chasing_speed;
+<<<<<<< HEAD
 	        //    if(!rr.GetComponent<range>().inrange)
 		        // {
 		        // 	behaviour = 2;
 		        // }
+=======
+	            if(transform.position == targetpos.transform.position)
+	            {
+	            	aud.clip = open_window;
+	            	aud.Play();
+	            	behaviour = 2;
+	            }
+	            if(rr.GetComponent<range>().inrange)
+		        {
+		        	behaviour = 2;
+		        }
+>>>>>>> hus-branch
 	            break;
 
         	// Reeling Back
@@ -55,8 +114,8 @@ public class mouse : MonoBehaviour
 	            }
 	            else
 	            {
+	            	second_passed = 0;
 	            	behaviour = 0;
-	            	BC(Time_Until_Folder_Open, 3);
 	            }
 	            break;
 
@@ -87,7 +146,10 @@ public class mouse : MonoBehaviour
             	}
 
             	// Counter until next phase
-            	//if()
+            	if(second_passed >= Time_Until_Folder_Open) {
+            		rando = (int)Mathf.Round(Random.Range(0, 5));
+            		behaviour = 3;
+            	}
 
 	            break;
 
@@ -104,18 +166,10 @@ public class mouse : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetpos.transform.position, speed * Time.deltaTime);
     }
 
-	// Behaviour Change
-    void BC(float seconds, int behav)
+    IEnumerator Seconds(float waitTime)
     {
-    	StopCoroutine(bc);
-    	bc = BChange(seconds, behav);
-		StartCoroutine(bc);
-    }
-
-    // Change behaviour after some time passes
-    IEnumerator BChange(float seconds, int behav)
-    {
-        yield return new WaitForSeconds(seconds); 
-        behaviour = behav;
+        yield return new WaitForSeconds(waitTime);
+        second_passed++;
+        StartCoroutine(Seconds(1));
     }
 }

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Folder
+  - Card
   layers:
   - Default
   - TransparentFX
