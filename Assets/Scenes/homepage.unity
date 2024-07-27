@@ -6569,7 +6569,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -7102,6 +7102,7 @@ GameObject:
   - component: {fileID: 1043990659}
   - component: {fileID: 1043990665}
   - component: {fileID: 1043990664}
+  - component: {fileID: 1043990666}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -7233,7 +7234,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043990658}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d463d7419e96064aae48c2594572cae, type: 3}
   m_Name: 
@@ -7346,6 +7347,9 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+<<<<<<< HEAD
+--- !u!114 &1043990666
+=======
 --- !u!1 &1045765927
 GameObject:
   m_ObjectHideFlags: 0
@@ -7384,11 +7388,24 @@ RectTransform:
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1045765929
+>>>>>>> hus-branch
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
+  m_GameObject: {fileID: 1043990658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e08a89f4c000d4bb4ee5e6ce8dbcca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plyr_shields: 0
+  has_key: 0
+  spraycan: {fileID: 3694359501935287978, guid: 0b4110f3f89d8224b8774da8a7f5ab87, type: 3}
+  moviereel: {fileID: 1164827625}
+=======
   m_GameObject: {fileID: 1045765927}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -7638,6 +7655,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080815374}
   m_CullTransparentMesh: 1
+>>>>>>> hus-branch
 --- !u!1 &1097031025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7809973084794116004, guid: c71c1123468fa3c429f4711650a4c0cf, type: 3}

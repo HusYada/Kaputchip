@@ -84,6 +84,12 @@ public class mouse : MonoBehaviour
         				break;
         		}
 	            speed = chasing_speed;
+<<<<<<< HEAD
+	        //    if(!rr.GetComponent<range>().inrange)
+		        // {
+		        // 	behaviour = 2;
+		        // }
+=======
 	            if(transform.position == targetpos.transform.position)
 	            {
 	            	aud.clip = open_window;
@@ -94,6 +100,7 @@ public class mouse : MonoBehaviour
 		        {
 		        	behaviour = 2;
 		        }
+>>>>>>> hus-branch
 	            break;
 
         	// Reeling Back
