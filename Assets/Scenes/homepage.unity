@@ -7102,7 +7102,6 @@ GameObject:
   - component: {fileID: 1043990659}
   - component: {fileID: 1043990665}
   - component: {fileID: 1043990664}
-  - component: {fileID: 1043990666}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -7234,7 +7233,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1043990658}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d463d7419e96064aae48c2594572cae, type: 3}
   m_Name: 
