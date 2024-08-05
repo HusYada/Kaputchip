@@ -33,6 +33,8 @@ public class mouse : MonoBehaviour
 	private AudioSource aud;
 	public AudioClip open_window;
 
+    //public BoxCollider bx;
+
 	void Start()
 	{
         //bc = BChange(Time_Until_Folder_Open, 3);

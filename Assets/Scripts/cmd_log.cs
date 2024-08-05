@@ -12,38 +12,33 @@ public class cmd_log : MonoBehaviour
 	private float typespd = 0.02f;
 	private TMP_Text txt_line;
 	private IEnumerator ts;
-	private AudioSource source;
+	private AudioSource aud;
 
     void Start()
     {
         txt_line = GetComponent<TMPro.TextMeshProUGUI>();
-        source = GetComponent<AudioSource>();
+        aud = GetComponent<AudioSource>();
         ts = Type_Text(all_dialog_text[whichline]);
-        if(Input.GetKeyDown("q"))
-        {
-            playtext = false;
-            StartCoroutine(ts);
-            whichline++;            // temporary
-        }
     }
 
     void Update()
     {   
     	ts = Type_Text(all_dialog_text[whichline]);
-        if(Input.GetKeyDown("q") || playtext)
+        if(Input.GetKeyDown("o"))
         {
         	StartCoroutine(ts);
-        	whichline++;			// temporary
+        	//whichline++;			// temporary
+            whichline = 0;
         }
     }
 
     private IEnumerator Type_Text (string t) 
     {
-    	txt_line.text = "";
+    	txt_line.text += "\n> ";
 		foreach (char letter in t.ToCharArray()) 
 		{
 			txt_line.text += letter;
-            source.Play();
+            aud.Play();
 			yield return new WaitForSeconds(typespd);
 		}
 	}

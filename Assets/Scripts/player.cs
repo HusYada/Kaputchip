@@ -1,3 +1,4 @@
+// https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,7 @@ public class player : MonoBehaviour
     public GameObject
     spraycan,
     moviereel;
+    public inventory inv;
     private Rigidbody rb;
     private GameObject cam;
     private LineRenderer lr;
@@ -169,7 +171,7 @@ public class player : MonoBehaviour
 
     private void UseSprayCan()
     {
-        if (Input.GetKeyDown(k_larm))
+        if (Input.GetKeyDown(k_larm) && inv.state != 2)
         {
             rb.AddForce(-cam.transform.forward * plyr_jump);
             Quaternion cam_rotation = Quaternion.identity;
@@ -182,13 +184,13 @@ public class player : MonoBehaviour
     {
         if (Input.GetKeyDown(k_rarm))
         {
-            int layerMask = 1 << 6;
-            layerMask = ~layerMask;
+            //int layerMask = 1 << 6;
+            //layerMask = ~layerMask;
 
             Ray rayOrigin = new Ray(transform.position, cam.transform.forward);
             RaycastHit hitInfo;
 
-            if (Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity, layerMask))
+            if (Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity))//, layerMask))
             {
                 var hitObject = hitInfo.collider.GetComponent<Transform>();
 

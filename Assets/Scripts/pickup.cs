@@ -7,8 +7,9 @@ using TMPro;
 public class pickup : MonoBehaviour
 {
     public GameObject UI_Shields;
+    //public GameObject UI_Shields_Number;
     public GameObject Command_Log;
-    public int which_pickup;            // 0 = triple shield
+    public int which_pickup;            // 0 = triple shield, 1 = fire extinguisher
     private int shields = 3;
 
     void OnTriggerEnter(Collider col) 
@@ -21,5 +22,6 @@ public class pickup : MonoBehaviour
             shields--;
             //Command_Log.GetComponent<cmd_log>().playtext = true;
 		}
+        // Fire Ext
 	}
 }
