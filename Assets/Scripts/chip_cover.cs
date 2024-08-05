@@ -7,6 +7,7 @@ public class chip_cover : MonoBehaviour
 	public inventory inv;
 	public int which_wall;
 	public int spd;
+	public GameObject Command_Log;
 	public GameObject destorywall;
 	private destroyme cya;
 	private Rigidbody rb;
@@ -19,6 +20,17 @@ public class chip_cover : MonoBehaviour
         aud = GetComponent<AudioSource>();
         cya = GetComponent<destroyme>();
     }
+    void OnCollisionEnter(Collision col) 
+	{
+		if(which_wall == 1 && col.gameObject.tag == "Player") 
+        {
+        	rb.constraints = RigidbodyConstraints.None;
+        	rb.AddForce(transform.forward * spd);
+        	cya.enabled = true;
+        	aud.clip = reallygoodsoundeffect;
+	        aud.Play();
+        }
+	}
 
     void OnTriggerEnter(Collider col) 
 	{
@@ -28,6 +40,7 @@ public class chip_cover : MonoBehaviour
         	rb.constraints = RigidbodyConstraints.None;
         	rb.AddForce(-transform.forward * spd);
         	Destroy(destorywall);
+        	Command_Log.GetComponent<cmd_log>().UpdateCommand(20);
         	cya.enabled = true;
         	inv.inv_icons[0].enabled = false;
         	aud.clip = reallygoodsoundeffect;

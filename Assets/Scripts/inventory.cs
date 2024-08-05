@@ -118,7 +118,7 @@ public class inventory : MonoBehaviour
     			{
     				map_sprite.sprite = inv_icons[6].sprite;
     			}
-    			if(current_cursor_x == 0 && current_cursor_y == 2)
+    			if(current_cursor_x == 0 && current_cursor_y == 2 && inv_icons[5].enabled)
     			{
     				map_sprite.sprite = inv_icons[5].sprite;
     			}
