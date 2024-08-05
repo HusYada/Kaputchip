@@ -1462,6 +1462,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PC2-1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 13113901286f83749b58522dee0bf618, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2831,7 +2835,8 @@ MonoBehaviour:
   - 50
   - 100
   - 150
-  sfx: {fileID: 8300000, guid: 24b2eed8700cb6241ad50863dcbbd490, type: 3}
+  gain_sfx: {fileID: 0}
+  lose_sfx: {fileID: 0}
 --- !u!82 &546819677
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7323,6 +7328,7 @@ MonoBehaviour:
   has_key: 0
   spraycan: {fileID: 3694359501935287978, guid: 0b4110f3f89d8224b8774da8a7f5ab87, type: 3}
   moviereel: {fileID: 1164827625}
+  inv: {fileID: 0}
 --- !u!120 &1043990665
 LineRenderer:
   serializedVersion: 2
