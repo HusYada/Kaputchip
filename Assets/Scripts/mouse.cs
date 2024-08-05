@@ -86,6 +86,7 @@ public class mouse : MonoBehaviour
         				break;
         		}
 	            speed = chasing_speed;
+
 	            if(transform.position == targetpos.transform.position)
 	            {
 	            	aud.clip = open_window;
