@@ -13,15 +13,11 @@ public class guy : MonoBehaviour
 
     void Start()
     {
-        //eyesize = eyes.transform.localScale.y;
-        //eyespd = new Vector3(0f, 0.01f, 0f);
+    	// something here
     }
 
     void FixedUpdate ()
     {
-  		// Vector3 direction = player.transform.position - transform.position;
-		// Quaternion toRotation = Quaternion.FromToRotation(-transform.forward, direction);
-		// transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, speed * Time.time);
 		transform.LookAt(player.transform);
 
 		if(mos.behaviour == 1 && eyes.transform.localScale.y > eyemin) 

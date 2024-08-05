@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class cmd_log : MonoBehaviour
@@ -9,9 +10,11 @@ public class cmd_log : MonoBehaviour
 	public string[] all_dialog_text;
 	public int whichline;				// The string that will appear
     public bool playtext;
+    public bool typingended;
 	private float typespd = 0.02f;
 	private TMP_Text txt_line;
 	private IEnumerator ts;
+    public RectMask2D msk;
 	private AudioSource aud;
 
     void Start()
@@ -24,12 +27,28 @@ public class cmd_log : MonoBehaviour
     void Update()
     {   
     	ts = Type_Text(all_dialog_text[whichline]);
-        if(Input.GetKeyDown("o"))
+        if(playtext)
         {
         	StartCoroutine(ts);
+            typingended = false;
+            playtext = false;
         	//whichline++;			// temporary
-            whichline = 0;
+            //whichline = 0;
         }
+        if(Input.GetKeyDown("'") && typingended)
+        {
+            playtext = true;
+        }
+        if(Input.GetKeyDown("/"))
+        {
+            msk.enabled = !msk.enabled;
+        }
+    }
+
+    public void UpdateCommand(int whichstring)
+    {
+        whichline = whichstring;
+        playtext = true;
     }
 
     private IEnumerator Type_Text (string t) 
@@ -41,5 +60,6 @@ public class cmd_log : MonoBehaviour
             aud.Play();
 			yield return new WaitForSeconds(typespd);
 		}
+        typingended = true;
 	}
 }

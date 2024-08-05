@@ -19,6 +19,4 @@ public class spray : MonoBehaviour
         lerpedColor = Color.Lerp(c1, c2, Mathf.PingPong(Time.time, 1));
         rend.material.color = lerpedColor;
     }
-
-    //add destroy coroutine
 }
