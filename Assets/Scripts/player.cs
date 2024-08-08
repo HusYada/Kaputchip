@@ -1,3 +1,4 @@
+// https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,8 @@ public class player : MonoBehaviour
 
     // Player Variables
     public int
-    plyr_shields;
+    plyr_shields,
+    plyr_charges = 3;
     public bool
     has_key;
     private int
@@ -37,13 +39,19 @@ public class player : MonoBehaviour
     cam_v,
     cam_h;
 
+    //SFX
+    //public AudioClip aud_spraycan;
+
     // Componenets
     public GameObject
     spraycan,
-    moviereel;
+    moviereel,
+    fire_extinguisher;
+    public inventory inv;
     private Rigidbody rb;
     private GameObject cam;
     private LineRenderer lr;
+    private AudioSource aud;
 
     #endregion
 
@@ -52,6 +60,7 @@ public class player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         lr = GetComponent<LineRenderer>();
         cam = GameObject.FindWithTag("MainCamera");
+        plyr_charges = 3;
         // Lock cursor, unlock with Esc
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -63,6 +72,7 @@ public class player : MonoBehaviour
         Jump();
         UseMovieReel();
         UseSprayCan();
+        UseFireExtinguisher();
 
         // --------------------------------------------------------------------------
         // Ground Check
@@ -90,7 +100,7 @@ public class player : MonoBehaviour
         }
         else
         {
-            if (Input.GetKey(k_jump) && !grounded)
+            if (Input.GetKey(k_jump) && !grounded && inv.equip_selc_pos[0].y == 500 && inv.inv_icons[6].enabled)
             {
                 rb.drag = plyr_butterfly;
             }
@@ -169,7 +179,7 @@ public class player : MonoBehaviour
 
     private void UseSprayCan()
     {
-        if (Input.GetKeyDown(k_larm))
+        if(Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == 500 && inv.inv_icons[10].enabled)
         {
             rb.AddForce(-cam.transform.forward * plyr_jump);
             Quaternion cam_rotation = Quaternion.identity;
@@ -177,18 +187,29 @@ public class player : MonoBehaviour
             Instantiate(spraycan, rb.position + cam.transform.forward, cam_rotation);
         }
     }
+    private void UseFireExtinguisher()
+    {
+        if(Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == 380 && inv.inv_icons[9].enabled && plyr_charges > 0)
+        {
+            Quaternion cam_rotation = Quaternion.identity;
+            cam_rotation.eulerAngles = new Vector3(cam_v, cam_h, 0);
+            Instantiate(fire_extinguisher, rb.position + cam.transform.forward, cam_rotation);
+            plyr_charges--;
+            inv.UpdateAmount(1, plyr_charges);
+        }
+    }
 
     private void UseMovieReel()
     {
-        if (Input.GetKeyDown(k_rarm))
+        if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == 500 && inv.inv_icons[14].enabled)
         {
-            int layerMask = 1 << 6;
-            layerMask = ~layerMask;
+            //int layerMask = 1 << 6;
+            //layerMask = ~layerMask;
 
             Ray rayOrigin = new Ray(transform.position, cam.transform.forward);
             RaycastHit hitInfo;
 
-            if (Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity, layerMask))
+            if (Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity))//, layerMask))
             {
                 var hitObject = hitInfo.collider.GetComponent<Transform>();
 
@@ -208,7 +229,7 @@ public class player : MonoBehaviour
         lr.SetPosition(0, transform.position);
         lr.SetPosition(1, transform.position);
 
-        if (Input.GetKey(k_rarm) && reeling)
+        if (Input.GetKey(k_rarm) && reeling && inv.state != 2 && inv.equip_selc_pos[2].y == 500 && inv.inv_icons[14].enabled)
         {
             cam.transform.LookAt(moviereel.transform.position);
             rb.AddRelativeForce(cam.transform.forward * plyr_jump / 10, ForceMode.Force);

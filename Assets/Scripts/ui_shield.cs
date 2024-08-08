@@ -1,5 +1,6 @@
 // https://docs.unity3d.com/ScriptReference/Transform.GetChild.html
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ui_shield : MonoBehaviour
 {
@@ -7,7 +8,8 @@ public class ui_shield : MonoBehaviour
 	public int shields_max_amount;
 	public float[] shield_xpos;		// Where the shields are positioned on the x-axis of the UI when active
 	private Vector3[] shield_pos;	// General position
-	public AudioClip sfx;
+	public AudioClip gain_sfx;
+    public AudioClip lose_sfx;
 	private AudioSource aud;
 
     void Start()
@@ -35,17 +37,23 @@ public class ui_shield : MonoBehaviour
     	{
     		shield_pos[shield_number].x = shield_xpos[shield_number];
     		shields_current++;
-    		aud.clip = sfx;
+    		aud.clip = gain_sfx;
 	        aud.Play();
     	}
     }
 
-    void LoseShield(int shield_number)
+    public void LoseShield(int shield_number)
     {
     	if(shields_current > 0)
     	{
     		shield_pos[shield_number-1].x = -150;
     		shields_current--;
+            aud.clip = lose_sfx;
+            aud.Play();
     	}
+        if(shield_number == 0)
+        {
+            SceneManager.LoadScene("homepage");
+        }
     }
 }

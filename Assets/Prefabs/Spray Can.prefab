@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7325307947282431637}
   - component: {fileID: 4314124834078523433}
   - component: {fileID: 4362877518279809194}
+  - component: {fileID: 3219233504401876141}
   m_Layer: 6
   m_Name: Spray Can
   m_TagString: Untagged
@@ -4901,3 +4902,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7b4b4ac56c61e4194b522ce7d0190c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3219233504401876141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3694359501935287978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a915b8bb8b623459159455f47717e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 10
