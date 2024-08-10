@@ -12,7 +12,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-<<<<<<< HEAD:Assets/Models/NewCpuScene/tunnel_trans.mat
   - _EMISSION
   - _SURFACE_TYPE_TRANSPARENT
 =======
@@ -87,7 +86,6 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 0.9830491, b: 0, a: 0.54509807}
-<<<<<<< HEAD:Assets/Models/NewCpuScene/tunnel_trans.mat
     - _EmissionColor: {r: 0.24292453, g: 0.22358194, b: 0.012604576, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 =======

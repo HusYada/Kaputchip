@@ -24,9 +24,6 @@ Material:
   disabledShaderPasses:
   - DepthOnly
   - SHADOWCASTER
-=======
-  disabledShaderPasses: []
->>>>>>> parent of 1fbe4ea (testing shaders)
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
