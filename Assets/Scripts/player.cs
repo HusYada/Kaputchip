@@ -53,6 +53,9 @@ public class player : MonoBehaviour
     private LineRenderer lr;
     private AudioSource aud;
 
+    // Sol Stuff
+    public solitaire sol;
+
     #endregion
 
     void Start()
@@ -73,6 +76,11 @@ public class player : MonoBehaviour
         UseMovieReel();
         UseSprayCan();
         UseFireExtinguisher();
+        if(sol.raisefloor)
+        {
+            // lifting script -- see diy script
+            //sd
+        }
 
         // --------------------------------------------------------------------------
         // Ground Check

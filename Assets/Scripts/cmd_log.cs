@@ -47,6 +47,7 @@ public class cmd_log : MonoBehaviour
 
     public void UpdateCommand(int whichstring)
     {
+        StopAllCoroutines();
         whichline = whichstring;
         playtext = true;
     }
