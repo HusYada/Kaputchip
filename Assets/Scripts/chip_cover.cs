@@ -5,7 +5,8 @@ using UnityEngine;
 public class chip_cover : MonoBehaviour
 {
 	public inventory inv;
-	public int which_wall;
+    public solitaire sol;
+	public int which_wall;                     // 0 = back panel, 1 = chip covers
 	public int spd;
 	public GameObject Command_Log;
 	public GameObject destorywall;
@@ -42,6 +43,7 @@ public class chip_cover : MonoBehaviour
         	Destroy(destorywall);
         	Command_Log.GetComponent<cmd_log>().UpdateCommand(20);
         	cya.enabled = true;
+            sol.backpanel_broke = true;
         	inv.inv_icons[0].enabled = false;
         	aud.clip = reallygoodsoundeffect;
 	        aud.Play();

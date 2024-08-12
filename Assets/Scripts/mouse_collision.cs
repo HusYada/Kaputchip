@@ -12,5 +12,9 @@ public class mouse_collision : MonoBehaviour
         {
             noshieldsforu.LoseShield(noshieldsforu.shields_current);
         }
+        if(col.gameObject.tag == "ExitButton")
+        {
+            Destroy(col.gameObject);
+        }
     }
 }

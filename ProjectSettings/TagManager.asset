@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Folder
   - Card
+  - Window_Pos
+  - Bullet
   layers:
   - Default
   - TransparentFX

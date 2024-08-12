@@ -127,17 +127,21 @@ public class inventory : MonoBehaviour
     		// Description
     		if(Input.GetKeyDown(k_desc) && cmd.typingended)
     		{
-    			if(current_cursor_x == 3 && current_cursor_y == 3 && inv_icons[17].enabled)
+    			if(current_cursor_x == 3 && current_cursor_y == 3 && inv_icons[18].enabled)
     			{
     				cmd.UpdateCommand(18);
     			}
-    			if(current_cursor_x == 3 && current_cursor_y == 2 && inv_icons[16].enabled)
+    			if(current_cursor_x == 3 && current_cursor_y == 2 && inv_icons[17].enabled)
     			{
     				cmd.UpdateCommand(17);
     			}
-    			if(current_cursor_x == 3 && current_cursor_y == 1 && inv_icons[15].enabled)
+    			if(current_cursor_x == 3 && current_cursor_y == 1 && inv_icons[16].enabled)
     			{
     				cmd.UpdateCommand(16);
+    			}
+    			if(current_cursor_x == 3 && current_cursor_y == 0 && inv_icons[15].enabled)
+    			{
+    				cmd.UpdateCommand(15);
     			}
     			if(current_cursor_x == 2 && current_cursor_y == 3 && inv_icons[14].enabled)
     			{

@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class player : MonoBehaviour
 {
@@ -53,6 +56,19 @@ public class player : MonoBehaviour
     private LineRenderer lr;
     private AudioSource aud;
 
+    // Ads Attack
+    public GameObject[] ad_window;
+    public Transform ad_spawn;
+
+    // Solitaire Stuff
+    public solitaire sol;
+
+    // My health bar
+    public int current_hp;
+    public Slider hp_bar;
+    public TMP_Text hp_text;
+    public reset rere;
+
     #endregion
 
     void Start()
@@ -63,6 +79,7 @@ public class player : MonoBehaviour
         plyr_charges = 3;
         // Lock cursor, unlock with Esc
         Cursor.lockState = CursorLockMode.Locked;
+        current_hp = (int)hp_bar.value;
     }
 
     private void Update()
@@ -70,9 +87,21 @@ public class player : MonoBehaviour
         CameraLook();
         Movement();
         Jump();
-        UseMovieReel();
         UseSprayCan();
         UseFireExtinguisher();
+        UseMovieReel();
+        UseAdAttack();
+
+        if(sol.raisefloor)
+        {
+            // lifting script -- see diy script
+            //sd
+        }
+
+        if(current_hp <= 0)
+        {
+            SceneManager.LoadScene("homepage");
+        }
 
         // --------------------------------------------------------------------------
         // Ground Check
@@ -239,6 +268,28 @@ public class player : MonoBehaviour
         if (Input.GetKeyUp(k_rarm))
         {
             reeling = false;
+        }
+    }
+
+    private void UseAdAttack()
+    {
+        if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == 260 && inv.inv_icons[12].enabled)
+        {
+            // for the desktop section
+            for(int i = 0; i < ad_window.Length; i++)
+            {
+                Instantiate(ad_window[i], ad_spawn.transform.position, Quaternion.identity);
+            }
+        }
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.tag == "Bullet")
+        {
+            current_hp -= 5;
+            hp_bar.value -= 5;
+            hp_text.text = "HP  " + current_hp + " /  75";
         }
     }
 }

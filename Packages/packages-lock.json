@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "com.atteneder.gltfast": {
-      "version": "https://github.com/atteneder/glTFast.git",
+      "version": "6.7.0",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {
         "com.unity.modules.jsonserialize": "1.0.0",
         "com.unity.modules.unitywebrequest": "1.0.0",
@@ -11,7 +11,7 @@
         "com.unity.burst": "1.8.4",
         "com.unity.collections": "1.5.1"
       },
-      "hash": "9145e3237c34857d0c2cec43c7ee0583e986db38"
+      "url": "https://package.openupm.com"
     },
     "com.unity.burst": {
       "version": "1.8.16",
