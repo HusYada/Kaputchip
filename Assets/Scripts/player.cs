@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class player : MonoBehaviour
 {
@@ -60,6 +63,12 @@ public class player : MonoBehaviour
     // Solitaire Stuff
     public solitaire sol;
 
+    // My health bar
+    public int current_hp;
+    public Slider hp_bar;
+    public TMP_Text hp_text;
+    public reset rere;
+
     #endregion
 
     void Start()
@@ -70,6 +79,7 @@ public class player : MonoBehaviour
         plyr_charges = 3;
         // Lock cursor, unlock with Esc
         Cursor.lockState = CursorLockMode.Locked;
+        current_hp = (int)hp_bar.value;
     }
 
     private void Update()
@@ -86,6 +96,11 @@ public class player : MonoBehaviour
         {
             // lifting script -- see diy script
             //sd
+        }
+
+        if(current_hp <= 0)
+        {
+            SceneManager.LoadScene("homepage");
         }
 
         // --------------------------------------------------------------------------
@@ -265,6 +280,16 @@ public class player : MonoBehaviour
             {
                 Instantiate(ad_window[i], ad_spawn.transform.position, Quaternion.identity);
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.gameObject.tag == "Bullet")
+        {
+            current_hp -= 5;
+            hp_bar.value -= 5;
+            hp_text.text = "HP  " + current_hp + " /  75";
         }
     }
 }

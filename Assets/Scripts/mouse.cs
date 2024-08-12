@@ -6,10 +6,11 @@ using System.Collections.Generic;
 
 public class mouse : MonoBehaviour
 {
-	[Header("Timer")]
+	//[Header("Timer")]
     public float 
     Time_Until_Folder_Open = 10.0f,
-    Time_Until_Folder_Close = 10.0f;
+    Time_Until_Folder_Close = 10.0f,
+    Time_Until_Folder_CloseDocuments = 10.0f;
     public int 
     second_passed = 0;
     //==========
@@ -83,7 +84,13 @@ public class mouse : MonoBehaviour
                 float movementy = radius * Mathf.Sin(angle);
                 targetpos.transform.position = new Vector3 (spawned_window.transform.position.x + movementx, 
                                                             spawned_window.transform.position.y + movementy + 4, spawned_window.transform.position.z + 4);
-                if(second_passed >= Time_Until_Folder_Close) {
+
+                if(second_passed >= Time_Until_Folder_Close && spawned_window == GameObject.Find("Window(Clone)")) {
+                    behaviour = 6;
+                    speed = patrol_speed;
+                    windowspawnexit = GameObject.Find("Exit Button");
+                }
+                if(second_passed >= Time_Until_Folder_CloseDocuments && spawned_window == GameObject.Find("Window2_1(Clone)")) {
                     behaviour = 6;
                     speed = patrol_speed;
                     windowspawnexit = GameObject.Find("Exit Button");
@@ -144,7 +151,7 @@ public class mouse : MonoBehaviour
                     if(targetpos.transform.position == documents.transform.position)
                     {
                         Instantiate(winn0, windowspawn.transform.position, Quaternion.identity);
-                        spawned_window = GameObject.Find("Window(Clone)");
+                        spawned_window = GameObject.Find("Window2_1(Clone)");
                         spawned_window.GetComponent<window>().bar_text.text = "My Documents";
                         cmd.UpdateCommand(21);
                     }

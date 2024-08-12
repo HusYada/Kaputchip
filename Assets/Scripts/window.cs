@@ -48,7 +48,7 @@ public class window : MonoBehaviour
 
     void Update()
     {
-    	if(action == 0)
+    	if(action == 0 && gameObject.name != "Window2_1(Clone)")
     	{
     		Move();
     	}

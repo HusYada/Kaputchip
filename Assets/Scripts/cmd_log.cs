@@ -37,8 +37,14 @@ public class cmd_log : MonoBehaviour
         }
         if(Input.GetKeyDown("'") && typingended)
         {
+            StopAllCoroutines();
+            whichline = 19;
             playtext = true;
         }
+        // if(Input.GetKeyDown("'") && typingended)
+        // {
+        //     playtext = true;
+        // }
         if(Input.GetKeyDown("c"))
         {
             msk.enabled = !msk.enabled;
