@@ -53,7 +53,11 @@ public class player : MonoBehaviour
     private LineRenderer lr;
     private AudioSource aud;
 
-    // Sol Stuff
+    // Ads Attack
+    public GameObject[] ad_window;
+    public Transform ad_spawn;
+
+    // Solitaire Stuff
     public solitaire sol;
 
     #endregion
@@ -73,9 +77,11 @@ public class player : MonoBehaviour
         CameraLook();
         Movement();
         Jump();
-        UseMovieReel();
         UseSprayCan();
         UseFireExtinguisher();
+        UseMovieReel();
+        UseAdAttack();
+
         if(sol.raisefloor)
         {
             // lifting script -- see diy script
@@ -247,6 +253,18 @@ public class player : MonoBehaviour
         if (Input.GetKeyUp(k_rarm))
         {
             reeling = false;
+        }
+    }
+
+    private void UseAdAttack()
+    {
+        if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == 260 && inv.inv_icons[12].enabled)
+        {
+            // for the desktop section
+            for(int i = 0; i < ad_window.Length; i++)
+            {
+                Instantiate(ad_window[i], ad_spawn.transform.position, Quaternion.identity);
+            }
         }
     }
 }

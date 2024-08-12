@@ -309,7 +309,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: My Documents
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a19735af82ef0c443af92a0b7423c317, type: 2}
   m_sharedMaterial: {fileID: -5422323315491977260, guid: a19735af82ef0c443af92a0b7423c317, type: 2}
@@ -594,10 +594,13 @@ PrefabInstance:
       addedObject: {fileID: 1414096029179349768}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51c19d65db4d36746bb8e98054806e67, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 9141558651761085744}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51c19d65db4d36746bb8e98054806e67, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 4612459145065987205}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51c19d65db4d36746bb8e98054806e67, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9141558651761085744}
+      addedObject: {fileID: 3796834177307924054}
   m_SourcePrefab: {fileID: 100100000, guid: 51c19d65db4d36746bb8e98054806e67, type: 3}
 --- !u!4 &2479757051254264684 stripped
 Transform:
@@ -651,24 +654,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 15.225092, y: 3.2070856, z: 1.2363805}
   m_Center: {x: -0.0029582977, y: 8.81082, z: -0.20001394}
---- !u!114 &4612459145065987205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2963946119529728470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb7aed0734116ae448ea9a1ad63a41a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  window_locations:
-  - {fileID: 0}
-  bar_text: {fileID: 6393239269932769291}
-  speed: 10
-  action: 0
-  wsp: {fileID: 0}
 --- !u!54 &9141558651761085744
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -696,3 +681,56 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &4612459145065987205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2963946119529728470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7aed0734116ae448ea9a1ad63a41a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  window_locations:
+  - {fileID: 0}
+  bar_text: {fileID: 6393239269932769291}
+  speed: 10
+  action: 0
+  wsp:
+  - {fileID: 0}
+  randopos: 0
+  isanad: 0
+  randoad: 0
+  ad_materials:
+  - {fileID: 2100000, guid: 8070ee33e3cdeca418bbcf1af3e64ae6, type: 2}
+  - {fileID: 2100000, guid: 17695bd6e0b8f364b8c45e03599abd11, type: 2}
+  - {fileID: 2100000, guid: 2dbe7ab6708820442a1312d770df3a01, type: 2}
+  - {fileID: 2100000, guid: 9dbfd333d3efb344d9fd123a1039383f, type: 2}
+  - {fileID: 2100000, guid: a88953eaff070094db27ffdcd64bbcc6, type: 2}
+  - {fileID: 2100000, guid: 7dc4f88bbe8fb9b49955d68b5471416d, type: 2}
+  - {fileID: 2100000, guid: bbe9f3fbee7e19c4fa53e459a5099c31, type: 2}
+  - {fileID: 2100000, guid: 9b477f67b6fa55643a4e741b5484dbd2, type: 2}
+  - {fileID: 2100000, guid: e785fc617e68b964794ce6289138378b, type: 2}
+  - {fileID: 2100000, guid: ed3a6331b7cb774449591b292936ebeb, type: 2}
+  - {fileID: 2100000, guid: c50c76b6944655d4b98d6ef27b3a42f4, type: 2}
+  - {fileID: 2100000, guid: 65e588e4876d1be49a10851f888d6e4e, type: 2}
+  - {fileID: 2100000, guid: 7e11dcf55a6e87340a80ae35e4461a5e, type: 2}
+  - {fileID: 2100000, guid: 3ce2b74b3c704ac4f81a258066d0a0d9, type: 2}
+  - {fileID: 2100000, guid: 7396d8c2226012b46ae44d98e5d20df0, type: 2}
+  window_front: {fileID: 2120982705401881074}
+  window_back: {fileID: 712887499842045488}
+--- !u!114 &3796834177307924054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2963946119529728470}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9a915b8bb8b623459159455f47717e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 2

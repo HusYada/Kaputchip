@@ -39,7 +39,7 @@ public class cmd_log : MonoBehaviour
         {
             playtext = true;
         }
-        if(Input.GetKeyDown("/"))
+        if(Input.GetKeyDown("c"))
         {
             msk.enabled = !msk.enabled;
         }
