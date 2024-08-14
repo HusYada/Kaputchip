@@ -1,8 +1,11 @@
 // https://docs.unity3d.com/ScriptReference/Vector3.MoveTowards.html
+// https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html
+// https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.tolist?view=net-6.0#system-linq-enumerable-tolist-1(system-collections-generic-ienumerable((-0)))
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class mouse : MonoBehaviour
 {
@@ -25,6 +28,7 @@ public class mouse : MonoBehaviour
 	looking = true;
 	public int
 	rando = 0,										// Random Number
+    prev_behav,
 	behaviour;										// 0 = find, 1 = chasing, 2 = reeling, 3 = move to folder, 4 = gotowindow, 5 = browse, 6 = close
 	public float 
     patrol_speed,                                   // 3.5 patrol, 7 chasing, 0.75 circling?
@@ -42,6 +46,9 @@ public class mouse : MonoBehaviour
 	solitaire,
 	recylingbin;
     public GameObject winn0, winn1, winn2, winn3, winn4, spawned_window, windowspawnexit;
+    public List<GameObject> ad_exits;
+    public int ad_target;
+    public bool ad_init;
 	private IEnumerator bc;							// Behaviour Change
     public cmd_log cmd;
     public solitaire st;
@@ -64,8 +71,55 @@ public class mouse : MonoBehaviour
     {
 		switch (behaviour)
         {
+            // Ads Interuption
+            case 7:
+
+                if (ad_exits.Count < player.GetComponent<player>().ad_window.Length)
+                {
+                    ad_exits = GameObject.FindGameObjectsWithTag("Exit_Button").ToList();
+                    ad_target = 0;
+                    speed = chasing_speed;
+                }
+
+                if (ad_exits.Count == player.GetComponent<player>().ad_window.Length)
+                {
+                    if (transform.position != ad_exits[ad_target].transform.position && ad_target < player.GetComponent<player>().ad_window.Length) {
+                        targetpos.transform.position = ad_exits[ad_target].transform.position;
+                    }
+                
+                    // When the mouse reaches a way point
+                    else
+                    { 
+                        //transform.parent.
+                        Destroy(ad_exits[ad_target].transform.parent.gameObject);
+                        player.GetComponent<player>().ads_amount--;
+                        if(ad_target < player.GetComponent<player>().ad_window.Length)
+                        {
+                            ad_target++;
+                        }
+                    }
+
+                    if (ad_target == player.GetComponent<player>().ad_window.Length)
+                    {
+                        ad_target = 0;
+                        ad_exits.Clear();
+
+                        if(prev_behav == 4 || prev_behav == 5 || prev_behav == 6)
+                        {
+                            behaviour = 6;
+                        }
+                        if(prev_behav == 0 || prev_behav == 1 || prev_behav == 2)
+                        {
+                            behaviour = 2;
+                        }
+                    }
+                }
+
+                break;
+
             // Close Window
             case 6:
+                windowspawnexit = GameObject.Find("Exit Button");
                 targetpos.transform.position = windowspawnexit.transform.position;
                 if(transform.position == targetpos.transform.position)
                 {
@@ -88,12 +142,11 @@ public class mouse : MonoBehaviour
                 if(second_passed >= Time_Until_Folder_Close && spawned_window == GameObject.Find("Window(Clone)")) {
                     behaviour = 6;
                     speed = patrol_speed;
-                    windowspawnexit = GameObject.Find("Exit Button");
+                    
                 }
                 if(second_passed >= Time_Until_Folder_CloseDocuments && spawned_window == GameObject.Find("Window2_1(Clone)")) {
                     behaviour = 6;
                     speed = patrol_speed;
-                    windowspawnexit = GameObject.Find("Exit Button");
                 }
         		break;
 
@@ -127,9 +180,6 @@ public class mouse : MonoBehaviour
         			// Solitaire
         			case 1:
                         targetpos.transform.position = solitaire.transform.position;
-        				//targetpos.transform.position = solitaire.transform.position;
-                        // lotta stuff
-                        //Instantiate(winn3, windowspawn.transform.position, Quaternion.identity);
         				break;
         			// Bin
         			case 0:

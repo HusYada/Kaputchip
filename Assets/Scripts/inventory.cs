@@ -17,6 +17,7 @@ public class inventory : MonoBehaviour
     k_up = KeyCode.W,
     k_down = KeyCode.S,
     k_inv = KeyCode.Q,
+    //k_inv_back = KeyCode.E,
     k_equip = KeyCode.Mouse0,
     k_desc = KeyCode.Mouse1;
 
@@ -26,6 +27,7 @@ public class inventory : MonoBehaviour
 	public int state;					// 0 = off, 1 = main, 2 = full, 3 = loop back around
 	public bool moving;
 	public bool firstopen = true;
+	public bool firstbody = true;
 
 	// Cursor Movement
 	public GameObject cursor;
@@ -40,10 +42,10 @@ public class inventory : MonoBehaviour
 	public Vector3[] equip_selc_pos;
 	public SpriteRenderer map_sprite;
 	public Image[] inv_icons; /*
-	[--][ 6][10][14][17]
-	[ 2][ 5][ 9][13][16]
-	[ 1][ 4][ 8][12][15]
-	[ 0][ 3][ 7][11][--] */
+	[--][ 6][10][14][18]
+	[ 2][ 5][ 9][13][17]
+	[ 1][ 4][ 8][12][16]
+	[ 0][ 3][ 7][11][15] */
 	public TMP_Text shield_amount;
 	public TMP_Text fire_charges;
 	public cmd_log cmd;
@@ -71,8 +73,8 @@ public class inventory : MonoBehaviour
 
     void Update()
     {
-    	 this.gameObject.transform.position = inventory_pos;
-    	 cursor.transform.position = cursor_pos;
+    	this.gameObject.transform.position = inventory_pos;
+    	cursor.transform.position = cursor_pos;
 
     	if(Input.GetKeyDown(k_inv))
     	{
@@ -95,6 +97,24 @@ public class inventory : MonoBehaviour
 	        	aud.Play();
         	}
     	}
+
+    	// if(Input.GetKeyDown(k_inv_back))
+    	// {
+    	// 	moving = true;
+     //    	if(state > 0)
+     //    	{
+     //    		state--;
+     //    		aud.clip = close_sfx;
+	    //     	aud.Play();
+     //    	}
+     //    	if(state == 0)
+     //    	{
+     //    		state = 2;
+     //    		aud.clip = open_sfx;
+	    //     	aud.Play();
+     //    	}
+    	// }
+
     	if(moving)
     	{
     		Move(state);
@@ -114,17 +134,13 @@ public class inventory : MonoBehaviour
     		if(Input.GetKeyDown(k_equip))
     		{
     			equip_selc_pos[current_cursor_x] = new Vector3(equip_selc_pos[current_cursor_x].x, cursory[current_cursor_y]+120+20, 0);
-    			if(current_cursor_x == 0 && current_cursor_y == 3)
-    			{
-    				map_sprite.sprite = inv_icons[6].sprite;
-    			}
-    			if(current_cursor_x == 0 && current_cursor_y == 2 && inv_icons[5].enabled)
-    			{
-    				map_sprite.sprite = inv_icons[5].sprite;
-    			}
+    			if(current_cursor_x == 0 && inv_icons[6-current_cursor_y].enabled)
+				{
+					map_sprite.sprite = inv_icons[3+current_cursor_y].sprite;
+				}
     		}
 
-    		// Description
+    		// Description - prob a cleaner way of codin this
     		if(Input.GetKeyDown(k_desc) && cmd.typingended)
     		{
     			if(current_cursor_x == 3 && current_cursor_y == 3 && inv_icons[18].enabled)
@@ -228,6 +244,11 @@ public class inventory : MonoBehaviour
     	}
     	if(whichtxt == 1)
     	{
+    		fire_charges.GetComponent<TextMeshProUGUI>().text = "x" + howmuch;
+    	}
+    	if(whichtxt == 2)
+    	{
+    		//key amount here
     		fire_charges.GetComponent<TextMeshProUGUI>().text = "x" + howmuch;
     	}
     }

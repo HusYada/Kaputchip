@@ -8,6 +8,7 @@ TagManager:
   - Card
   - Window_Pos
   - Bullet
+  - Exit_Button
   layers:
   - Default
   - TransparentFX

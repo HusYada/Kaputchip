@@ -51,6 +51,7 @@ public class player : MonoBehaviour
     moviereel,
     fire_extinguisher;
     public inventory inv;
+    public mouse ms;
     private Rigidbody rb;
     private GameObject cam;
     private LineRenderer lr;
@@ -59,15 +60,15 @@ public class player : MonoBehaviour
     // Ads Attack
     public GameObject[] ad_window;
     public Transform ad_spawn;
+    public int ads_amount;
 
     // Solitaire Stuff
     public solitaire sol;
 
-    // My health bar
+    // Health Bar
     public int current_hp;
     public Slider hp_bar;
     public TMP_Text hp_text;
-    public reset rere;
 
     #endregion
 
@@ -273,8 +274,15 @@ public class player : MonoBehaviour
 
     private void UseAdAttack()
     {
-        if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == 260 && inv.inv_icons[12].enabled)
+        if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == 260 && inv.inv_icons[12].enabled && ads_amount == 0)
         {
+            if(ms.behaviour != 7)
+            {
+                ms.prev_behav = ms.behaviour;
+            }
+            ads_amount = ad_window.Length;
+            ms.behaviour = 7;
+
             // for the desktop section
             for(int i = 0; i < ad_window.Length; i++)
             {
@@ -285,7 +293,7 @@ public class player : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.gameObject.tag == "Bullet")
+        if (col.gameObject.tag == "Bullet")
         {
             current_hp -= 5;
             hp_bar.value -= 5;

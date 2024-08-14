@@ -7,12 +7,19 @@ using TMPro;
 public class pickup : MonoBehaviour
 {
     public GameObject UI_Shields;
-    public GameObject Command_Log;
-    public inventory inv;
+    [HideInInspector] public cmd_log cmd;
+    [HideInInspector] public inventory inv;
     public int which_pickup;            // 0 = triple shield, 1 = fire extinguisher, 2 = key, 3 = chip
     private int shields = 3;
     public AudioClip gain_sfx;
-    public AudioSource aud;
+    [HideInInspector] AudioSource aud;
+
+    void Start()
+    {
+        cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
+        inv = GameObject.Find("Inventory").GetComponent<inventory>();
+        aud = GameObject.Find("Player").GetComponent<AudioSource>();
+    }
 
     void OnTriggerEnter(Collider col) 
 	{
@@ -22,8 +29,7 @@ public class pickup : MonoBehaviour
             UI_Shields.GetComponent<ui_shield>().GainShield(UI_Shields.GetComponent<ui_shield>().shields_current);
             Destroy(this.gameObject.transform.GetChild(0).gameObject);
             shields--;
-            //Command_Log.GetComponent<cmd_log>().playtext = true;
-            Command_Log.GetComponent<cmd_log>().UpdateCommand(0);
+            cmd.GetComponent<cmd_log>().UpdateCommand(0);
             inv.inv_icons[1].enabled = true;
             inv.UpdateAmount(which_pickup, UI_Shields.GetComponent<ui_shield>().shields_current);
 		}
@@ -35,7 +41,6 @@ public class pickup : MonoBehaviour
         {
             Destroy(this.gameObject);
             inv.inv_icons[2].enabled = true;
-            //Command_Log.GetComponent<cmd_log>().UpdateCommand(1);
             inv.UpdateAmount(1, 3);
         }
         // Key
@@ -43,14 +48,21 @@ public class pickup : MonoBehaviour
         {
             Destroy(this.gameObject);
             inv.inv_icons[0].enabled = true;
-            Command_Log.GetComponent<cmd_log>().UpdateCommand(2);
+            cmd.GetComponent<cmd_log>().UpdateCommand(2);
         }
         // Chip
         if(which_pickup > 2 && col.gameObject.tag == "Player") 
         {
             Destroy(this.gameObject);
             inv.inv_icons[which_pickup].enabled = true;
-            Command_Log.GetComponent<cmd_log>().UpdateCommand(which_pickup);
+            // Equipping Body First Time
+            if(inv.firstbody && (inv.inv_icons[3].enabled || inv.inv_icons[4].enabled || inv.inv_icons[5].enabled || inv.inv_icons[6].enabled))
+            {
+                inv.map_sprite.sprite = inv.inv_icons[which_pickup].sprite;
+                inv.equip_selc_pos[0].y = inv.cursory[which_pickup-3]+120+20;
+                inv.firstbody = false;
+            }
+            cmd.GetComponent<cmd_log>().UpdateCommand(which_pickup);
         }
         // Any Pickup
         if(which_pickup > 0 && col.gameObject.tag == "Player") 

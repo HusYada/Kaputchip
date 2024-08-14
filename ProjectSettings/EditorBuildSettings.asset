@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/cutscene.unity
     guid: e81d88365cb99d7458c8769ca6582032
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/diy-board.unity
     guid: ad3894c67c3f4c54cbd1d748c1288bf6
   - enabled: 1
