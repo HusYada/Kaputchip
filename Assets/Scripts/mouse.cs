@@ -1,6 +1,8 @@
 // https://docs.unity3d.com/ScriptReference/Vector3.MoveTowards.html
 // https://docs.unity3d.com/ScriptReference/GameObject.FindGameObjectsWithTag.html
+// https://docs.unity3d.com/ScriptReference/Quaternion-eulerAngles.html
 // https://learn.microsoft.com/en-us/dotnet/api/system.linq.enumerable.tolist?view=net-6.0#system-linq-enumerable-tolist-1(system-collections-generic-ienumerable((-0)))
+
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -32,7 +34,9 @@ public class mouse : MonoBehaviour
 	behaviour;										// 0 = find, 1 = chasing, 2 = reeling, 3 = move to folder, 4 = gotowindow, 5 = browse, 6 = close
 	public float 
     patrol_speed,                                   // 3.5 patrol, 7 chasing, 0.75 circling?
+    patrol_speed_after_powerup,
     chasing_speed,
+    chasing_speed_after_powerup,
     circling_speed,
     radius;
 	private float speed, angle;
@@ -56,6 +60,7 @@ public class mouse : MonoBehaviour
 	public AudioClip 
     open_window,
     close_window;
+    private                         Quaternion currentRotation;
 
     //change to timer
 
@@ -107,10 +112,16 @@ public class mouse : MonoBehaviour
                         if(prev_behav == 4 || prev_behav == 5 || prev_behav == 6)
                         {
                             behaviour = 6;
+                            mouse_model.enabled = true;
+                            mouse_wait1.enabled = false;
+                            mouse_wait2.enabled = false;
                         }
                         if(prev_behav == 0 || prev_behav == 1 || prev_behav == 2)
                         {
                             behaviour = 2;
+                            mouse_model.enabled = true;
+                            mouse_wait1.enabled = false;
+                            mouse_wait2.enabled = false;
                         }
                     }
                 }
@@ -139,6 +150,10 @@ public class mouse : MonoBehaviour
                 targetpos.transform.position = new Vector3 (spawned_window.transform.position.x + movementx, 
                                                             spawned_window.transform.position.y + movementy + 4, spawned_window.transform.position.z + 4);
 
+                if(second_passed >= Time_Until_Folder_CloseDocuments && spawned_window == GameObject.Find("customization_window(Clone)")) {
+                    behaviour = 6;
+                    speed = patrol_speed;
+                }
                 if(second_passed >= Time_Until_Folder_Close && spawned_window == GameObject.Find("Window(Clone)")) {
                     behaviour = 6;
                     speed = patrol_speed;
@@ -214,9 +229,10 @@ public class mouse : MonoBehaviour
                     }
                     if(targetpos.transform.position == mycomputer.transform.position)
                     {
-                        Instantiate(winn2, windowspawn.transform.position, Quaternion.identity);
-                        spawned_window = GameObject.Find("Window(Clone)");
-                        spawned_window.GetComponent<window>().bar_text.text = "My Computer";
+                        currentRotation.SetLookRotation(new Vector3(90, 10000, 0), Vector3.forward);
+                        Instantiate(winn2, windowspawn.transform.position, currentRotation);
+                        spawned_window = GameObject.Find("customization_window(Clone)");
+                        //spawned_window.GetComponent<window>().bar_text.text = "My Computer";
                         cmd.UpdateCommand(23);
                     }
                     behaviour = 4;
@@ -284,8 +300,8 @@ public class mouse : MonoBehaviour
 
             	// Counter until next phase
             	if(second_passed >= Time_Until_Folder_Open) {
-            		rando = (int)Mathf.Round(Random.Range(0, 5));
-                    //rando = 1;
+            		//rando = (int)Mathf.Round(Random.Range(0, 5));
+                    rando = 2;
             		behaviour = 3;
             	}
 

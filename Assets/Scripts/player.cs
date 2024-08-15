@@ -1,4 +1,5 @@
 // https://docs.unity3d.com/ScriptReference/Physics.Raycast.html
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,8 @@ public class player : MonoBehaviour
     private float
     cam_v,
     cam_h;
+    public Image crosshair;
+    public GameObject whatamilookinat;
 
     //SFX
     //public AudioClip aud_spraycan;
@@ -85,12 +88,37 @@ public class player : MonoBehaviour
 
     private void Update()
     {
+        // --------------------------------------------------------------------------
+        // Raycast Look Stuff (includes movie reel)
+
+        Ray rayOrigin = new Ray(transform.position, cam.transform.forward);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity))
+        {
+            var hitObject = hitInfo.collider.GetComponent<Transform>();
+
+            if (hitObject)
+            {
+                UseMovieReel(hitInfo);
+                if (hitObject.GetComponent<Collider>().tag == "Card")
+                {
+                    crosshair.color = Color.green;
+                    whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
+                }
+                else
+                {
+                    crosshair.color = Color.white;
+                }
+            }
+        }
+        // --------------------------------------------------------------------------
+
         CameraLook();
         Movement();
         Jump();
         UseSprayCan();
         UseFireExtinguisher();
-        UseMovieReel();
         UseAdAttack();
 
         if(sol.raisefloor)
@@ -139,23 +167,6 @@ public class player : MonoBehaviour
                 rb.drag = 0;
             }
         }
-
-        // --------------------------------------------------------------------------
-        // Custom / Interaction Time
-
-        // Ray bnrayOrigin = new Ray(transform.position, cam.transform.forward);
-        // RaycastHit bnhitInfo;
-
-        // if(Physics.Raycast(rayOrigin, out bnhitInfo, Mathf.Infinity)) 
-        // {
-        //     var hitObject = bnhitInfo.collider.GetComponent<Transform>();
-
-        //     if(hitObject)
-        //     {
-        //         //hmm
-        //     }
-        // }
-        // --------------------------------------------------------------------------
     }
 
     private void CameraLook()
@@ -215,6 +226,8 @@ public class player : MonoBehaviour
             Quaternion cam_rotation = Quaternion.identity;
             cam_rotation.eulerAngles = new Vector3(cam_v, cam_h, 0);
             Instantiate(spraycan, rb.position + cam.transform.forward, cam_rotation);
+            ms.patrol_speed = ms.patrol_speed_after_powerup;
+            ms.chasing_speed = ms.chasing_speed_after_powerup;
         }
     }
     private void UseFireExtinguisher()
@@ -229,27 +242,14 @@ public class player : MonoBehaviour
         }
     }
 
-    private void UseMovieReel()
+    private void UseMovieReel(RaycastHit hit)
     {
         if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == 500 && inv.inv_icons[14].enabled)
         {
-            //int layerMask = 1 << 6;
-            //layerMask = ~layerMask;
-
-            Ray rayOrigin = new Ray(transform.position, cam.transform.forward);
-            RaycastHit hitInfo;
-
-            if (Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity))//, layerMask))
-            {
-                var hitObject = hitInfo.collider.GetComponent<Transform>();
-
-                if (hitObject)
-                {
-                    //Instantiate(moviereel, hitInfo.point, Quaternion.identity);
-                    moviereel.transform.position = hitInfo.point;
-                    reeling = true;
-                }
-            }
+            moviereel.transform.position = hit.point;
+            reeling = true;
+            ms.patrol_speed = ms.patrol_speed_after_powerup;
+            ms.chasing_speed = ms.chasing_speed_after_powerup;
         }
     }
 
@@ -288,6 +288,8 @@ public class player : MonoBehaviour
             {
                 Instantiate(ad_window[i], ad_spawn.transform.position, Quaternion.identity);
             }
+            ms.patrol_speed = ms.patrol_speed_after_powerup;
+            ms.chasing_speed = ms.chasing_speed_after_powerup;
         }
     }
 

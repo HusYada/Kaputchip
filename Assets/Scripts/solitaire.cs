@@ -26,15 +26,10 @@ public class solitaire : MonoBehaviour
 
     void Update()
     {
-        //if(raisefloor && solitaire_floor.transform.position.y < floor_y)
         if(raisefloor && solitaire_floor.transform.localScale.y < floor_y)
         {
-        	//targetfloorpos.position = new Vector3(solitaire_floor.transform.position.x, solitaire_floor.transform.position.y + floor_y, solitaire_floor.transform.position.z);
-        	//main_floor.GetComponent<BoxCollider>().enabled = true;
         	solitaire_floor.transform.localScale = new Vector3(solitaire_floor.transform.localScale.x, solitaire_floor.transform.localScale.y + speed, solitaire_floor.transform.localScale.z);
         }
-
-        //solitaire_floor.transform.position = Vector3.MoveTowards(solitaire_floor.transform.position, targetfloorpos.position, speed * Time.deltaTime);
     }
 
     public void BeginGame()
@@ -47,14 +42,9 @@ public class solitaire : MonoBehaviour
         {
             backpanel.material = solitaire_mat;
         }
-    	// for(int i = 0; i < icons.Length; i++)
-    	// {
-    	// 	icons[i].GetComponent<MeshRenderer>().enabled = false;
-    	// }
 
     	cmd.UpdateCommand(25);
     	raisefloor = true;
-    	//main_floor.GetComponent<BoxCollider>().enabled = false;
     	solitaire_floor.GetComponent<MeshRenderer>().enabled = true;
     }
 }
