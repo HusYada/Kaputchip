@@ -35,13 +35,20 @@ public class chip_cover : MonoBehaviour
 
     void OnTriggerEnter(Collider col) 
 	{
-		if(which_wall == 0 && col.gameObject.tag == "Player" && inv.inv_icons[0].enabled) 
+		if((which_wall == 0 || which_wall == 2) && col.gameObject.tag == "Player" && inv.inv_icons[0].enabled) 
         {
         	this.gameObject.GetComponent<Collider>().isTrigger = false;
         	rb.constraints = RigidbodyConstraints.None;
         	rb.AddForce(-transform.forward * spd);
         	Destroy(destorywall);
-        	Command_Log.GetComponent<cmd_log>().UpdateCommand(20);
+        	if(which_wall == 0)
+            {
+                Command_Log.GetComponent<cmd_log>().UpdateCommand(20);
+            }
+            if(which_wall == 2)
+            {
+                Command_Log.GetComponent<cmd_log>().UpdateCommand(27);
+            }
         	cya.enabled = true;
             sol.backpanel_broke = true;
         	inv.inv_icons[0].enabled = false;

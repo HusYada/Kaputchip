@@ -394,8 +394,8 @@ GameObject:
   - component: {fileID: 3192156686880283938}
   - component: {fileID: 6765651998595173309}
   m_Layer: 6
-  m_Name: Exit Button
-  m_TagString: Untagged
+  m_Name: Exit Button Tag
+  m_TagString: Exit_Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -733,4 +733,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a915b8bb8b623459159455f47717e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seconds: 2
+  seconds: 2147483647
