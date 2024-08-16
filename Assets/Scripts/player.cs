@@ -56,7 +56,7 @@ public class player : MonoBehaviour
     public inventory inv;
     public mouse ms;
     private Rigidbody rb;
-    private GameObject cam;
+    [HideInInspector] public GameObject cam;
     private LineRenderer lr;
     private AudioSource aud;
 
@@ -290,6 +290,16 @@ public class player : MonoBehaviour
             }
             ms.patrol_speed = ms.patrol_speed_after_powerup;
             ms.chasing_speed = ms.chasing_speed_after_powerup;
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag == "Bullet")
+        {
+            current_hp -= 5;
+            hp_bar.value -= 5;
+            hp_text.text = "HP  " + current_hp + " /  75";
         }
     }
 

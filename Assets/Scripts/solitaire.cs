@@ -26,10 +26,10 @@ public class solitaire : MonoBehaviour
 
     void Update()
     {
-        if(raisefloor && solitaire_floor.transform.localScale.y < floor_y)
-        {
-        	solitaire_floor.transform.localScale = new Vector3(solitaire_floor.transform.localScale.x, solitaire_floor.transform.localScale.y + speed, solitaire_floor.transform.localScale.z);
-        }
+        // if(raisefloor && solitaire_floor.transform.localScale.y < floor_y)
+        // {
+        // 	solitaire_floor.transform.localScale = new Vector3(solitaire_floor.transform.localScale.x, solitaire_floor.transform.localScale.y + speed, solitaire_floor.transform.localScale.z);
+        // }
     }
 
     public void BeginGame()
@@ -45,6 +45,7 @@ public class solitaire : MonoBehaviour
 
     	cmd.UpdateCommand(25);
     	raisefloor = true;
-    	solitaire_floor.GetComponent<MeshRenderer>().enabled = true;
+    	//solitaire_floor.GetComponent<MeshRenderer>().enabled = true;
+        Instantiate(solitaire_floor);
     }
 }

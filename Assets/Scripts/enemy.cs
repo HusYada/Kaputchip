@@ -24,6 +24,8 @@ public class enemy : MonoBehaviour
 
     void Start()
     {
+    	player = GameObject.Find("Player").transform;
+
     	if(enemytype == 0)
     	{
     		InvokeRepeating("Shoot", 0.5f, 0.5f);

@@ -2341,11 +2341,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_Shields: {fileID: 0}
-  Command_Log: {fileID: 2090850436}
+  cmd: {fileID: 0}
   inv: {fileID: 409854012}
   which_pickup: 9
   gain_sfx: {fileID: 8300000, guid: 24b2eed8700cb6241ad50863dcbbd490, type: 3}
-  aud: {fileID: 1043990666}
 --- !u!65 &291379083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2816,17 +2815,20 @@ MonoBehaviour:
   plyr_shields: 0
   plyr_charges: 3
   has_key: 0
+  crosshair: {fileID: 0}
+  whatamilookinat: {fileID: 0}
   spraycan: {fileID: 3694359501935287978, guid: 0b4110f3f89d8224b8774da8a7f5ab87, type: 3}
   moviereel: {fileID: 1164827625}
   fire_extinguisher: {fileID: 3694359501935287978, guid: 00586040b12d07240884043d724d36c4, type: 3}
   inv: {fileID: 409854012}
+  ms: {fileID: 0}
   ad_window: []
   ad_spawn: {fileID: 0}
+  ads_amount: 0
   sol: {fileID: 0}
   current_hp: 0
   hp_bar: {fileID: 0}
   hp_text: {fileID: 0}
-  rere: {fileID: 0}
 --- !u!120 &357851854
 LineRenderer:
   serializedVersion: 2
@@ -3452,6 +3454,7 @@ MonoBehaviour:
   state: 0
   moving: 0
   firstopen: 1
+  firstbody: 1
   cursor: {fileID: 1957256162}
   cursor_pos: {x: 0, y: 0, z: 0}
   current_cursor_x: 0
@@ -9806,17 +9809,20 @@ MonoBehaviour:
   plyr_shields: 0
   plyr_charges: 3
   has_key: 0
+  crosshair: {fileID: 1957256164}
+  whatamilookinat: {fileID: 0}
   spraycan: {fileID: 3694359501935287978, guid: 0b4110f3f89d8224b8774da8a7f5ab87, type: 3}
   moviereel: {fileID: 1164827625}
   fire_extinguisher: {fileID: 3694359501935287978, guid: 00586040b12d07240884043d724d36c4, type: 3}
   inv: {fileID: 409854012}
+  ms: {fileID: 1936263933}
   ad_window: []
   ad_spawn: {fileID: 0}
+  ads_amount: 0
   sol: {fileID: 0}
   current_hp: 0
   hp_bar: {fileID: 0}
   hp_text: {fileID: 0}
-  rere: {fileID: 0}
 --- !u!120 &1043990665
 LineRenderer:
   serializedVersion: 2
@@ -18849,9 +18855,12 @@ MonoBehaviour:
   mouse_hand2: {fileID: 0}
   looking: 0
   rando: 0
+  prev_behav: 0
   behaviour: 0
   patrol_speed: 3.5
+  patrol_speed_after_powerup: 0
   chasing_speed: 7
+  chasing_speed_after_powerup: 0
   circling_speed: 0
   radius: 0
   rr: {fileID: 1761530719}
@@ -18869,6 +18878,9 @@ MonoBehaviour:
   winn4: {fileID: 0}
   spawned_window: {fileID: 0}
   windowspawnexit: {fileID: 0}
+  ad_exits: []
+  ad_target: 0
+  ad_init: 0
   cmd: {fileID: 0}
   st: {fileID: 0}
   open_window: {fileID: 8300000, guid: c8f9c97127b6cc64eb44b75ba462d513, type: 3}
@@ -20801,11 +20813,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_Shields: {fileID: 0}
-  Command_Log: {fileID: 2090850436}
+  cmd: {fileID: 0}
   inv: {fileID: 409854012}
   which_pickup: 2
   gain_sfx: {fileID: 8300000, guid: 24b2eed8700cb6241ad50863dcbbd490, type: 3}
-  aud: {fileID: 1043990666}
 --- !u!65 &2139024192
 BoxCollider:
   m_ObjectHideFlags: 0

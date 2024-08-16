@@ -48,7 +48,8 @@ public class mouse : MonoBehaviour
 	internet,
 	mycomputer,
 	solitaire,
-	recylingbin;
+	recylingbin,
+    rollo;
     public GameObject winn0, winn1, winn2, winn3, winn4, spawned_window, windowspawnexit;
     public List<GameObject> ad_exits;
     public int ad_target;
@@ -180,6 +181,10 @@ public class mouse : MonoBehaviour
         	// Move to file shortcut
         	case 3:
         		switch (rando) {
+                    // Rubbish Bin
+                    case 5:
+                        targetpos.transform.position = recylingbin.transform.position;
+                        break;
         			// Folder
         			case 4:
         				targetpos.transform.position = documents.transform.position;
@@ -217,14 +222,14 @@ public class mouse : MonoBehaviour
                     {
                         Instantiate(winn0, windowspawn.transform.position, Quaternion.identity);
                         spawned_window = GameObject.Find("Window2_1(Clone)");
-                        spawned_window.GetComponent<window>().bar_text.text = "My Documents";
+                        spawned_window.GetComponent<window>().bar_text.text = "THE Folder";
                         cmd.UpdateCommand(21);
                     }
                     if(targetpos.transform.position == internet.transform.position)
                     {
                         Instantiate(winn1, windowspawn.transform.position, Quaternion.identity);
                         spawned_window = GameObject.Find("Window(Clone)");
-                        spawned_window.GetComponent<window>().bar_text.text = "Internet Explorer";
+                        spawned_window.GetComponent<window>().bar_text.text = "Bum Explorer";
                         cmd.UpdateCommand(22);
                     }
                     if(targetpos.transform.position == mycomputer.transform.position)
@@ -232,15 +237,25 @@ public class mouse : MonoBehaviour
                         currentRotation.SetLookRotation(new Vector3(90, 10000, 0), Vector3.forward);
                         Instantiate(winn2, windowspawn.transform.position, currentRotation);
                         spawned_window = GameObject.Find("customization_window(Clone)");
-                        //spawned_window.GetComponent<window>().bar_text.text = "My Computer";
                         cmd.UpdateCommand(23);
                     }
-                    behaviour = 4;
-                    speed = chasing_speed * 2;
-                    second_passed = 0;
-                    mouse_model.enabled = false;
-                    mouse_wait1.enabled = true;
-                    mouse_wait2.enabled = true;
+                    if(targetpos.transform.position == recylingbin.transform.position)
+                    {
+                        behaviour = 2;
+                        mouse_model.enabled = false;
+                        mouse_hand1.enabled = true;
+                        mouse_hand2.enabled = true;
+                        Instantiate(rollo, transform.position, Quaternion.identity, this.transform);
+                    }
+                    if(targetpos.transform.position != recylingbin.transform.position)
+                    {
+                        behaviour = 4;
+                        speed = chasing_speed * 2;
+                        second_passed = 0;
+                        mouse_model.enabled = false;
+                        mouse_wait1.enabled = true;
+                        mouse_wait2.enabled = true;
+                    }
 	            }
                 if(transform.position == targetpos.transform.position && rando == 1)
                 {
@@ -300,8 +315,8 @@ public class mouse : MonoBehaviour
 
             	// Counter until next phase
             	if(second_passed >= Time_Until_Folder_Open) {
-            		//rando = (int)Mathf.Round(Random.Range(0, 5));
-                    rando = 2;
+            		rando = (int)Mathf.Round(Random.Range(0, 6));
+                    //rando = 1;
             		behaviour = 3;
             	}
 

@@ -42,7 +42,7 @@ public class custom_window : MonoBehaviour
         desktop_colo[1] = GameObject.Find("Ceiling").GetComponent<Renderer>();
         desktop_colo[2] = GameObject.Find("Wall_South").GetComponent<Renderer>();
         desktop_colo[3] = GameObject.Find("Wall_North").GetComponent<Renderer>();
-        if(sol.backpanel_broke)
+        if(!sol.backpanel_broke)
         {
         	desktop_colo[4] = GameObject.Find("Wall_West (Backside)").GetComponent<Renderer>();
     	}
