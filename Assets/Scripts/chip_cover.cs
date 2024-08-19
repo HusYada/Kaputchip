@@ -6,10 +6,12 @@ public class chip_cover : MonoBehaviour
 {
 	public inventory inv;
     public solitaire sol;
-	public int which_wall;                     // 0 = back panel, 1 = chip covers
+	public int which_wall;                     // 0 = back panel, 1 = chip covers, 3 = sliding-door
 	public int spd;
 	public GameObject Command_Log;
 	public GameObject destorywall;
+    [HideInInspector] public GameObject left_door;
+    [HideInInspector] public GameObject right_door;
 	private destroyme cya;
 	private Rigidbody rb;
 	private AudioSource aud;
@@ -20,6 +22,12 @@ public class chip_cover : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         aud = GetComponent<AudioSource>();
         cya = GetComponent<destroyme>();
+
+        if(which_wall == 3)
+        {
+            left_door = GameObject.Find("Left_Door");
+            right_door = GameObject.Find("Right_Door");
+        }
     }
     void OnCollisionEnter(Collision col) 
 	{
@@ -54,6 +62,20 @@ public class chip_cover : MonoBehaviour
         	inv.inv_icons[0].enabled = false;
         	aud.clip = reallygoodsoundeffect;
 	        aud.Play();
+        }
+
+        // Sliding Door
+        if(which_wall == 3 && col.gameObject.tag == "Player" && inv.inv_icons[0].enabled) 
+        {
+            this.gameObject.GetComponent<Collider>().enabled = false;
+            this.gameObject.GetComponent<Renderer>().enabled = false;
+            Destroy(destorywall);
+            Command_Log.GetComponent<cmd_log>().UpdateCommand(20);
+            inv.inv_icons[0].enabled = false;
+            aud.clip = reallygoodsoundeffect;
+            aud.Play();
+            left_door.GetComponent<sliding_door>().enabled = true;
+            right_door.GetComponent<sliding_door>().enabled = true;
         }
 	}
 }
