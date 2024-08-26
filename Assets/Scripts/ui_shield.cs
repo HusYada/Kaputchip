@@ -53,7 +53,7 @@ public class ui_shield : MonoBehaviour
     	}
         if(shield_number == 0)
         {
-            SceneManager.LoadScene("homepage");
+            SceneManager.LoadScene("homepage-hus");
         }
     }
 }

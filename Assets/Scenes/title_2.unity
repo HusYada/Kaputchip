@@ -1167,7 +1167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Kaputchip v0.4
+  m_text: Kaputchip v0.5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a19735af82ef0c443af92a0b7423c317, type: 2}
   m_sharedMaterial: {fileID: -5422323315491977260, guid: a19735af82ef0c443af92a0b7423c317, type: 2}
@@ -18877,6 +18877,8 @@ MonoBehaviour:
   spd: 12000
   Command_Log: {fileID: 0}
   destorywall: {fileID: 1117114035}
+  left_door: {fileID: 0}
+  right_door: {fileID: 0}
   reallygoodsoundeffect: {fileID: 8300000, guid: 719d3924f326ea045940175b4ffb7969, type: 3}
 --- !u!54 &1018026866
 Rigidbody:
