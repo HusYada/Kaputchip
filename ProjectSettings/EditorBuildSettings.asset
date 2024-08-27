@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/main_game.unity
     guid: e391233fa9882e3468888b9663f83974
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/indicator_test.unity
     guid: 3a1ee5d8df203bb4d9e9855192aafa2a
   - enabled: 1
