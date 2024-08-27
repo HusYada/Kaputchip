@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class enemy : MonoBehaviour
 {
-	// 0 = shooter, 1 = chaser
+	// 0 = shooter, 1 = chaser, 2 = shooter on rails
 	public int enemytype;
 
 	// The target the boss is going to shoot at
@@ -14,13 +15,18 @@ public class enemy : MonoBehaviour
 	public Rigidbody projectile;
 
 	// The distance the boss can shoot at
-	private float distance = 50.0f;
+	public float distance;
 
 	// The power behind the projectile (can also be speed)
 	public float speed = 30.0f;
 
 	// Checks if the player is in the range of the boss
 	private bool range = false;
+
+	public GameObject targetpos;
+	public List<GameObject> locations;
+	public bool movingforward = true;
+	public int currentpos = 1;
 
     void Start()
     {
@@ -41,10 +47,43 @@ public class enemy : MonoBehaviour
 		if(range)
 		{
 			transform.LookAt(player);
+			// if the enemy is a chaser
 			if(enemytype == 1)
     		{
     			transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
     		}
+		}
+		else
+		{
+			if(enemytype == 2)
+    		{
+				transform.LookAt(targetpos.transform.position);
+				if (transform.position != locations[currentpos].transform.position) {
+	            	targetpos.transform.position = locations[currentpos].transform.position;
+		        } 
+		        else // when reaching a way point
+				{
+					if(transform.position == locations[locations.Count - 1].transform.position)
+		            {
+		            	movingforward = false;
+		            }
+		            if(transform.position == locations[0].transform.position)
+		            {
+		            	movingforward = true;
+		            }
+					if(movingforward)
+		            {
+		            	currentpos++;
+		            }
+		            if(!movingforward)
+		            {
+		            	currentpos--;
+		            }
+				}
+				
+				// move the dude
+				transform.position = Vector3.MoveTowards(transform.position, targetpos.transform.position, speed * Time.deltaTime);
+			}
 		}
 	}
 
