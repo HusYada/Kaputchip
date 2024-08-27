@@ -5,7 +5,7 @@ using System.Linq;
 
 public class enemy : MonoBehaviour
 {
-	// 0 = shooter, 1 = chaser
+	// 0 = shooter, 1 = chaser, 2 = shooter on rails
 	public int enemytype;
 
 	// The target the boss is going to shoot at
@@ -55,32 +55,35 @@ public class enemy : MonoBehaviour
 		}
 		else
 		{
-			transform.LookAt(targetpos.transform.position);
-			if (transform.position != locations[currentpos].transform.position) {
-            	targetpos.transform.position = locations[currentpos].transform.position;
-	        } 
-	        else // when reaching a way point
-			{
-				if(transform.position == locations[locations.Count - 1].transform.position)
-	            {
-	            	movingforward = false;
-	            }
-	            if(transform.position == locations[0].transform.position)
-	            {
-	            	movingforward = true;
-	            }
-				if(movingforward)
-	            {
-	            	currentpos++;
-	            }
-	            if(!movingforward)
-	            {
-	            	currentpos--;
-	            }
+			if(enemytype == 2)
+    		{
+				transform.LookAt(targetpos.transform.position);
+				if (transform.position != locations[currentpos].transform.position) {
+	            	targetpos.transform.position = locations[currentpos].transform.position;
+		        } 
+		        else // when reaching a way point
+				{
+					if(transform.position == locations[locations.Count - 1].transform.position)
+		            {
+		            	movingforward = false;
+		            }
+		            if(transform.position == locations[0].transform.position)
+		            {
+		            	movingforward = true;
+		            }
+					if(movingforward)
+		            {
+		            	currentpos++;
+		            }
+		            if(!movingforward)
+		            {
+		            	currentpos--;
+		            }
+				}
+				
+				// move the dude
+				transform.position = Vector3.MoveTowards(transform.position, targetpos.transform.position, speed * Time.deltaTime);
 			}
-			
-			// move the dude
-			transform.position = Vector3.MoveTowards(transform.position, targetpos.transform.position, speed * Time.deltaTime);
 		}
 	}
 

@@ -129,7 +129,7 @@ public class player : MonoBehaviour
 
         if(current_hp <= 0)
         {
-            SceneManager.LoadScene("homepage");
+            SceneManager.LoadScene("game_over");
         }
 
         // --------------------------------------------------------------------------

@@ -16,4 +16,12 @@ public class scene_load : MonoBehaviour {
 	{    
         SceneManager.LoadScene(levelname);
 	}
+
+	void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.Return))
+		{
+			SceneManager.LoadScene(level);
+		}
+	}
 }

@@ -9,6 +9,8 @@ TagManager:
   - Window_Pos
   - Bullet
   - Exit_Button
+  - Last_Exit_Button
+  - Delete_Handle
   layers:
   - Default
   - TransparentFX
