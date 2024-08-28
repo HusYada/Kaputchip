@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Rendering;
+using URPGlitch.Runtime.DigitalGlitch;
+using Cinemachine;
 
 public class player : MonoBehaviour
 {
@@ -73,21 +76,64 @@ public class player : MonoBehaviour
     public Slider hp_bar;
     public TMP_Text hp_text;
 
+    // Glitch
+    //PostProcessVolume vol;
+    //DigitalGlitchVolume digi;
+    [SerializeField] Volume vol;
+    DigitalGlitchVolume digi;
+    public float glitchspd;
+
+    // CineMachine
+    private CinemachineVirtualCamera mainCamera;
+    private float ShakeTimer;
+
+    // Anti Virus Active
+    public GameObject antiwanti;
+    private bool antivirus_overlay_flashing;
+
     #endregion
+
+    private void Awake()
+    {
+        cam = GameObject.Find("Virtual Camera (Inside)");
+        mainCamera = cam.GetComponent<CinemachineVirtualCamera>();
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         lr = GetComponent<LineRenderer>();
-        cam = GameObject.FindWithTag("MainCamera");
         plyr_charges = 3;
         // Lock cursor, unlock with Esc
         Cursor.lockState = CursorLockMode.Locked;
         current_hp = (int)hp_bar.value;
+
+        vol.profile.TryGet<DigitalGlitchVolume>(out digi);
+
+        antiwanti = GameObject.Find("Anti_Virus_Active_Warning");
     }
 
     private void Update()
     {
+
+        // if(antivirus_overlay_flashing && antiwanti.GetComponent<Image>.tintColor.a < 1)
+        // {
+        //     antiwanti.GetComponent<Image>.tintColor.a += 0.05f;
+        // }
+        // if(antivirus_overlay_flashing && antiwanti.GetComponent<Image>.tintColor.a > 0.8f)
+        // {
+        //     antivirus_overlay_flashing = false;
+        // }
+        // if(!antivirus_overlay_flashing && antiwanti.GetComponent<Image>.tintColor.a > 0)
+        // {
+        //     antiwanti.GetComponent<Image>.tintColor.a -= 0.05f;
+        // }
+
+        if(digi.intensity.value > 0)
+        {
+            digi.intensity.value -= glitchspd;
+        }
+
         // --------------------------------------------------------------------------
         // Raycast Look Stuff (includes movie reel)
 
@@ -105,6 +151,15 @@ public class player : MonoBehaviour
                 {
                     crosshair.color = Color.green;
                     whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
+                }
+                if (hitObject.GetComponent<Collider>().tag == "FireWall")
+                {
+                    crosshair.color = Color.cyan;
+                    whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
+                    if(Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == 380 && inv.inv_icons[9].enabled && plyr_charges > 0)
+                    {
+                        Destroy(whatamilookinat, 0.5f);
+                    }
                 }
                 else
                 {
@@ -300,6 +355,7 @@ public class player : MonoBehaviour
             current_hp -= 5;
             hp_bar.value -= 5;
             hp_text.text = "HP  " + current_hp + " /  75";
+            digi.intensity.value = 0.25f;
         }
     }
 
@@ -310,6 +366,20 @@ public class player : MonoBehaviour
             current_hp -= 5;
             hp_bar.value -= 5;
             hp_text.text = "HP  " + current_hp + " /  75";
+            digi.intensity.value = 0.25f;
+            //ShakeCamera(1f, 0.5f);
         }
+
+        if (col.gameObject.name == "Anti_Virus_Active_Warning_Trigger")
+        {
+            antivirus_overlay_flashing = true;
+        }
+    }
+
+    public void ShakeCamera(float iten, float time)
+    {
+        CinemachineBasicMultiChannelPerlin pee = GetComponent<CinemachineBasicMultiChannelPerlin>();
+        pee.m_AmplitudeGain = iten;
+        ShakeTimer = time;
     }
 }

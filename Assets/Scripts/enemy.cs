@@ -20,6 +20,9 @@ public class enemy : MonoBehaviour
 	// The power behind the projectile (can also be speed)
 	public float speed = 30.0f;
 
+	// Shoots every n seconds
+	public float shoottime;
+
 	// Checks if the player is in the range of the boss
 	private bool range = false;
 
@@ -32,9 +35,9 @@ public class enemy : MonoBehaviour
     {
     	player = GameObject.Find("Player").transform;
 
-    	if(enemytype == 0)
+    	if(enemytype == 2)
     	{
-    		InvokeRepeating("Shoot", 0.5f, 0.5f);
+    		InvokeRepeating("Shoot", shoottime, shoottime);
     	}
     }
 
@@ -100,6 +103,8 @@ public class enemy : MonoBehaviour
 
 			// Destroy the instantiated bullet two seconds after it's launch
 			Destroy (bullet.gameObject, 2);
+
+			Debug.Log("SHOOT");
 
 			return;
 		}
