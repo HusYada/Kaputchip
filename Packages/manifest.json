@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.atteneder.gltfast": "6.7.0",
+    "com.mao-test-h.urp-glitch": "https://github.com/mao-test-h/URPGlitch.git?path=Assets/URPGlitch",
     "com.unity.cinemachine": "2.10.1",
     "com.unity.collab-proxy": "2.4.3",
     "com.unity.device-simulator.devices": "1.0.0",
