@@ -11,6 +11,7 @@ TagManager:
   - Exit_Button
   - Last_Exit_Button
   - Delete_Handle
+  - FireWall
   layers:
   - Default
   - TransparentFX
