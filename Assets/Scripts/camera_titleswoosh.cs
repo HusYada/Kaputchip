@@ -1,46 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Cinemachine;
 
 public class camera_titleswoosh : MonoBehaviour
 {
 
 	public CinemachineVirtualCamera primaryCamera;
-	public CinemachineVirtualCamera[] virtualCameras;
 	public CinemachineVirtualCamera targetCamera;
-	public GameObject campos;
-	public Vector3 startthegamepos;
 
-    void Start()
-    {
-        SwitchToCamera(primaryCamera);
-    }
+	public player player;
+
+	public bool isSwitching = false;
+
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
+		if (isSwitching == false)
 		{
-			//SceneManager.LoadScene(level);
-			SwitchToCamera(targetCamera);
+			if (Input.GetKeyDown(KeyCode.Return))
+			{
+				primaryCamera.Priority = 2;
+				targetCamera.Priority = 12;
 
-			primaryCamera.Priority = 2;
-			targetCamera.Priority = 12;
+				isSwitching = true;
+			}
 		}
 
-		if(campos.transform.position == startthegamepos)
-		{
-			SceneManager.LoadScene("main_game");
-		}
     }
 
-    private void SwitchToCamera(CinemachineVirtualCamera targetCamera)
+	IEnumerator startSwitching()
     {
-    	foreach ( CinemachineVirtualCamera camera in virtualCameras )
-    	{
-    		camera.enabled = camera == targetCamera;
-    	}
+		yield return new WaitForSeconds(1);
+		player.CanCtrl = true;
     }
+
 }
 
