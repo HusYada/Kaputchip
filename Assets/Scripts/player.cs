@@ -84,7 +84,7 @@ public class player : MonoBehaviour
     public float glitchspd;
 
     // CineMachine
-    private CinemachineVirtualCamera mainCamera;
+    public CinemachineVirtualCamera shakeCamera;
     private float ShakeTimer;
 
     // Anti Virus Active
@@ -93,11 +93,11 @@ public class player : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    /*private void Awake()
     {
         cam = GameObject.Find("Virtual Camera (Inside)");
         mainCamera = cam.GetComponent<CinemachineVirtualCamera>();
-    }
+    }*/
 
     void Start()
     {
@@ -356,6 +356,7 @@ public class player : MonoBehaviour
             hp_bar.value -= 5;
             hp_text.text = "HP  " + current_hp + " /  75";
             digi.intensity.value = 0.25f;
+
         }
     }
 
@@ -367,7 +368,7 @@ public class player : MonoBehaviour
             hp_bar.value -= 5;
             hp_text.text = "HP  " + current_hp + " /  75";
             digi.intensity.value = 0.25f;
-            //ShakeCamera(1f, 0.5f);
+            ShakeCamera(1f, 0.5f);
         }
 
         if (col.gameObject.name == "Anti_Virus_Active_Warning_Trigger")
@@ -376,10 +377,10 @@ public class player : MonoBehaviour
         }
     }
 
-    public void ShakeCamera(float iten, float time)
+    public void ShakeCamera(float intensity, float time)
     {
-        CinemachineBasicMultiChannelPerlin pee = GetComponent<CinemachineBasicMultiChannelPerlin>();
-        pee.m_AmplitudeGain = iten;
+        CinemachineBasicMultiChannelPerlin cinePerlin = GetComponent<CinemachineBasicMultiChannelPerlin>();
+        cinePerlin.m_AmplitudeGain = intensity;
         ShakeTimer = time;
     }
 }
