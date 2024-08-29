@@ -155,6 +155,13 @@ public class player : MonoBehaviour
             SceneManager.LoadScene("game_over");
         }
 
+        if (ShakeTimer > 0f)
+        {
+            ShakeTimer -= (Time.deltaTime * 1f);
+            if(ShakeTimer<=0f)
+                shakeCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        }
+
         if (!CanCtrl)
             return;
 
