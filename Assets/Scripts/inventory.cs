@@ -69,6 +69,13 @@ public class inventory : MonoBehaviour
     		equip_selc_pos[i] = equip_selection[i].transform.position;
     		equip_selc_pos[i].x = equip_selection[i].transform.position.x - 624;
     	}
+
+        if(Screen.currentResolution.width == 800)
+        {
+            inventory_xpos[0] = 375;
+            inventory_xpos[1] = 334;
+            inventory_xpos[2] = 150;
+        }
     }
 
     void Update()
@@ -123,7 +130,15 @@ public class inventory : MonoBehaviour
     	// Cursor Movement
     	if(state == 2)
     	{
-    		cursor_pos = new Vector3(cursorx[current_cursor_x]+960+520-4,cursory[current_cursor_y]+540-400,0);
+            if(Screen.currentResolution.width == 1920)
+            {
+              cursor_pos = new Vector3(cursorx[current_cursor_x]+960+520-4,cursory[current_cursor_y]+540-400,0);
+            }
+            if(Screen.currentResolution.width == 800)
+            {
+              cursor_pos = new Vector3(cursorx[current_cursor_x]+400+520-4,cursory[current_cursor_y]+300-400,0);
+            }
+    		
 
     		if(Input.GetKeyDown(k_left) && current_cursor_x > 0) { current_cursor_x--; }
     		if(Input.GetKeyDown(k_right) && current_cursor_x < cursorx.Length-1) { current_cursor_x++; }
@@ -216,24 +231,50 @@ public class inventory : MonoBehaviour
     	}
     	else
     	{
-    		cursor_pos = new Vector3(960,540,0);
+            if(Screen.currentResolution.width == 1920)
+            {
+    		  cursor_pos = new Vector3(960,540,0);
+            }
+            if(Screen.currentResolution.width == 800)
+            {
+              cursor_pos = new Vector3(400,300,0);
+            }
     	}
     }
 
     void Move(int next_pos)
     {
-    	if(transform.position.x > inventory_xpos[next_pos]+960 && state > 0)
-    	{
-    		inventory_pos.x-=8*state;
-    	}
-    	else if(transform.position.x < inventory_xpos[next_pos]+960 && state == 0)
-    	{
-    		inventory_pos.x+=16;
-    	}
-    	else
-    	{
-    		moving = false;
-    	}
+        if(Screen.currentResolution.width == 1920)
+        {
+        	if(transform.position.x > inventory_xpos[next_pos]+960 && state > 0)
+        	{
+        		inventory_pos.x-=8*state;
+        	}
+        	else if(transform.position.x < inventory_xpos[next_pos]+960 && state == 0)
+        	{
+        		inventory_pos.x+=16;
+        	}
+        	else
+        	{
+        		moving = false;
+        	}
+        }
+
+        if(Screen.currentResolution.width == 800)
+        {
+            if(transform.position.x > inventory_xpos[next_pos]+400 && state > 0)
+            {
+                inventory_pos.x-=8*state;
+            }
+            else if(transform.position.x < inventory_xpos[next_pos]+400 && state == 0)
+            {
+                inventory_pos.x+=16;
+            }
+            else
+            {
+                moving = false;
+            }
+        }
     }
 
     public void UpdateAmount(int whichtxt, int howmuch)
