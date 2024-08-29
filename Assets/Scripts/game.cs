@@ -20,12 +20,29 @@ public class game : MonoBehaviour
     public TMP_Text anothercmdtex2;
     public TMP_Text inv_text;
 
+    [Header("Player & Mouse")]
+    public player player;
+    public mouse mouse;
+
+    [Header("Canvas")]
+    public GameObject[] UIelements;
+
+    public float waitingTime;
+    public bool isStarted;
+
     void Start()
     {
+        player.CanCtrl = false;
+
+        for(int i = 0;i < UIelements.Length;i++)
+        {
+            UIelements[i].SetActive(false);
+        }
+
         //shields = GetComponent<TMP_Text>();
 
         // if using crt 800x600 resolution
-        if(Screen.currentResolution.width == 800)
+        /*if(Screen.currentResolution.width == 800)
         {
             Vector3 cmdcrtpos = new Vector3(1, -582.2082f);
             Vector2 cmdcrtscl = new Vector3(1935, 208.279f);
@@ -46,6 +63,31 @@ public class game : MonoBehaviour
             anothercmdtex1.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 56;
             anothercmdtex2.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 72;
             inv_text.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 72;
+        }*/
+    }
+
+    private void Update()
+    {
+        if (!isStarted)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                StartCoroutine(StartGame());
+                isStarted = true;
+            }
         }
+    }
+
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(waitingTime);
+
+        player.CanCtrl = true;
+
+        for (int i = 0; i < UIelements.Length; i++)
+        {
+            UIelements[i].SetActive(true);
+        }
+
     }
 }
