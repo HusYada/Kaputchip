@@ -105,6 +105,8 @@ public class player : MonoBehaviour
 
     void Start()
     {
+        CanCtrl = true;
+
         rb = GetComponent<Rigidbody>();
         lr = GetComponent<LineRenderer>();
         plyr_charges = 3;
