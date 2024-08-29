@@ -9,8 +9,7 @@ public class camera_titleswoosh : MonoBehaviour
 	public CinemachineVirtualCamera primaryCamera;
 	public CinemachineVirtualCamera targetCamera;
 
-	public player player;
-
+	//public player player;
 	public bool isSwitching = false;
 
 
@@ -26,14 +25,6 @@ public class camera_titleswoosh : MonoBehaviour
 				isSwitching = true;
 			}
 		}
-
     }
-
-	IEnumerator startSwitching()
-    {
-		yield return new WaitForSeconds(1);
-		player.CanCtrl = true;
-    }
-
 }
 

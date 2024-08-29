@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6631203645834766204
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3d51eb4a83ef47a79c05d7bbd161bff, type: 3}
+  m_Name: DigitalGlitchVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &-6624292412661119696
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -42,31 +58,6 @@ MonoBehaviour:
   intensity:
     m_OverrideState: 1
     m_Value: 0.16
---- !u!114 &-1612470745330067527
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a48d48829dd574c239f23fe19e1cfd9a, type: 3}
-  m_Name: AnalogGlitchVolume
-  m_EditorClassIdentifier: 
-  active: 1
-  scanLineJitter:
-    m_OverrideState: 1
-    m_Value: 0
-  verticalJump:
-    m_OverrideState: 1
-    m_Value: 0
-  horizontalShake:
-    m_OverrideState: 1
-    m_Value: 0
-  colorDrift:
-    m_OverrideState: 1
-    m_Value: 0
 --- !u!114 &-127821457053713676
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -113,8 +104,8 @@ MonoBehaviour:
   - {fileID: -127821457053713676}
   - {fileID: -3364750399495535425}
   - {fileID: 8654132144932998825}
-  - {fileID: 5192498680989667673}
-  - {fileID: -1612470745330067527}
+  - {fileID: -6631203645834766204}
+  - {fileID: 8315303156488557609}
 --- !u!114 &1247522007950110607
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -224,22 +215,6 @@ MonoBehaviour:
   colorDrift:
     m_OverrideState: 0
     m_Value: 0.503
---- !u!114 &5192498680989667673
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d51eb4a83ef47a79c05d7bbd161bff, type: 3}
-  m_Name: DigitalGlitchVolume
-  m_EditorClassIdentifier: 
-  active: 1
-  intensity:
-    m_OverrideState: 1
-    m_Value: 0
 --- !u!114 &7706574105796861410
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -256,6 +231,31 @@ MonoBehaviour:
   <displayName>k__BackingField: 
   intensity:
     m_OverrideState: 1
+    m_Value: 0
+--- !u!114 &8315303156488557609
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a48d48829dd574c239f23fe19e1cfd9a, type: 3}
+  m_Name: AnalogGlitchVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  scanLineJitter:
+    m_OverrideState: 0
+    m_Value: 0
+  verticalJump:
+    m_OverrideState: 0
+    m_Value: 0
+  horizontalShake:
+    m_OverrideState: 0
+    m_Value: 0
+  colorDrift:
+    m_OverrideState: 0
     m_Value: 0
 --- !u!114 &8654132144932998825
 MonoBehaviour:

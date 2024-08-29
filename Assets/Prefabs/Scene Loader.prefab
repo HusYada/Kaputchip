@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &684458918031321575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7339299227216977337}
+  - component: {fileID: 9107583113073441132}
+  - component: {fileID: 8040178747735463782}
+  - component: {fileID: 3945619809482353186}
+  m_Layer: 0
+  m_Name: Scene Loader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7339299227216977337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684458918031321575}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9107583113073441132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684458918031321575}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ec4ae81fa4857409d8393aeef96da9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: main_game
+--- !u!114 &8040178747735463782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684458918031321575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532439842d0d647079d2bceac49730e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToHide:
+  - {fileID: 0}
+  - {fileID: 0}
+  menuScene:
+    m_SceneAsset: {fileID: 102900000, guid: 2beaf61679da72144b8ed09feabdee5b, type: 3}
+    m_SceneName: title
+  mainScene:
+    m_SceneAsset: {fileID: 102900000, guid: 73973f8492aac40a2925035b8a2d39f5, type: 3}
+    m_SceneName: momo2
+  isStarted: 0
+--- !u!114 &3945619809482353186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684458918031321575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c521af34641b40bf972431e446db3d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenesToUnload:
+  - m_SceneAsset: {fileID: 102900000, guid: 2beaf61679da72144b8ed09feabdee5b, type: 3}
+    m_SceneName: title
+  targetCamera: {fileID: 0}
+  targetPosition: {x: 0, y: 3, z: -3}
