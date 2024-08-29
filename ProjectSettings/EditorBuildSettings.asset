@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/title_2.unity
+    path: Assets/Scenes/title.unity
     guid: 2beaf61679da72144b8ed09feabdee5b
   - enabled: 0
     path: Assets/Scenes/cutscene.unity
@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/Scenes/game_over.unity
     guid: 81e472750f6e01345ae763a2c380ec65
   - enabled: 1
-    path: Assets/Scenes/Momo.unity
+    path: Assets/Scenes/momo.unity
     guid: 73973f8492aac40a2925035b8a2d39f5
+  - enabled: 1
+    path: Assets/Scenes/Title02.unity
+    guid: 079d20337c02e4a0ba870d23c7683649
   m_configObjects: {}
