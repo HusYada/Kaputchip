@@ -86,8 +86,10 @@ public class player : MonoBehaviour
 
     // Anti Virus Active
     public GameObject antiwanti;
-    private bool antivirus_overlay_flashing;
+    private bool isInSecretRoom;
     public bool enteredfinaldesktop;
+    public Animator CPUlidAnim;
+    public Animator AntiAnim;
 
     #endregion
 
@@ -112,7 +114,7 @@ public class player : MonoBehaviour
 
         vol.profile.TryGet<DigitalGlitchVolume>(out digi);
 
-        antiwanti = GameObject.Find("Anti_Virus_Active_Warning");
+        //antiwanti = GameObject.Find("Anti_Virus_Active_Warning");
     }
 
     private void Update()
@@ -123,10 +125,10 @@ public class player : MonoBehaviour
             digi.intensity.value -= glitchspd;
         }
 
-        if(antivirus_overlay_flashing)
-        {
+        //if(antivirus_overlay_flashing)
+        //{
             //play flashing animation here
-        }
+        //}
 
         // Leon: I moved Raycast Look Stuff into FixedUpdate as RaycastLookStuff().
         //      You should keep everything that detects stuffs in FixedUpdate.
@@ -384,7 +386,14 @@ public class player : MonoBehaviour
 
         if (col.gameObject.name == "Anti_Virus_Active_Warning_Trigger")
         {
-            antivirus_overlay_flashing = true;
+            if (!isInSecretRoom)
+            {              
+                //antivirus_overlay_flashing = true;
+                CPUlidAnim.SetTrigger("playAnim");
+                antiwanti.SetActive(true);
+                AntiAnim.SetTrigger("virusPlay");
+                isInSecretRoom = true;
+            }
         }
 
         if (col.gameObject.name == "Final_Desktop_Trigger")

@@ -16,7 +16,15 @@ public class Break : MonoBehaviour
 
 
     void Start() {
-        StartCoroutine(BreakTheThingWithDelay());
+        //StartCoroutine(BreakTheThingWithDelay());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            StartCoroutine(BreakTheThingWithDelay());
+        }
     }
 
     IEnumerator BreakTheThingWithDelay() {
