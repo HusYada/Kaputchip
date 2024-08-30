@@ -35,7 +35,7 @@ public class player : MonoBehaviour
     has_key;
     private int
     plyr_spd = 2,
-    plyr_jump = 250,
+    plyr_jump = 375,
     plyr_butterfly = 20;
     private bool
     grounded,
@@ -70,17 +70,12 @@ public class player : MonoBehaviour
     public Transform ad_spawn;
     public int ads_amount;
 
-    // Solitaire Stuff
-    public solitaire sol;
-
     // Health Bar
     public int current_hp;
     public Slider hp_bar;
     public TMP_Text hp_text;
 
     // Glitch
-    //PostProcessVolume vol;
-    //DigitalGlitchVolume digi;
     [SerializeField] Volume vol;
     DigitalGlitchVolume digi;
     public float glitchspd;
@@ -92,6 +87,7 @@ public class player : MonoBehaviour
     // Anti Virus Active
     public GameObject antiwanti;
     private bool antivirus_overlay_flashing;
+    public bool enteredfinaldesktop;
 
     #endregion
 
@@ -122,34 +118,20 @@ public class player : MonoBehaviour
     private void Update()
     {
 
-        // if(antivirus_overlay_flashing && antiwanti.GetComponent<Image>.tintColor.a < 1)
-        // {
-        //     antiwanti.GetComponent<Image>.tintColor.a += 0.05f;
-        // }
-        // if(antivirus_overlay_flashing && antiwanti.GetComponent<Image>.tintColor.a > 0.8f)
-        // {
-        //     antivirus_overlay_flashing = false;
-        // }
-        // if(!antivirus_overlay_flashing && antiwanti.GetComponent<Image>.tintColor.a > 0)
-        // {
-        //     antiwanti.GetComponent<Image>.tintColor.a -= 0.05f;
-        // }
-
         if(digi.intensity.value > 0)
         {
             digi.intensity.value -= glitchspd;
+        }
+
+        if(antivirus_overlay_flashing)
+        {
+            //play flashing animation here
         }
 
         // Leon: I moved Raycast Look Stuff into FixedUpdate as RaycastLookStuff().
         //      You should keep everything that detects stuffs in FixedUpdate.
         //      Update: For PlayerInputs like GetKeyDown and precise math calculations.
         //      FixedUpdate: For detections like ground check, collisions.
-
-        if (sol.raisefloor)
-        {
-            // lifting script -- see diy script
-            //sd
-        }
 
         if (current_hp <= 0)
         {
@@ -234,7 +216,7 @@ public class player : MonoBehaviour
     private void Movement()
     {
         // Momo: Run button detection.
-        plyr_spd = (Input.GetKey(k_run)) ? 4 : 2;
+        plyr_spd = (Input.GetKey(k_run)) ? 5 : 2;
 
         if (Input.GetKey(k_left))
         {
@@ -316,7 +298,7 @@ public class player : MonoBehaviour
         }
     }
 
-    private void RaycastLookStuff()
+    void RaycastLookStuff()
     {
         Ray rayOrigin = new Ray(transform.position, cam.transform.forward);
         RaycastHit hitInfo;
@@ -328,12 +310,17 @@ public class player : MonoBehaviour
             if (hitObject)
             {
                 UseMovieReel(hitInfo);
-                if (hitObject.GetComponent<Collider>().tag == "Card")
+                if (hitObject.GetComponent<Collider>().tag == "Driver")
                 {
                     crosshair.color = Color.green;
                     whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
                 }
-                if (hitObject.GetComponent<Collider>().tag == "FireWall")
+                else if (hitObject.GetComponent<Collider>().tag == "Card")
+                {
+                    crosshair.color = Color.green;
+                    whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
+                }
+                else if (hitObject.GetComponent<Collider>().tag == "FireWall")
                 {
                     crosshair.color = Color.cyan;
                     whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
@@ -398,6 +385,11 @@ public class player : MonoBehaviour
         if (col.gameObject.name == "Anti_Virus_Active_Warning_Trigger")
         {
             antivirus_overlay_flashing = true;
+        }
+
+        if (col.gameObject.name == "Final_Desktop_Trigger")
+        {
+            enteredfinaldesktop = true;
         }
     }
 

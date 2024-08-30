@@ -12,6 +12,7 @@ TagManager:
   - Last_Exit_Button
   - Delete_Handle
   - FireWall
+  - Driver
   layers:
   - Default
   - TransparentFX

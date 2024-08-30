@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/title.unity
     guid: 2beaf61679da72144b8ed09feabdee5b
+  - enabled: 1
+    path: Assets/Scenes/Title02.unity
+    guid: 079d20337c02e4a0ba870d23c7683649
   - enabled: 0
     path: Assets/Scenes/cutscene.unity
     guid: e81d88365cb99d7458c8769ca6582032
