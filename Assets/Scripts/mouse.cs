@@ -63,6 +63,9 @@ public class mouse : MonoBehaviour
     close_window;
     private                         Quaternion currentRotation;
 
+    public GameObject d_bar, d_handle;
+    public bool pushing_d_bar;
+
     //change to timer
 
 	void Start()
@@ -77,6 +80,29 @@ public class mouse : MonoBehaviour
     {
 		switch (behaviour)
         {
+            // Stopping the Bar
+            case 8:
+
+                targetpos.transform.position = d_handle.transform.position;
+                speed = patrol_speed_after_powerup;
+
+                if(transform.position == d_bar.transform.position)
+                {
+                    // pushing_d_bar = true;
+                    // mouse_model.enabled = false;
+                    // mouse_hand1.enabled = true;
+                    // mouse_hand2.enabled = true;
+                }
+                if(Input.GetKey("j"))
+                {
+                    pushing_d_bar = false;
+                    mouse_model.enabled = true;
+                    mouse_hand1.enabled = false;
+                    mouse_hand2.enabled = false;
+                    transform.SetPositionAndRotation(new Vector3(0,0,0), Quaternion.identity);
+                }
+                break;
+
             // Ads Interuption
             case 7:
 
@@ -331,6 +357,7 @@ public class mouse : MonoBehaviour
     	{
     		transform.LookAt(player.transform);
     	}
+        //targetpos.transform.position = d_handle.transform.position;
 
         transform.position = Vector3.MoveTowards(transform.position, targetpos.transform.position, speed * Time.deltaTime);
     }

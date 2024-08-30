@@ -5,6 +5,7 @@ using UnityEngine;
 public class mouse_collision : MonoBehaviour
 {
 	public ui_shield noshieldsforu;
+    public mouse ms;
 
     void OnTriggerEnter(Collider col) 
     {
@@ -15,6 +16,13 @@ public class mouse_collision : MonoBehaviour
         if(col.gameObject.tag == "ExitButton")
         {
             Destroy(col.gameObject);
+        }
+        if(col.gameObject.tag == "Delete_Handle")
+        {
+            ms.pushing_d_bar = true;
+            ms.mouse_model.enabled = false;
+            ms.mouse_hand1.enabled = true;
+            ms.mouse_hand2.enabled = true;
         }
     }
 }

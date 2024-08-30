@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Rendering;
+using URPGlitch.Runtime.DigitalGlitch;
+using Cinemachine;
 
 public class player : MonoBehaviour
 {
@@ -23,6 +26,8 @@ public class player : MonoBehaviour
     k_rarm = KeyCode.Mouse1;
 
     // Player Variables
+    public bool CanCtrl = true;
+
     public int
     plyr_shields,
     plyr_charges = 3;
@@ -30,7 +35,7 @@ public class player : MonoBehaviour
     has_key;
     private int
     plyr_spd = 2,
-    plyr_jump = 250,
+    plyr_jump = 375,
     plyr_butterfly = 20;
     private bool
     grounded,
@@ -65,54 +70,84 @@ public class player : MonoBehaviour
     public Transform ad_spawn;
     public int ads_amount;
 
-    // Solitaire Stuff
-    public solitaire sol;
-
     // Health Bar
     public int current_hp;
     public Slider hp_bar;
     public TMP_Text hp_text;
 
+    // Glitch
+    [SerializeField] Volume vol;
+    DigitalGlitchVolume digi;
+    public float glitchspd;
+
+    // CineMachine
+    public CinemachineVirtualCamera shakeCamera;
+    private float ShakeTimer;
+
+    // Anti Virus Active
+    public GameObject antiwanti;
+    private bool antivirus_overlay_flashing;
+    public bool enteredfinaldesktop;
+
     #endregion
+
+    private void Awake()
+    {
+        //cam = GameObject.Find("Virtual Camera (Inside)");
+        //mainCamera = cam.GetComponent<CinemachineVirtualCamera>();
+
+        cam = transform.Find("Virtual Camera (Inside)").gameObject;
+    }
 
     void Start()
     {
+        CanCtrl = true;
+
         rb = GetComponent<Rigidbody>();
         lr = GetComponent<LineRenderer>();
-        cam = GameObject.FindWithTag("MainCamera");
         plyr_charges = 3;
         // Lock cursor, unlock with Esc
         Cursor.lockState = CursorLockMode.Locked;
         current_hp = (int)hp_bar.value;
+
+        vol.profile.TryGet<DigitalGlitchVolume>(out digi);
+
+        antiwanti = GameObject.Find("Anti_Virus_Active_Warning");
     }
 
     private void Update()
     {
-        // --------------------------------------------------------------------------
-        // Raycast Look Stuff (includes movie reel)
 
-        Ray rayOrigin = new Ray(transform.position, cam.transform.forward);
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity))
+        if(digi.intensity.value > 0)
         {
-            var hitObject = hitInfo.collider.GetComponent<Transform>();
-
-            if (hitObject)
-            {
-                UseMovieReel(hitInfo);
-                if (hitObject.GetComponent<Collider>().tag == "Card")
-                {
-                    crosshair.color = Color.green;
-                    whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
-                }
-                else
-                {
-                    crosshair.color = Color.white;
-                }
-            }
+            digi.intensity.value -= glitchspd;
         }
-        // --------------------------------------------------------------------------
+
+        if(antivirus_overlay_flashing)
+        {
+            //play flashing animation here
+        }
+
+        // Leon: I moved Raycast Look Stuff into FixedUpdate as RaycastLookStuff().
+        //      You should keep everything that detects stuffs in FixedUpdate.
+        //      Update: For PlayerInputs like GetKeyDown and precise math calculations.
+        //      FixedUpdate: For detections like ground check, collisions.
+
+        if (current_hp <= 0)
+        {
+            // Leon: This is really a bad approach, you should check if player is dead on being attacked, not on every frame.
+            SceneManager.LoadScene("game_over");
+        }
+
+        if (ShakeTimer > 0f)
+        {
+            ShakeTimer -= (Time.deltaTime * 1f);
+            if(ShakeTimer<=0f)
+                shakeCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        }
+
+        if (!CanCtrl)
+            return;
 
         CameraLook();
         Movement();
@@ -120,32 +155,12 @@ public class player : MonoBehaviour
         UseSprayCan();
         UseFireExtinguisher();
         UseAdAttack();
-
-        if(sol.raisefloor)
-        {
-            // lifting script -- see diy script
-            //sd
-        }
-
-        if(current_hp <= 0)
-        {
-            SceneManager.LoadScene("homepage");
-        }
-
-        // --------------------------------------------------------------------------
-        // Ground Check
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), 0.5f))
-        {
-            grounded = true;
-        }
-        else
-        {
-            grounded = false;
-        }
     }
 
     void FixedUpdate()
     {
+        RaycastLookStuff();
+
         // --------------------------------------------------------------------------
         // Moving method for Movie Reel while using it.
         MovieReelSwinging();
@@ -166,6 +181,17 @@ public class player : MonoBehaviour
             {
                 rb.drag = 0;
             }
+        }
+        
+        // --------------------------------------------------------------------------
+        // Ground Check
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), 0.55f))
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
         }
     }
 
@@ -190,7 +216,7 @@ public class player : MonoBehaviour
     private void Movement()
     {
         // Momo: Run button detection.
-        plyr_spd = (Input.GetKey(k_run)) ? 4 : 2;
+        plyr_spd = (Input.GetKey(k_run)) ? 5 : 2;
 
         if (Input.GetKey(k_left))
         {
@@ -272,6 +298,46 @@ public class player : MonoBehaviour
         }
     }
 
+    void RaycastLookStuff()
+    {
+        Ray rayOrigin = new Ray(transform.position, cam.transform.forward);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(rayOrigin, out hitInfo, Mathf.Infinity))
+        {
+            var hitObject = hitInfo.collider.GetComponent<Transform>();
+
+            if (hitObject)
+            {
+                UseMovieReel(hitInfo);
+                if (hitObject.GetComponent<Collider>().tag == "Driver")
+                {
+                    crosshair.color = Color.green;
+                    whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
+                }
+                else if (hitObject.GetComponent<Collider>().tag == "Card")
+                {
+                    crosshair.color = Color.green;
+                    whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
+                }
+                else if (hitObject.GetComponent<Collider>().tag == "FireWall")
+                {
+                    crosshair.color = Color.cyan;
+                    whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
+                    if (Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == 380 && inv.inv_icons[9].enabled && plyr_charges > 0)
+                    {
+                        Destroy(whatamilookinat, 0.5f);
+                    }
+                }
+                else
+                {
+                    crosshair.color = Color.white;
+                }
+            }
+        }
+        // --------------------------------------------------------------------------
+    }
+
     private void UseAdAttack()
     {
         if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == 260 && inv.inv_icons[12].enabled && ads_amount == 0)
@@ -300,6 +366,8 @@ public class player : MonoBehaviour
             current_hp -= 5;
             hp_bar.value -= 5;
             hp_text.text = "HP  " + current_hp + " /  75";
+            digi.intensity.value = 0.25f;
+
         }
     }
 
@@ -310,6 +378,29 @@ public class player : MonoBehaviour
             current_hp -= 5;
             hp_bar.value -= 5;
             hp_text.text = "HP  " + current_hp + " /  75";
+            digi.intensity.value = 0.25f;
+            ShakeCamera(5f, 0.5f);
         }
+
+        if (col.gameObject.name == "Anti_Virus_Active_Warning_Trigger")
+        {
+            antivirus_overlay_flashing = true;
+        }
+
+        if (col.gameObject.name == "Final_Desktop_Trigger")
+        {
+            enteredfinaldesktop = true;
+        }
+    }
+
+    public void ShakeCamera(float intensity, float time)
+    {
+        // Leon:Remember, you need to set the variable "Frequency Gain" in the CinemachineVirtualCamera component.
+        //      It's in CinemachineVirtualCamera => Noise => Frequency Gain.
+        //      The default was 0, which shows nothing. I have set it to 5, but remember to adjust it if you are making a new one.
+
+        CinemachineBasicMultiChannelPerlin cinePerlin = shakeCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        cinePerlin.m_AmplitudeGain = intensity;
+        ShakeTimer = time;
     }
 }

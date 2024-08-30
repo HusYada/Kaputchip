@@ -7,20 +7,41 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/Scenes/title.unity
-    guid: 81e472750f6e01345ae763a2c380ec65
-  - enabled: 1
-    path: Assets/Scenes/title_2.unity
     guid: 2beaf61679da72144b8ed09feabdee5b
+  - enabled: 1
+    path: Assets/Scenes/Title02.unity
+    guid: 079d20337c02e4a0ba870d23c7683649
   - enabled: 0
     path: Assets/Scenes/cutscene.unity
     guid: e81d88365cb99d7458c8769ca6582032
   - enabled: 0
     path: Assets/Scenes/diy-board.unity
     guid: ad3894c67c3f4c54cbd1d748c1288bf6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/homepage.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Scenes/internet.unity
     guid: 2bfef8b4895cc8b4d85a8447a675dafa
+  - enabled: 0
+    path: Assets/Scenes/main_game.unity
+    guid: e391233fa9882e3468888b9663f83974
+  - enabled: 0
+    path: Assets/Scenes/indicator_test.unity
+    guid: 3a1ee5d8df203bb4d9e9855192aafa2a
+  - enabled: 1
+    path: Assets/Scenes/hus_2.unity
+    guid: 7f2169a4ceefd434fa9ef88446fa9ed6
+  - enabled: 0
+    path: Assets/Scenes/hus.unity
+    guid: 4af5d2fa0e6ec4b449ed45ec4837445a
+  - enabled: 1
+    path: Assets/Scenes/game_over.unity
+    guid: 81e472750f6e01345ae763a2c380ec65
+  - enabled: 1
+    path: Assets/Scenes/momo.unity
+    guid: 73973f8492aac40a2925035b8a2d39f5
+  - enabled: 1
+    path: Assets/Scenes/Title02.unity
+    guid: 079d20337c02e4a0ba870d23c7683649
   m_configObjects: {}
