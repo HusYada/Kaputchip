@@ -66,15 +66,38 @@ public class inventory : MonoBehaviour
 
         for(int i = 0; i < equip_selection.Length; i++)
     	{
-    		equip_selc_pos[i] = equip_selection[i].transform.position;
-    		equip_selc_pos[i].x = equip_selection[i].transform.position.x - 624;
+            if(Screen.currentResolution.width == 1920)
+            {
+    		  equip_selc_pos[i] = equip_selection[i].transform.position;
+    		  equip_selc_pos[i].x = equip_selection[i].transform.position.x - 624;
+            }
+            if(Screen.currentResolution.width == 800)
+            {
+                equip_selc_pos[i].y = 270;
+                equip_selc_pos[i].x = 626 + (49 * i);
+
+                // y = 270
+                // 631, 680, 728, 776
+            }
     	}
 
         if(Screen.currentResolution.width == 800)
         {
-            inventory_xpos[0] = 375;
+            inventory_xpos[0] = 380;
             inventory_xpos[1] = 334;
             inventory_xpos[2] = 150;
+            //
+            inventory_pos.x = 927 - 135;
+            // -2, 47, 95, 143
+              // 0, 50, 100, 150
+              cursorx[0] = -7;
+              cursorx[1] = 42;
+              cursorx[2] = 90;
+              cursorx[3] = 138;
+              cursory[0] = 0;
+              cursory[1] = 50;
+              cursory[2] = 100;
+              cursory[3] = 150;
         }
     }
 
@@ -82,6 +105,11 @@ public class inventory : MonoBehaviour
     {
     	this.gameObject.transform.position = inventory_pos;
     	cursor.transform.position = cursor_pos;
+
+        if(Screen.currentResolution.width == 800)
+        {
+            inventory_pos.y = 120;
+        }
 
     	if(Input.GetKeyDown(k_inv))
     	{
@@ -136,7 +164,11 @@ public class inventory : MonoBehaviour
             }
             if(Screen.currentResolution.width == 800)
             {
-              cursor_pos = new Vector3(cursorx[current_cursor_x]+400+520-4,cursory[current_cursor_y]+300-400,0);
+              cursor_pos = new Vector3(
+                cursorx[current_cursor_x]+633,
+                cursory[current_cursor_y]+120, 0);
+              //cursor_pos = new Vector3(629, 120, 0);
+              //
             }
     		
 
@@ -148,7 +180,16 @@ public class inventory : MonoBehaviour
     		// Equipping
     		if(Input.GetKeyDown(k_equip))
     		{
+                if(Screen.currentResolution.width == 1920)
+                {
     			equip_selc_pos[current_cursor_x] = new Vector3(equip_selc_pos[current_cursor_x].x, cursory[current_cursor_y]+120+20, 0);
+                }
+                if(Screen.currentResolution.width == 800)
+                {
+                equip_selc_pos[current_cursor_x] = new Vector3(equip_selc_pos[current_cursor_x].x, cursory[current_cursor_y]+120, 0);
+                }
+
+
     			if(current_cursor_x == 0 && inv_icons[6-current_cursor_y].enabled)
 				{
 					map_sprite.sprite = inv_icons[3+current_cursor_y].sprite;
