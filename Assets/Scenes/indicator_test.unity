@@ -163,9 +163,8 @@ MonoBehaviour:
   iy: 0
   distance: {fileID: 1563761963}
   indicator_icons:
-  - {fileID: 21300000, guid: 7f498168992713244a0b3fa1387be6aa, type: 3}
-  - {fileID: 21300000, guid: 96ea1296c9b68ee45bab4e5c3b379b3c, type: 3}
-  - {fileID: 21300000, guid: f27bdc76d132a3a45936e5c0c4a179f7, type: 3}
+  - {fileID: 21300000, guid: 1f6b8eee2264d434c8234e547d4f5428, type: 3}
+  - {fileID: 21300000, guid: 1f305614631074074a060af0d636e146, type: 3}
 --- !u!4 &78921350
 Transform:
   m_ObjectHideFlags: 0
