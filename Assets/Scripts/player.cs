@@ -45,10 +45,12 @@ public class player : MonoBehaviour
     private int
     cam_spd = 8;
     private float
-    cam_v,
-    cam_h;
+    cam_v = 0f,
+    cam_h = 0f;
     public Image crosshair;
     public GameObject whatamilookinat;
+    float xRotation = 0f, yRotation = 0f;
+    public Transform playerBody;
 
     //SFX
     //public AudioClip aud_spraycan;
@@ -86,8 +88,10 @@ public class player : MonoBehaviour
 
     // Anti Virus Active
     public GameObject antiwanti;
-    private bool antivirus_overlay_flashing;
+    private bool isInSecretRoom;
     public bool enteredfinaldesktop;
+    public Animator CPUlidAnim;
+    public Animator AntiAnim;
 
     // Inventory Y Positions
     private int posy0 = 500, posy1 = 380, posy2 = 260, posy3 = 140;
@@ -111,6 +115,7 @@ public class player : MonoBehaviour
         plyr_charges = 3;
         // Lock cursor, unlock with Esc
         Cursor.lockState = CursorLockMode.Locked;
+        shakeCamera.transform.localRotation = Quaternion.identity;
         current_hp = (int)hp_bar.value;
 
         vol.profile.TryGet<DigitalGlitchVolume>(out digi);
@@ -132,10 +137,10 @@ public class player : MonoBehaviour
             digi.intensity.value -= glitchspd;
         }
 
-        if(antivirus_overlay_flashing)
-        {
+        //if(antivirus_overlay_flashing)
+        //{
             //play flashing animation here
-        }
+        //}
 
         // Leon: I moved Raycast Look Stuff into FixedUpdate as RaycastLookStuff().
         //      You should keep everything that detects stuffs in FixedUpdate.
@@ -207,20 +212,19 @@ public class player : MonoBehaviour
 
     private void CameraLook()
     {
+        
         // The camera's X and Y axis is set to the mouse's X and Y position
-        cam_h += Input.GetAxis("Mouse X") * cam_spd;
-        cam_v -= Input.GetAxis("Mouse Y") * cam_spd;
-        cam.transform.eulerAngles = new Vector3(cam_v, cam_h, 0);
+        cam_h = Input.GetAxis("Mouse X") * cam_spd;
+        cam_v = Input.GetAxis("Mouse Y") * cam_spd;
+        //cam.transform.eulerAngles = new Vector3(cam_v, cam_h, 0);
+        
+        //camera rotation limit
+        xRotation -= cam_v;
+        yRotation += cam_h;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // Lock cursor, unlock with Esc
-        //Cursor.lockState = CursorLockMode.Locked;
-
-        // Reset the camera
-        if (Input.GetKey("f"))
-        {
-            cam_h = 0.0f;
-            cam_v = 0.0f;
-        }
+        shakeCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        rb.MoveRotation(Quaternion.Euler(0f, yRotation, 0f));
     }
 
     private void Movement()
@@ -395,7 +399,14 @@ public class player : MonoBehaviour
 
         if (col.gameObject.name == "Anti_Virus_Active_Warning_Trigger")
         {
-            antivirus_overlay_flashing = true;
+            if (!isInSecretRoom)
+            {              
+                //antivirus_overlay_flashing = true;
+                CPUlidAnim.SetTrigger("playAnim");
+                antiwanti.SetActive(true);
+                AntiAnim.SetTrigger("virusPlay");
+                isInSecretRoom = true;
+            }
         }
 
         if (col.gameObject.name == "Final_Desktop_Trigger")

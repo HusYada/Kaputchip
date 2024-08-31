@@ -16,7 +16,15 @@ public class Break : MonoBehaviour
 
 
     void Start() {
-        StartCoroutine(BreakTheThingWithDelay());
+        //StartCoroutine(BreakTheThingWithDelay());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            StartCoroutine(BreakTheThingWithDelay());
+        }
     }
 
     IEnumerator BreakTheThingWithDelay() {
@@ -30,9 +38,9 @@ public class Break : MonoBehaviour
         }
 
         // CameraShake
-        if (cameraShake != null) {
-            cameraShake.cameraShaking = true;
-        }
+        //if (cameraShake != null) {
+            //cameraShake.cameraShaking = true;
+        //}
         BreakParticleAndSound();
 
         Destroy(gameObject);
