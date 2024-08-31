@@ -11,7 +11,7 @@ using System.Linq;
 
 public class mouse : MonoBehaviour
 {
-	//[Header("Timer")]
+	[Header("Timer")]
     public float 
     Time_Until_Folder_Open = 10.0f,
     Time_Until_Folder_Close = 10.0f,
@@ -66,6 +66,9 @@ public class mouse : MonoBehaviour
     public GameObject d_bar, d_handle;
     public bool pushing_d_bar;
 
+    [Header("Indicator")]
+    public MouseIndicator mouseIndicator;
+
     //change to timer
 
 	void Start()
@@ -82,6 +85,8 @@ public class mouse : MonoBehaviour
         {
             // Stopping the Bar
             case 8:
+
+                mouseIndicator.SetIcon(2);
 
                 targetpos.transform.position = d_handle.transform.position;
                 speed = patrol_speed_after_powerup;
@@ -105,6 +110,8 @@ public class mouse : MonoBehaviour
 
             // Ads Interuption
             case 7:
+
+                mouseIndicator.SetIcon(2);
 
                 if (ad_exits.Count < player.GetComponent<player>().ad_window.Length)
                 {
@@ -157,6 +164,9 @@ public class mouse : MonoBehaviour
 
             // Close Window
             case 6:
+
+                mouseIndicator.SetIcon(2);
+
                 windowspawnexit = GameObject.Find("Exit Button");
                 targetpos.transform.position = windowspawnexit.transform.position;
                 if(transform.position == targetpos.transform.position)
@@ -170,6 +180,9 @@ public class mouse : MonoBehaviour
 
         	// Browsing Window
         	case 5:
+
+                mouseIndicator.SetIcon(2);
+
                 float circlespeed = (Mathf.PI * 2) / circling_speed;
                 angle += Time.deltaTime * circlespeed;
                 float movementx = radius * Mathf.Cos(angle);
@@ -194,6 +207,9 @@ public class mouse : MonoBehaviour
 
             // Go infront of Window
             case 4:
+
+                mouseIndicator.SetIcon(2);
+
                 targetpos.transform.position = new Vector3(spawned_window.transform.position.x, spawned_window.transform.position.y + 4, spawned_window.transform.position.z + 4);
                 if(transform.position == targetpos.transform.position)
                 {
@@ -206,7 +222,10 @@ public class mouse : MonoBehaviour
 
         	// Move to file shortcut
         	case 3:
-        		switch (rando) {
+
+                mouseIndicator.SetIcon(2);
+
+                switch (rando) {
                     // Rubbish Bin
                     case 5:
                         targetpos.transform.position = recylingbin.transform.position;
@@ -300,6 +319,8 @@ public class mouse : MonoBehaviour
         	// Reeling Back
         	case 2:
 
+                mouseIndicator.SetIcon(2);
+
         		if(transform.position.z < 14.5f)
 	            {
 	            	targetpos.transform.position = new Vector3(transform.position.x, transform.position.y, 15);
@@ -318,6 +339,9 @@ public class mouse : MonoBehaviour
 
 	            targetpos.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
 	            speed = chasing_speed;
+
+                mouseIndicator.SetIcon(1);
+
 	            if(!rr.GetComponent<range>().inrange)
 		        {
 		        	behaviour = 2;
@@ -329,6 +353,8 @@ public class mouse : MonoBehaviour
 
 	            targetpos.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 15);
 	            speed = patrol_speed;
+
+                mouseIndicator.SetIcon(0);
 
 	            RaycastHit hit;
 		        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
