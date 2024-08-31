@@ -19,7 +19,8 @@ public class mouse : MonoBehaviour
     public int 
     second_passed = 0;
     //==========
-	public GameObject player;
+    [Header("Status")]
+    public GameObject player;
     public MeshRenderer
     mouse_model,
     mouse_wait1,
