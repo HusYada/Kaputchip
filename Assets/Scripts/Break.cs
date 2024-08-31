@@ -38,9 +38,9 @@ public class Break : MonoBehaviour
         }
 
         // CameraShake
-        if (cameraShake != null) {
-            cameraShake.cameraShaking = true;
-        }
+        //if (cameraShake != null) {
+            //cameraShake.cameraShaking = true;
+        //}
         BreakParticleAndSound();
 
         Destroy(gameObject);
