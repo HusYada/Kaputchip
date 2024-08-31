@@ -8,6 +8,8 @@ public class MouseIndicator : MonoBehaviour
     public Transform Target;
     public float ArrowDistance = 120f, IconDistance = 80f;
 
+    public Sprite[] iconSprites;
+
     private Transform player;
     private bool isInside = false;
 
@@ -24,6 +26,7 @@ public class MouseIndicator : MonoBehaviour
     }
 
     public void SetIcon(Sprite img) => icon.sprite = img;
+    public void SetIcon(int index) => icon.sprite = iconSprites[index];
 
     private void IndicateTargetPosition()
     {
