@@ -45,11 +45,11 @@ public class player : MonoBehaviour
     private int
     cam_spd = 8;
     private float
-    cam_v,
-    cam_h;
+    cam_v = 0f,
+    cam_h = 0f;
     public Image crosshair;
     public GameObject whatamilookinat;
-    float xRotation = 0f;
+    float xRotation = 0f, yRotation = 0f;
     public Transform playerBody;
 
     //SFX
@@ -112,6 +112,7 @@ public class player : MonoBehaviour
         plyr_charges = 3;
         // Lock cursor, unlock with Esc
         Cursor.lockState = CursorLockMode.Locked;
+        shakeCamera.transform.localRotation = Quaternion.identity;
         current_hp = (int)hp_bar.value;
 
         vol.profile.TryGet<DigitalGlitchVolume>(out digi);
@@ -201,31 +202,19 @@ public class player : MonoBehaviour
 
     private void CameraLook()
     {
+        
         // The camera's X and Y axis is set to the mouse's X and Y position
         cam_h = Input.GetAxis("Mouse X") * cam_spd;
         cam_v = Input.GetAxis("Mouse Y") * cam_spd;
         //cam.transform.eulerAngles = new Vector3(cam_v, cam_h, 0);
-
-        // Reset the camera
-        if (Input.GetKeyDown("f"))
-        {
-            //cam_h = 0.0f;
-            //cam_v = 0.0f;
-        }
-
+        
         //camera rotation limit
         xRotation -= cam_v;
+        yRotation += cam_h;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         shakeCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        // Lock cursor, unlock with Esc
-        //Cursor.lockState = CursorLockMode.Locked;
-
-        
-
-        transform.localRotation = Quaternion.Euler(xRotation,0f,0f);
-        
+        rb.MoveRotation(Quaternion.Euler(0f, yRotation, 0f));
     }
 
     private void Movement()
