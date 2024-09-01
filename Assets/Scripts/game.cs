@@ -35,9 +35,12 @@ public class game : MonoBehaviour
         // Hus - Removed this for now, should be kept unchecked in the Inspector?
         //player.CanCtrl = false;
 
-        for(int i = 0;i < UIelements.Length;i++)
+        if(!player.CanCtrl)
         {
-            UIelements[i].SetActive(false);
+            for(int i = 0;i < UIelements.Length;i++)
+            {
+                UIelements[i].SetActive(false);
+            }
         }
 
         //shields = GetComponent<TMP_Text>();
