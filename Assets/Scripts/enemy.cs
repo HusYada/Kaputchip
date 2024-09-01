@@ -34,6 +34,8 @@ public class enemy : MonoBehaviour
     void Start()
     {
     	player = GameObject.Find("Player").transform;
+    	locations = GameObject.FindGameObjectsWithTag("E_Locations").ToList();
+    	targetpos = locations[currentpos];
 
     	if(enemytype == 2)
     	{

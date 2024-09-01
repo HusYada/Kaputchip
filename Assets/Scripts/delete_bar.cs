@@ -21,11 +21,13 @@ public class delete_bar : MonoBehaviour
 	bar_spd,
 	bar_scale;
 
-	public GameObject mousywousy;
+	public GameObject mousywousy, fire_scene;
+    public player plyr;
 	public TMP_Text progress;
 
     void Start()
     {
+        plyr = GameObject.Find("Player").GetComponent<player>();
         mousywousy = GameObject.Find("Mouse Pointer (Desktop)");
     }
 
@@ -48,6 +50,12 @@ public class delete_bar : MonoBehaviour
         	new Vector3(bar_startpos, transform.position.y, transform.position.z), bar_spd * Time.deltaTime);
         	transform.localScale -= scaleChange;
         	progress.text = (int)(transform.localScale.x*10) + "%";
+        }
+        if(transform.localScale.x >= 10)
+        {
+            transform.localScale = new Vector3(-1000, -1000, -1000);;
+            Instantiate(fire_scene);
+            plyr.ShakeCamera(5, 5);
         }
     }
 }
