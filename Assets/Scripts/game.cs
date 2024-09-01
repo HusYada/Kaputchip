@@ -32,17 +32,21 @@ public class game : MonoBehaviour
 
     void Start()
     {
-        player.CanCtrl = false;
+        // Hus - Removed this for now, should be kept unchecked in the Inspector?
+        //player.CanCtrl = false;
 
-        for(int i = 0;i < UIelements.Length;i++)
+        if(!player.CanCtrl)
         {
-            UIelements[i].SetActive(false);
+            for(int i = 0;i < UIelements.Length;i++)
+            {
+                UIelements[i].SetActive(false);
+            }
         }
 
         //shields = GetComponent<TMP_Text>();
 
         // if using crt 800x600 resolution
-        /*if(Screen.currentResolution.width == 800)
+        if(Screen.currentResolution.width == 800)
         {
             Vector3 cmdcrtpos = new Vector3(1, -582.2082f);
             Vector2 cmdcrtscl = new Vector3(1935, 208.279f);
@@ -63,7 +67,7 @@ public class game : MonoBehaviour
             anothercmdtex1.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 56;
             anothercmdtex2.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 72;
             inv_text.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 72;
-        }*/
+        }
     }
 
     private void Update()

@@ -14,8 +14,11 @@ public class mouse : MonoBehaviour
 	[Header("Timer")]
     public float 
     Time_Until_Folder_Open = 10.0f,
+    Time_Until_TutorialEnd = 60.0f,
+    Time_Until_Folder_Open_Original = 10.0f,
     Time_Until_Folder_Close = 10.0f,
-    Time_Until_Folder_CloseDocuments = 10.0f;
+    Time_Until_Folder_CloseDocuments = 10.0f,
+    Time_Until_Folder_CloseWelcomeWindow;
     public int 
     second_passed = 0;
     //==========
@@ -78,12 +81,24 @@ public class mouse : MonoBehaviour
         bc = Seconds(1);
 		StartCoroutine(bc);
 		aud = GetComponent<AudioSource>();
+        Time_Until_Folder_Open = Time_Until_TutorialEnd;
 	}
 
     void Update()
     {
 		switch (behaviour)
         {
+            // Waiting Before Welcome Window
+            case 9:
+                spawned_window = GameObject.Find("WelcomeWindow");
+                // windowspawnexit = GameObject.Find("Exit Button");
+                // targetpos.transform.position = windowspawnexit.transform.position;
+                if(second_passed > Time_Until_Folder_CloseWelcomeWindow)
+                {
+                    speed = chasing_speed;
+                    behaviour = 6;
+                }
+                break;
             // Stopping the Bar
             case 8:
 
@@ -94,25 +109,28 @@ public class mouse : MonoBehaviour
 
                 if(transform.position == d_bar.transform.position)
                 {
-                    // pushing_d_bar = true;
-                    // mouse_model.enabled = false;
-                    // mouse_hand1.enabled = true;
-                    // mouse_hand2.enabled = true;
+                    pushing_d_bar = true;
+                    mouse_model.enabled = false;
+                    mouse_hand1.enabled = true;
+                    mouse_hand2.enabled = true;
                 }
-                if(Input.GetKey("j"))
-                {
-                    pushing_d_bar = false;
-                    mouse_model.enabled = true;
-                    mouse_hand1.enabled = false;
-                    mouse_hand2.enabled = false;
-                    transform.SetPositionAndRotation(new Vector3(0,0,0), Quaternion.identity);
-                }
+
+                // Testing taking the mouse off the Delete Bar
+                // if(Input.GetKey("j"))
+                // {
+                //     pushing_d_bar = false;
+                //     mouse_model.enabled = true;
+                //     mouse_hand1.enabled = false;
+                //     mouse_hand2.enabled = false;
+                //     transform.SetPositionAndRotation(new Vector3(0,0,0), Quaternion.identity);
+                // }
                 break;
 
             // Ads Interuption
             case 7:
 
                 mouseIndicator.SetIcon(2);
+                pushing_d_bar = false;
 
                 if (ad_exits.Count < player.GetComponent<player>().ad_window.Length)
                 {
@@ -157,6 +175,10 @@ public class mouse : MonoBehaviour
                             mouse_model.enabled = true;
                             mouse_wait1.enabled = false;
                             mouse_wait2.enabled = false;
+                        }
+                        if(prev_behav == 8)
+                        {
+                            behaviour = 8;
                         }
                     }
                 }
@@ -225,6 +247,7 @@ public class mouse : MonoBehaviour
         	case 3:
 
                 mouseIndicator.SetIcon(2);
+                Time_Until_Folder_Open = Time_Until_Folder_Open_Original;
 
                 switch (rando) {
                     // Rubbish Bin
@@ -234,6 +257,10 @@ public class mouse : MonoBehaviour
         			// Folder
         			case 4:
         				targetpos.transform.position = documents.transform.position;
+                        // mouse_wait1.enabled = false;
+                        // mouse_wait2.enabled = false;
+                        // mouse_hand1.enabled = false;
+                        // mouse_hand2.enabled = false;
         				break;
         			// Internet
         			case 3:
@@ -298,9 +325,9 @@ public class mouse : MonoBehaviour
                         behaviour = 4;
                         speed = chasing_speed * 2;
                         second_passed = 0;
-                        mouse_model.enabled = false;
-                        mouse_wait1.enabled = true;
-                        mouse_wait2.enabled = true;
+                        mouse_model.enabled = true;
+                        mouse_wait1.enabled = false;
+                        mouse_wait2.enabled = false;
                     }
 	            }
                 if(transform.position == targetpos.transform.position && rando == 1)
@@ -313,7 +340,7 @@ public class mouse : MonoBehaviour
 
                 if(rr.GetComponent<range>().inrange)
                 {
-                 behaviour = 2;
+                 behaviour = 1;
                 }
 	            break;
 
@@ -322,7 +349,7 @@ public class mouse : MonoBehaviour
 
                 mouseIndicator.SetIcon(2);
 
-        		if(transform.position.z < 14.5f)
+        		if(transform.position.z < 10.54)
 	            {
 	            	targetpos.transform.position = new Vector3(transform.position.x, transform.position.y, 15);
 	            	speed = patrol_speed;
@@ -353,23 +380,30 @@ public class mouse : MonoBehaviour
 	        case 0:
 
 	            targetpos.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, 15);
+                Vector3 raycastpos = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
 	            speed = patrol_speed;
 
                 mouseIndicator.SetIcon(0);
 
-	            RaycastHit hit;
-		        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit))
-		        {
-            		if(hit.transform.tag == "Player") 
-            		{
-            			behaviour = 1;
-            		}
-            	}
+	         //    RaycastHit hit;
+          //       Debug.DrawRay(raycastpos, transform.TransformDirection(Vector3.forward), Color.red);
+		        // if (Physics.Raycast(raycastpos, transform.TransformDirection(Vector3.forward), out hit))
+		        // {
+          //   		if(hit.transform.tag == "Player") 
+          //   		{
+          //   			behaviour = 1;
+          //   		}
+          //   	}
+
+                if(rr.GetComponent<range>().inrange)
+                {
+                 behaviour = 1;
+                }
 
             	// Counter until next phase
             	if(second_passed >= Time_Until_Folder_Open) {
             		rando = (int)Mathf.Round(Random.Range(0, 6));
-                    //rando = 1;
+                    //rando = 5;
             		behaviour = 3;
             	}
 

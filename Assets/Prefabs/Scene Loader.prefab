@@ -67,7 +67,7 @@ MonoBehaviour:
     m_SceneName: title
   mainScene:
     m_SceneAsset: {fileID: 102900000, guid: 73973f8492aac40a2925035b8a2d39f5, type: 3}
-    m_SceneName: momo2
+    m_SceneName: momo
   isStarted: 0
 --- !u!114 &3945619809482353186
 MonoBehaviour:

@@ -88,10 +88,13 @@ public class player : MonoBehaviour
 
     // Anti Virus Active
     public GameObject antiwanti;
-    private bool isInSecretRoom;
+    public bool isInSecretRoom;
     public bool enteredfinaldesktop;
     public Animator CPUlidAnim;
     public Animator AntiAnim;
+
+    // Inventory Y Positions
+    private int posy0 = 500, posy1 = 380, posy2 = 260, posy3 = 140;
 
     #endregion
 
@@ -117,7 +120,13 @@ public class player : MonoBehaviour
 
         vol.profile.TryGet<DigitalGlitchVolume>(out digi);
 
-        //antiwanti = GameObject.Find("Anti_Virus_Active_Warning");
+        antiwanti = GameObject.Find("Anti_Virus_Active_Warning");
+
+        // Resolution Check
+        if(Screen.currentResolution.width == 800)
+        {
+            posy0 = 270; posy1 = 220; posy2 = 170; posy3 = 120;
+        }
     }
 
     private void Update()
@@ -164,6 +173,7 @@ public class player : MonoBehaviour
 
     void FixedUpdate()
     {
+
         RaycastLookStuff();
 
         // --------------------------------------------------------------------------
@@ -178,7 +188,7 @@ public class player : MonoBehaviour
         }
         else
         {
-            if (Input.GetKey(k_jump) && !grounded && inv.equip_selc_pos[0].y == 500 && inv.inv_icons[6].enabled)
+            if (Input.GetKey(k_jump) && !grounded && inv.equip_selc_pos[0].y == posy0 && inv.inv_icons[6].enabled)
             {
                 rb.drag = plyr_butterfly;
             }
@@ -220,7 +230,7 @@ public class player : MonoBehaviour
     private void Movement()
     {
         // Momo: Run button detection.
-        plyr_spd = (Input.GetKey(k_run)) ? 5 : 2;
+        plyr_spd = (Input.GetKey(k_run)) ? 4 : 2;
 
         if (Input.GetKey(k_left))
         {
@@ -250,11 +260,11 @@ public class player : MonoBehaviour
 
     private void UseSprayCan()
     {
-        if(Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == 500 && inv.inv_icons[10].enabled)
+        if(Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == posy0 && inv.inv_icons[10].enabled)
         {
             rb.AddForce(-cam.transform.forward * plyr_jump);
             Quaternion cam_rotation = Quaternion.identity;
-            cam_rotation.eulerAngles = new Vector3(cam_v, cam_h, 0);
+            cam_rotation.eulerAngles = new Vector3(xRotation, yRotation, 0);
             Instantiate(spraycan, rb.position + cam.transform.forward, cam_rotation);
             ms.patrol_speed = ms.patrol_speed_after_powerup;
             ms.chasing_speed = ms.chasing_speed_after_powerup;
@@ -262,19 +272,17 @@ public class player : MonoBehaviour
     }
     private void UseFireExtinguisher()
     {
-        if(Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == 380 && inv.inv_icons[9].enabled && plyr_charges > 0)
+        if(Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == posy1 && inv.inv_icons[9].enabled && plyr_charges > 0)
         {
             Quaternion cam_rotation = Quaternion.identity;
-            cam_rotation.eulerAngles = new Vector3(cam_v, cam_h, 0);
+            cam_rotation.eulerAngles = new Vector3(xRotation, yRotation, 0);
             Instantiate(fire_extinguisher, rb.position + cam.transform.forward, cam_rotation);
-            plyr_charges--;
-            inv.UpdateAmount(1, plyr_charges);
         }
     }
 
     private void UseMovieReel(RaycastHit hit)
     {
-        if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == 500 && inv.inv_icons[14].enabled)
+        if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == posy0 && inv.inv_icons[14].enabled)
         {
             moviereel.transform.position = hit.point;
             reeling = true;
@@ -289,10 +297,11 @@ public class player : MonoBehaviour
         lr.SetPosition(0, transform.position);
         lr.SetPosition(1, transform.position);
 
-        if (Input.GetKey(k_rarm) && reeling && inv.state != 2 && inv.equip_selc_pos[2].y == 500 && inv.inv_icons[14].enabled)
+        if (Input.GetKey(k_rarm) && reeling && inv.state != 2 && inv.equip_selc_pos[2].y == posy0 && inv.inv_icons[14].enabled)
         {
             cam.transform.LookAt(moviereel.transform.position);
             rb.AddRelativeForce(cam.transform.forward * plyr_jump / 10, ForceMode.Force);
+            //rb.AddForce(cam.transform.forward * plyr_jump / 10);
             lr.SetPosition(1, moviereel.transform.position);
         }
 
@@ -324,13 +333,25 @@ public class player : MonoBehaviour
                     crosshair.color = Color.green;
                     whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
                 }
+                else if (hitObject.GetComponent<Collider>().tag == "Enem")
+                {
+                    crosshair.color = Color.red;
+                    whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
+                    if (Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == posy0 && inv.inv_icons[10].enabled)
+                    {
+                        Destroy(whatamilookinat, 0.5f);
+                    }
+                }
                 else if (hitObject.GetComponent<Collider>().tag == "FireWall")
                 {
                     crosshair.color = Color.cyan;
                     whatamilookinat = hitObject.GetComponent<Collider>().gameObject;
-                    if (Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == 380 && inv.inv_icons[9].enabled && plyr_charges > 0)
+                    if (Input.GetKeyDown(k_larm) && inv.state != 2 && inv.equip_selc_pos[1].y == posy1 && inv.inv_icons[9].enabled && plyr_charges > 0)
                     {
+                        // Water will only be used up if a fire is erased
                         Destroy(whatamilookinat, 0.5f);
+                        plyr_charges--;
+                        inv.UpdateAmount(1, plyr_charges);
                     }
                 }
                 else
@@ -344,7 +365,7 @@ public class player : MonoBehaviour
 
     private void UseAdAttack()
     {
-        if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == 260 && inv.inv_icons[12].enabled && ads_amount == 0)
+        if (Input.GetKeyDown(k_rarm) && inv.state != 2 && inv.equip_selc_pos[2].y == posy2 && inv.inv_icons[12].enabled && ads_amount == 0)
         {
             if(ms.behaviour != 7)
             {

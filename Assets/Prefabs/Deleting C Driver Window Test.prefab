@@ -763,6 +763,8 @@ MonoBehaviour:
   bar_spd: 0.2
   bar_scale: 0.015625
   mousywousy: {fileID: 0}
+  fire_scene: {fileID: 6289507101742453095, guid: 619ca6099d296d543ac5561c23802f31, type: 3}
+  plyr: {fileID: 0}
   progress: {fileID: 7897817702239876674}
 --- !u!65 &6638051685221233004
 BoxCollider:
