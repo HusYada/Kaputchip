@@ -16,13 +16,17 @@ public class pickup : MonoBehaviour
 
     void Start()
     {
-        cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
-        inv = GameObject.Find("Inventory").GetComponent<inventory>();
+        //cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
+        //inv = GameObject.Find("Inventory").GetComponent<inventory>();
         aud = GameObject.Find("Player").GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider col) 
 	{
+
+        cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
+        inv = GameObject.Find("Inventory").GetComponent<inventory>();
+
         // Triple Shield
 		if(which_pickup == 0 && col.gameObject.tag == "Player" && shields > 0) 
 		{
@@ -56,12 +60,12 @@ public class pickup : MonoBehaviour
             Destroy(this.gameObject);
             inv.inv_icons[which_pickup].enabled = true;
             // Equipping Body First Time
-            if(inv.firstbody && (inv.inv_icons[3].enabled || inv.inv_icons[4].enabled || inv.inv_icons[5].enabled || inv.inv_icons[6].enabled))
-            {
-                inv.map_sprite.sprite = inv.inv_icons[which_pickup].sprite;
-                inv.equip_selc_pos[0].y = inv.cursory[which_pickup-3]+120+20;
-                inv.firstbody = false;
-            }
+            // if(inv.firstbody && (inv.inv_icons[3].enabled || inv.inv_icons[4].enabled || inv.inv_icons[5].enabled || inv.inv_icons[6].enabled))
+            // {
+            //     inv.map_sprite.sprite = inv.inv_icons[which_pickup].sprite;
+            //     inv.equip_selc_pos[0].y = inv.cursory[which_pickup-3]+120+20;
+            //     inv.firstbody = false;
+            // }
             cmd.GetComponent<cmd_log>().UpdateCommand(which_pickup);
         }
         // Any Pickup

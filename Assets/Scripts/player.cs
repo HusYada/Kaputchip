@@ -53,7 +53,10 @@ public class player : MonoBehaviour
     public Transform playerBody;
 
     //SFX
-    //public AudioClip aud_spraycan;
+    public AudioClip aud_jump;
+    public AudioClip aud_spraycan;
+    public AudioClip aud_damage;
+    public AudioClip aud_antiviruswarning;
 
     // Componenets
     public GameObject
@@ -94,7 +97,7 @@ public class player : MonoBehaviour
     public Animator AntiAnim;
 
     // Inventory Y Positions
-    private int posy0 = 500, posy1 = 380, posy2 = 260, posy3 = 140;
+    private int posy0 = 500, posy1 = 380, posy2 = 260;//, posy3 = 140;
 
     #endregion
 
@@ -125,7 +128,7 @@ public class player : MonoBehaviour
         // Resolution Check
         if(Screen.currentResolution.width == 800)
         {
-            posy0 = 270; posy1 = 220; posy2 = 170; posy3 = 120;
+            posy0 = 270; posy1 = 220; posy2 = 170; //posy3 = 120;
         }
     }
 
@@ -255,6 +258,8 @@ public class player : MonoBehaviour
         if (Input.GetKeyDown(k_jump) && grounded)
         {
             rb.AddForce(transform.up * plyr_jump);
+            aud.clip = aud_jump;
+            aud.Play();
         }
     }
 
@@ -268,6 +273,8 @@ public class player : MonoBehaviour
             Instantiate(spraycan, rb.position + cam.transform.forward, cam_rotation);
             ms.patrol_speed = ms.patrol_speed_after_powerup;
             ms.chasing_speed = ms.chasing_speed_after_powerup;
+            aud.clip = aud_spraycan;
+            aud.Play();
         }
     }
     private void UseFireExtinguisher()
@@ -300,14 +307,15 @@ public class player : MonoBehaviour
         if (Input.GetKey(k_rarm) && reeling && inv.state != 2 && inv.equip_selc_pos[2].y == posy0 && inv.inv_icons[14].enabled)
         {
             cam.transform.LookAt(moviereel.transform.position);
-            rb.AddRelativeForce(cam.transform.forward * plyr_jump / 10, ForceMode.Force);
-            //rb.AddForce(cam.transform.forward * plyr_jump / 10);
+            //rb.AddRelativeForce(cam.transform.forward * plyr_jump / 10, ForceMode.Force);
+            rb.AddForce(cam.transform.forward * plyr_jump / 10);
             lr.SetPosition(1, moviereel.transform.position);
         }
 
         if (Input.GetKeyUp(k_rarm))
         {
             reeling = false;
+            lr.SetPosition(1, transform.position);
         }
     }
 
@@ -392,6 +400,8 @@ public class player : MonoBehaviour
             hp_bar.value -= 5;
             hp_text.text = "HP  " + current_hp + " /  75";
             digi.intensity.value = 0.25f;
+            aud.clip = aud_damage;
+            aud.Play();
 
         }
     }
@@ -405,6 +415,8 @@ public class player : MonoBehaviour
             hp_text.text = "HP  " + current_hp + " /  75";
             digi.intensity.value = 0.25f;
             ShakeCamera(5f, 0.5f);
+            aud.clip = aud_damage;
+            aud.Play();
         }
 
         if (col.gameObject.name == "Anti_Virus_Active_Warning_Trigger")
@@ -416,10 +428,12 @@ public class player : MonoBehaviour
                 antiwanti.SetActive(true);
                 AntiAnim.SetTrigger("virusPlay");
                 isInSecretRoom = true;
+                aud.clip = aud_damage;
+                aud.Play();
             }
         }
 
-        if (col.gameObject.name == "Final_Desktop_Trigger")
+        if (col.gameObject.name == "Final_Desktop_Trigger" && isInSecretRoom)
         {
             enteredfinaldesktop = true;
         }

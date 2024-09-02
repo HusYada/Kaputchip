@@ -10,6 +10,7 @@ public class guy : MonoBehaviour
 	public float speed;
 	public float eyemin, eyemax;
 	public Vector3 eyespd;
+	public Animator anim;
 
 	public GameObject eyeR;
 	public GameObject eyeL;
@@ -25,20 +26,13 @@ public class guy : MonoBehaviour
 
 		if(mos.behaviour == 1 && eyeR.transform.localScale.y > eyemin) 
 		{
+			eyeL.transform.localScale -= eyespd;
 			eyeR.transform.localScale -= eyespd;
 		} 
 		if(mos.behaviour != 1 && eyeR.transform.localScale.y < eyemax)
 		{
-			eyeR.transform.localScale += eyespd;
-		}
-
-		if (mos.behaviour == 1 && eyeL.transform.localScale.y > eyemin)
-		{
-			eyeL.transform.localScale -= eyespd;
-		}
-		if (mos.behaviour != 1 && eyeL.transform.localScale.y < eyemax)
-		{
 			eyeL.transform.localScale += eyespd;
+			eyeR.transform.localScale += eyespd;
 		}
 	}
 }

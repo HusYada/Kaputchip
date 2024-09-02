@@ -12,10 +12,12 @@ public class MouseIndicator : MonoBehaviour
 
     private Transform player;
     private bool isInside = false;
+    //private AudioSource aud;
 
     private void Awake()
     {
         player = Camera.main.transform;
+        //aud = 
     }
 
     private void Update()
