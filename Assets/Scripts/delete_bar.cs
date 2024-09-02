@@ -22,6 +22,7 @@ public class delete_bar : MonoBehaviour
     bar_scale;
 
     public GameObject mousywousy, fire_scene;
+    public Transform progressBar, deleteGrab;
     public player plyr;
     public TMP_Text progress;
 
@@ -38,32 +39,43 @@ public class delete_bar : MonoBehaviour
 
     void Update()
     {
-        if (mousywousy.GetComponent<mouse>().pushing_d_bar == false && transform.localScale.x < 10)
+        if (mousywousy.GetComponent<mouse>().pushing_d_bar == false && progressBar.transform.localScale.x < 10)
         {
             Vector3 scaleChange = new Vector3(bar_scale, 0, 0);
             //hmm
-            transform.position = Vector3.MoveTowards(transform.position,
-            new Vector3(bar_endpos, transform.position.y, transform.position.z), bar_spd * Time.deltaTime);
-            transform.localScale += scaleChange;
-            progress.text = (int)(transform.localScale.x * 10) + "%";
+            //progressBar.transform.position = Vector3.MoveTowards(progressBar.transform.position,
+            //new Vector3(bar_endpos, progressBar.transform.position.y, progressBar.transform.position.z), bar_spd * Time.deltaTime);
+            progressBar.transform.localScale += scaleChange;
+            float _value = (progressBar.transform.localScale.x * 10);
+            SetDeleteGrabPosition(_value);
+            progress.text = (int)_value + "%";
         }
-        if (mousywousy.GetComponent<mouse>().pushing_d_bar == true && transform.localScale.x > 0)
+        if (mousywousy.GetComponent<mouse>().pushing_d_bar == true && progressBar.transform.localScale.x > 0)
         {
             Vector3 scaleChange = new Vector3(bar_scale, 0, 0);
             //hmm
-            transform.position = Vector3.MoveTowards(transform.position,
-            new Vector3(bar_startpos, transform.position.y, transform.position.z), bar_spd * Time.deltaTime);
-            transform.localScale -= scaleChange;
-            progress.text = (int)(transform.localScale.x * 10) + "%";
+            //progressBar.transform.position = Vector3.MoveTowards(progressBar.transform.position,
+            //new Vector3(bar_startpos, progressBar.transform.position.y, progressBar.transform.position.z), bar_spd * Time.deltaTime);
+            progressBar.transform.localScale -= scaleChange;
+            float _value = (progressBar.transform.localScale.x * 10);
+            SetDeleteGrabPosition(_value);
+            progress.text = (int)_value + "%";
         }
-        if (transform.localScale.x >= 10)
+        if (progressBar.transform.localScale.x >= 10)
         {
-            transform.localScale = new Vector3(-1000, -1000, -1000); ;
+            progressBar.transform.localScale = new Vector3(-1000, -1000, -1000); ;
             Instantiate(fire_scene);
             ChangeMaterial();
             hackerAnim.SetTrigger("playAnim");
             plyr.ShakeCamera(8, 1);
         }
+    }
+
+    private void SetDeleteGrabPosition(float x)
+    {
+        Vector3 pos = deleteGrab.localPosition;
+        pos.x = -x;
+        deleteGrab.localPosition = pos;
     }
 
     private void ChangeMaterial()
