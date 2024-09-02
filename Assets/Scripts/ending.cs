@@ -15,6 +15,8 @@ public class ending : MonoBehaviour
 	private AudioSource aud;
 	public AudioClip victory;
 
+    public bool isEnded;
+
     void Start()
     {
     	overlay = GameObject.Find("GameComplete_Text");
@@ -22,9 +24,10 @@ public class ending : MonoBehaviour
     	light1 = GameObject.Find("Microwave Light1");
     	light2 = GameObject.Find("Microwave Light2");
     	light3 = GameObject.Find("Microwave Light3");
-    		light1.GetComponent<Light>().enabled = true;
-	        light2.GetComponent<Light>().enabled = true;
-	        light3.GetComponent<Light>().enabled = true;
+    	light1.GetComponent<Light>().enabled = true;
+	    light2.GetComponent<Light>().enabled = true;
+	    light3.GetComponent<Light>().enabled = true;
+
         timer = SecondsPassed(1);
 		StartCoroutine(timer);
 		aud = GetComponent<AudioSource>();
@@ -40,17 +43,24 @@ public class ending : MonoBehaviour
     {
         if(second_passed > Time_Until_Ending_Overlay)
         {
-        	//overlay.SetActive(true);
-        	aud.clip = victory;
-	        aud.Play();
-	        overlay.GetComponent<TextMeshProUGUI>().enabled = true;
-			overlay2.GetComponent<TextMeshProUGUI>().enabled = true;
-			if(Input.GetKeyDown(KeyCode.Return))
-			{
-				SceneManager.LoadScene("Title02");
-			}
+            //overlay.SetActive(true);
+
+            if (!isEnded)
+            {
+                aud.clip = victory;
+                aud.Play();
+                overlay.GetComponent<TextMeshProUGUI>().enabled = true;
+                overlay2.GetComponent<TextMeshProUGUI>().enabled = true;
+                isEnded = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SceneManager.LoadScene("Title02");
+            }
         }
     }
+
 
     IEnumerator SecondsPassed(float waitTime)
     {

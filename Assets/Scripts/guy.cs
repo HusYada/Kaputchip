@@ -5,11 +5,14 @@ using UnityEngine;
 public class guy : MonoBehaviour
 {
 	public GameObject player;
-	public GameObject eyes;
+	//public GameObject eyes;
 	public mouse mos;
 	public float speed;
 	public float eyemin, eyemax;
 	public Vector3 eyespd;
+
+	public GameObject eyeR;
+	public GameObject eyeL;
 
     void Start()
     {
@@ -20,13 +23,22 @@ public class guy : MonoBehaviour
     {
 		transform.LookAt(player.transform);
 
-		if(mos.behaviour == 1 && eyes.transform.localScale.y > eyemin) 
+		if(mos.behaviour == 1 && eyeR.transform.localScale.y > eyemin) 
 		{
-			eyes.transform.localScale -= eyespd;
+			eyeR.transform.localScale -= eyespd;
 		} 
-		if(mos.behaviour != 1 && eyes.transform.localScale.y < eyemax)
+		if(mos.behaviour != 1 && eyeR.transform.localScale.y < eyemax)
 		{
-			eyes.transform.localScale += eyespd;
+			eyeR.transform.localScale += eyespd;
 		}
-    }
+
+		if (mos.behaviour == 1 && eyeL.transform.localScale.y > eyemin)
+		{
+			eyeL.transform.localScale -= eyespd;
+		}
+		if (mos.behaviour != 1 && eyeL.transform.localScale.y < eyemax)
+		{
+			eyeL.transform.localScale += eyespd;
+		}
+	}
 }
