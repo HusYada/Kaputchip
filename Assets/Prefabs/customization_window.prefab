@@ -301,7 +301,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3e75d250ecd01624984c446506686291, type: 2}
+  - {fileID: 2100000, guid: be05d0c24f3524c98bd32f827f1c13a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -985,7 +985,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6489196059451561918, guid: c9226a886b95543669a78672f9394781, type: 3}
+  - {fileID: 2100000, guid: be05d0c24f3524c98bd32f827f1c13a2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1658,6 +1658,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6867182398202880408, guid: c9226a886b95543669a78672f9394781, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: be05d0c24f3524c98bd32f827f1c13a2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1732,6 +1736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plyr: {fileID: 0}
+  sol: {fileID: 0}
   desktop_colo:
   - {fileID: 2803214737075347833}
   - {fileID: 0}
