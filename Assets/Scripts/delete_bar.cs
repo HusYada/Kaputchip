@@ -21,6 +21,8 @@ public class delete_bar : MonoBehaviour
     bar_spd,
     bar_scale;
 
+    public ProgressBarBehaviour progressBar;
+
     public GameObject mousywousy, fire_scene;
     public player plyr;
     public TMP_Text progress;
@@ -45,7 +47,9 @@ public class delete_bar : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position,
             new Vector3(bar_endpos, transform.position.y, transform.position.z), bar_spd * Time.deltaTime);
             transform.localScale += scaleChange;
+
             progress.text = (int)(transform.localScale.x * 10) + "%";
+            //progressBar.SetValue((int)(transform.localScale.x * 10)/100);
         }
         if (mousywousy.GetComponent<mouse>().pushing_d_bar == true && transform.localScale.x > 0)
         {
@@ -54,7 +58,9 @@ public class delete_bar : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position,
             new Vector3(bar_startpos, transform.position.y, transform.position.z), bar_spd * Time.deltaTime);
             transform.localScale -= scaleChange;
+
             progress.text = (int)(transform.localScale.x * 10) + "%";
+            //progressBar.SetValue((int)(transform.localScale.x * 10)/100);
         }
         if (transform.localScale.x >= 10)
         {
