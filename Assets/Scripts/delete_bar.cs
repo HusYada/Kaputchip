@@ -21,8 +21,6 @@ public class delete_bar : MonoBehaviour
     bar_spd,
     bar_scale;
 
-    public ProgressBarBehaviour progressBar;
-
     public GameObject mousywousy, fire_scene;
     public Transform progressBar, deleteGrab;
     public player plyr;
@@ -45,41 +43,23 @@ public class delete_bar : MonoBehaviour
         {
             Vector3 scaleChange = new Vector3(bar_scale, 0, 0);
             //hmm
-<<<<<<< HEAD
-            transform.position = Vector3.MoveTowards(transform.position,
-            new Vector3(bar_endpos, transform.position.y, transform.position.z), bar_spd * Time.deltaTime);
-            transform.localScale += scaleChange;
-
-            progress.text = (int)(transform.localScale.x * 10) + "%";
-            //progressBar.SetValue((int)(transform.localScale.x * 10)/100);
-=======
             //progressBar.transform.position = Vector3.MoveTowards(progressBar.transform.position,
             //new Vector3(bar_endpos, progressBar.transform.position.y, progressBar.transform.position.z), bar_spd * Time.deltaTime);
             progressBar.transform.localScale += scaleChange;
             float _value = (progressBar.transform.localScale.x * 10);
             SetDeleteGrabPosition(_value);
             progress.text = (int)_value + "%";
->>>>>>> deletebar-fix
         }
         if (mousywousy.GetComponent<mouse>().pushing_d_bar == true && progressBar.transform.localScale.x > 0)
         {
             Vector3 scaleChange = new Vector3(bar_scale, 0, 0);
             //hmm
-<<<<<<< HEAD
-            transform.position = Vector3.MoveTowards(transform.position,
-            new Vector3(bar_startpos, transform.position.y, transform.position.z), bar_spd * Time.deltaTime);
-            transform.localScale -= scaleChange;
-
-            progress.text = (int)(transform.localScale.x * 10) + "%";
-            //progressBar.SetValue((int)(transform.localScale.x * 10)/100);
-=======
             //progressBar.transform.position = Vector3.MoveTowards(progressBar.transform.position,
             //new Vector3(bar_startpos, progressBar.transform.position.y, progressBar.transform.position.z), bar_spd * Time.deltaTime);
             progressBar.transform.localScale -= scaleChange;
             float _value = (progressBar.transform.localScale.x * 10);
             SetDeleteGrabPosition(_value);
             progress.text = (int)_value + "%";
->>>>>>> deletebar-fix
         }
         if (progressBar.transform.localScale.x >= 10)
         {
