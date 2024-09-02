@@ -7,12 +7,16 @@ public class lookat : MonoBehaviour
 	//[HideInInspector]
 	public GameObject plyr;
 	public Animator anim;
+    public bool notpickup;
 	public bool ikActive;
 
 	void Start()
 	{
 		//plyr = GameObject.FindWithTag("Player");
-		anim = anim.GetComponent<Animator>();
+        if(notpickup)
+        {
+		  anim = anim.GetComponent<Animator>();
+        }
 	}
 
     void Update()
@@ -22,7 +26,7 @@ public class lookat : MonoBehaviour
 
     private void OnAnimatorIK(int layerIndex)
     {
-        if(anim)
+        if(anim && notpickup)
         {
             if(ikActive)
             {

@@ -48,7 +48,7 @@ public class chip_cover : MonoBehaviour
         	this.gameObject.GetComponent<Collider>().isTrigger = false;
         	rb.constraints = RigidbodyConstraints.None;
         	rb.AddForce(-transform.forward * spd);
-        	Destroy(destorywall);
+        	//Destroy(destorywall);
         	if(which_wall == 0)
             {
                 Command_Log.GetComponent<cmd_log>().UpdateCommand(20);
