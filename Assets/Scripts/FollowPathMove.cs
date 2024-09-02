@@ -127,6 +127,6 @@ public class FollowPathMove : MonoBehaviour
             currentPointIndex++;
         }
 
-        Destroy(obj);
+        //Destroy(obj);
     }
 }
