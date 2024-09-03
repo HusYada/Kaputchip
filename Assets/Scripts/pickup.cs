@@ -24,12 +24,17 @@ public class pickup : MonoBehaviour
     void OnTriggerEnter(Collider col) 
 	{
 
-        cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
-        inv = GameObject.Find("Inventory").GetComponent<inventory>();
+        if(which_pickup != 0)
+        {
+            cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
+            inv = GameObject.Find("Inventory").GetComponent<inventory>();
+        }
 
         // Triple Shield
 		if(which_pickup == 0 && col.gameObject.tag == "Player" && shields > 0) 
 		{
+            cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
+            inv = GameObject.Find("Inventory").GetComponent<inventory>();
             UI_Shields.GetComponent<ui_shield>().GainShield(UI_Shields.GetComponent<ui_shield>().shields_current);
             Destroy(this.gameObject.transform.GetChild(0).gameObject);
             shields--;

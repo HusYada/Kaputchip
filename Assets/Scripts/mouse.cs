@@ -73,8 +73,6 @@ public class mouse : MonoBehaviour
     [Header("Indicator")]
     public MouseIndicator mouseIndicator;
 
-    //change to timer
-
 	void Start()
 	{
         //bc = BChange(Time_Until_Folder_Open, 3);
@@ -408,8 +406,8 @@ public class mouse : MonoBehaviour
 
             	// Counter until next phase
             	if(second_passed >= Time_Until_Folder_Open) {
-            		//rando = (int)Mathf.Round(Random.Range(0, 6));
-                    rando = 2;
+            		rando = (int)Mathf.Round(Random.Range(0, 6));
+                    //rando = 2;
             		behaviour = 3;
             	}
 

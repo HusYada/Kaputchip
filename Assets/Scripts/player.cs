@@ -115,6 +115,7 @@ public class player : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         lr = GetComponent<LineRenderer>();
+        aud = GetComponent<AudioSource>();
         plyr_charges = 3;
         // Lock cursor, unlock with Esc
         Cursor.lockState = CursorLockMode.Locked;
@@ -140,21 +141,10 @@ public class player : MonoBehaviour
             digi.intensity.value -= glitchspd;
         }
 
-        //if(antivirus_overlay_flashing)
-        //{
-            //play flashing animation here
-        //}
-
         // Leon: I moved Raycast Look Stuff into FixedUpdate as RaycastLookStuff().
         //      You should keep everything that detects stuffs in FixedUpdate.
         //      Update: For PlayerInputs like GetKeyDown and precise math calculations.
         //      FixedUpdate: For detections like ground check, collisions.
-
-        if (current_hp <= 0)
-        {
-            // Leon: This is really a bad approach, you should check if player is dead on being attacked, not on every frame.
-            SceneManager.LoadScene("game_over");
-        }
 
         if (ShakeTimer > 0f)
         {
@@ -402,6 +392,7 @@ public class player : MonoBehaviour
             digi.intensity.value = 0.25f;
             aud.clip = aud_damage;
             aud.Play();
+            if (current_hp <= 0) { SceneManager.LoadScene("game_over"); }
 
         }
     }
@@ -417,6 +408,7 @@ public class player : MonoBehaviour
             ShakeCamera(5f, 0.5f);
             aud.clip = aud_damage;
             aud.Play();
+            if (current_hp <= 0) { SceneManager.LoadScene("game_over"); }
         }
 
         if (col.gameObject.name == "Anti_Virus_Active_Warning_Trigger")
@@ -428,7 +420,7 @@ public class player : MonoBehaviour
                 antiwanti.SetActive(true);
                 AntiAnim.SetTrigger("virusPlay");
                 isInSecretRoom = true;
-                aud.clip = aud_damage;
+                aud.clip = aud_antiviruswarning;
                 aud.Play();
             }
         }

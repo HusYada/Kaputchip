@@ -33,7 +33,7 @@ public class game : MonoBehaviour
     void Start()
     {
         // Hus - Removed this for now, should be kept unchecked in the Inspector?
-        player.CanCtrl = false;
+        //player.CanCtrl = false;
 
         if(!player.CanCtrl) // should be not !
         {
