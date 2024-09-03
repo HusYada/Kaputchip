@@ -266,7 +266,7 @@ public class mouse : MonoBehaviour
         			case 3:
         				targetpos.transform.position = internet.transform.position;
         				break;
-        			// Computer
+        			// Computer / Custom Window
         			case 2:
         				targetpos.transform.position = mycomputer.transform.position;
         				break;
@@ -324,7 +324,10 @@ public class mouse : MonoBehaviour
                     {
                         behaviour = 4;
                         speed = chasing_speed * 2;
-                        second_passed = 0;
+                        if(Time_Until_TutorialEnd != Time_Until_Folder_Open)
+                        {
+                            second_passed = 0;
+                        }
                         mouse_model.enabled = true;
                         mouse_wait1.enabled = false;
                         mouse_wait2.enabled = false;
@@ -357,7 +360,10 @@ public class mouse : MonoBehaviour
 	            }
 	            else
 	            {
-	            	second_passed = 0;
+                    if(Time_Until_TutorialEnd != Time_Until_Folder_Open)
+                    {
+	            	  second_passed = 0;
+                    }
 	            	behaviour = 0;
 	            }
 	            break;
@@ -402,8 +408,8 @@ public class mouse : MonoBehaviour
 
             	// Counter until next phase
             	if(second_passed >= Time_Until_Folder_Open) {
-            		rando = (int)Mathf.Round(Random.Range(0, 6));
-                    //rando = 5;
+            		//rando = (int)Mathf.Round(Random.Range(0, 6));
+                    rando = 2;
             		behaviour = 3;
             	}
 
