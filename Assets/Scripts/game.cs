@@ -27,8 +27,13 @@ public class game : MonoBehaviour
     [Header("Canvas")]
     public GameObject[] UIelements;
 
+    [Header("GameWaiting")]
     public float waitingTime;
     public bool isStarted;
+
+    [Header("PauseScene")]
+    public GameObject pauseScene;
+    public bool isPaused;
 
     void Start()
     {
@@ -80,6 +85,30 @@ public class game : MonoBehaviour
                 isStarted = true;
             }
         }
+
+        //Pause Scene
+        if(isStarted)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                isPaused = !isPaused;
+            }
+        }
+
+        if(isPaused)
+        {
+            pauseScene.SetActive(true);
+
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            pauseScene.SetActive(false);
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
+        }
     }
 
     IEnumerator StartGame()
@@ -93,5 +122,10 @@ public class game : MonoBehaviour
             UIelements[i].SetActive(true);
         }
 
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
     }
 }
