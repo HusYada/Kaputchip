@@ -63,6 +63,10 @@ public class chip_cover : MonoBehaviour
         	aud.clip = reallygoodsoundeffect;
 	        aud.Play();
         }
+        if(which_wall == 2 && col.gameObject.tag == "Player" && inv.inv_icons[0].enabled == false) 
+        {
+            Command_Log.GetComponent<cmd_log>().UpdateCommand(28);
+        }
 
         // Sliding Door
         if(which_wall == 3 && col.gameObject.tag == "Player" && inv.inv_icons[0].enabled) 

@@ -69,6 +69,7 @@ public class player : MonoBehaviour
     [HideInInspector] public GameObject cam;
     private LineRenderer lr;
     public AudioSource aud;
+    public cmd_log cmd;
 
     // Ads Attack
     public GameObject[] ad_window;
@@ -386,8 +387,8 @@ public class player : MonoBehaviour
     {
         if (col.gameObject.tag == "Bullet")
         {
-            current_hp -= 5;
-            hp_bar.value -= 5;
+            current_hp -= 15;
+            hp_bar.value -= 15;
             hp_text.text = "HP  " + current_hp + " /  75";
             digi.intensity.value = 0.25f;
             aud.clip = aud_damage;
@@ -422,12 +423,14 @@ public class player : MonoBehaviour
                 isInSecretRoom = true;
                 aud.clip = aud_antiviruswarning;
                 aud.Play();
+                cmd.UpdateCommand(29);
             }
         }
 
         if (col.gameObject.name == "Final_Desktop_Trigger" && isInSecretRoom)
         {
             enteredfinaldesktop = true;
+            cmd.UpdateCommand(31);
         }
     }
 
