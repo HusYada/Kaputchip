@@ -91,7 +91,7 @@ public class FollowPathMove : MonoBehaviour
 
             StartCoroutine(MoveAlongPath(newObj));
 
-            Destroy(newObj, lifeTime);
+            //Destroy(newObj, lifeTime);
 
             toggle = !toggle;
 

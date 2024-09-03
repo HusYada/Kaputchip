@@ -14,6 +14,7 @@ public class driver_grab : MonoBehaviour
     private Vector3 grabscl;
     private Vector3 grabsclreturn;
     public GameObject deletingcdrivewindow;
+    public cmd_log cmd;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class driver_grab : MonoBehaviour
         {
         	grabbed = true;
             transform.localScale = grabscl;
+            cmd.UpdateCommand(30);
         }
 
         if(grabbed)
@@ -58,6 +60,7 @@ public class driver_grab : MonoBehaviour
 	{
         if (col.gameObject.name == "RubbishBin")
         {
+            //cmd.UpdateCommand(32);
         	Instantiate(deletingcdrivewindow);
             Destroy(this.gameObject);
         }

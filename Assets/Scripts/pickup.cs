@@ -24,12 +24,17 @@ public class pickup : MonoBehaviour
     void OnTriggerEnter(Collider col) 
 	{
 
-        cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
-        inv = GameObject.Find("Inventory").GetComponent<inventory>();
+        if(which_pickup != 0 && col.gameObject.tag == "Player")
+        {
+            cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
+            inv = GameObject.Find("Inventory").GetComponent<inventory>();
+        }
 
         // Triple Shield
 		if(which_pickup == 0 && col.gameObject.tag == "Player" && shields > 0) 
 		{
+            cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
+            inv = GameObject.Find("Inventory").GetComponent<inventory>();
             UI_Shields.GetComponent<ui_shield>().GainShield(UI_Shields.GetComponent<ui_shield>().shields_current);
             Destroy(this.gameObject.transform.GetChild(0).gameObject);
             shields--;
@@ -48,14 +53,21 @@ public class pickup : MonoBehaviour
             inv.UpdateAmount(1, 3);
         }
         // Key
-        if(which_pickup == 2 && col.gameObject.tag == "Player") 
+        if((which_pickup == 2 || which_pickup == 21) && col.gameObject.tag == "Player") 
         {
             Destroy(this.gameObject);
             inv.inv_icons[0].enabled = true;
-            cmd.GetComponent<cmd_log>().UpdateCommand(2);
+            if(which_pickup == 2)
+            {
+                cmd.GetComponent<cmd_log>().UpdateCommand(2);
+            }
+            if(which_pickup == 21)
+            {
+                cmd.GetComponent<cmd_log>().UpdateCommand(33);
+            }
         }
         // Chip
-        if(which_pickup > 2 && col.gameObject.tag == "Player") 
+        if(which_pickup > 2 && which_pickup < 21 && col.gameObject.tag == "Player") 
         {
             Destroy(this.gameObject);
             inv.inv_icons[which_pickup].enabled = true;
@@ -69,7 +81,7 @@ public class pickup : MonoBehaviour
             cmd.GetComponent<cmd_log>().UpdateCommand(which_pickup);
         }
         // Any Pickup
-        if(which_pickup > 0 && col.gameObject.tag == "Player") 
+        if(which_pickup > 20 && col.gameObject.tag == "Player") 
         {
             aud.clip = gain_sfx;
             aud.Play();

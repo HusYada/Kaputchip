@@ -64,7 +64,9 @@ public class mouse : MonoBehaviour
 	private AudioSource aud;
 	public AudioClip 
     open_window,
-    close_window;
+    close_window,
+    aud_chasing,
+    aud_attacking;
     private                         Quaternion currentRotation;
 
     public GameObject d_bar, d_handle;
@@ -72,8 +74,6 @@ public class mouse : MonoBehaviour
 
     [Header("Indicator")]
     public MouseIndicator mouseIndicator;
-
-    //change to timer
 
 	void Start()
 	{
@@ -365,6 +365,9 @@ public class mouse : MonoBehaviour
 	            	  second_passed = 0;
                     }
 	            	behaviour = 0;
+                    aud.clip = aud_chasing;
+                    aud.loop = true;
+                    aud.Play();
 	            }
 	            break;
 
@@ -379,6 +382,8 @@ public class mouse : MonoBehaviour
 	            if(!rr.GetComponent<range>().inrange)
 		        {
 		        	behaviour = 2;
+                    aud.loop = false;
+                    aud.Stop();
 		        }
 	            break;
 
@@ -404,13 +409,18 @@ public class mouse : MonoBehaviour
                 if(rr.GetComponent<range>().inrange)
                 {
                  behaviour = 1;
+                 aud.Stop();
+                 aud.clip = aud_attacking;
+                 aud.Play();
                 }
 
             	// Counter until next phase
             	if(second_passed >= Time_Until_Folder_Open) {
-            		//rando = (int)Mathf.Round(Random.Range(0, 6));
-                    rando = 2;
+            		rando = (int)Mathf.Round(Random.Range(0, 6));
+                    //rando = 2;
             		behaviour = 3;
+                    aud.Stop();
+                    aud.loop = false;
             	}
 
 	            break;
