@@ -49,6 +49,9 @@ public class driver_grab : MonoBehaviour
                 GetComponent<Collider>().isTrigger = false;
             }
         }
+
+        //Debug.Log("Looking at: " + plyr.whatamilookinat.name);
+
     }
 
     void OnCollisionEnter(Collision col)
@@ -60,3 +63,5 @@ public class driver_grab : MonoBehaviour
         }
 	}
 }
+
+

@@ -68,7 +68,7 @@ public class player : MonoBehaviour
     private Rigidbody rb;
     [HideInInspector] public GameObject cam;
     private LineRenderer lr;
-    private AudioSource aud;
+    public AudioSource aud;
 
     // Ads Attack
     public GameObject[] ad_window;
