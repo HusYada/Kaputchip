@@ -60,7 +60,7 @@ public class driver_grab : MonoBehaviour
 	{
         if (col.gameObject.name == "RubbishBin")
         {
-            cmd.UpdateCommand(32);
+            //cmd.UpdateCommand(32);
         	Instantiate(deletingcdrivewindow);
             Destroy(this.gameObject);
         }
