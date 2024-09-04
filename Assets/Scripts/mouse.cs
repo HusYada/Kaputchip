@@ -413,15 +413,15 @@ public class mouse : MonoBehaviour
 
                 mouseIndicator.SetIcon(0);
 
-	         //    RaycastHit hit;
-          //       Debug.DrawRay(raycastpos, transform.TransformDirection(Vector3.forward), Color.red);
+	             //RaycastHit hit;
+                 //Debug.DrawRay(raycastpos, transform.TransformDirection(Vector3.forward), Color.red);
 		        // if (Physics.Raycast(raycastpos, transform.TransformDirection(Vector3.forward), out hit))
 		        // {
-          //   		if(hit.transform.tag == "Player") 
-          //   		{
-          //   			behaviour = 1;
-          //   		}
-          //   	}
+             		//if(hit.transform.tag == "Player") 
+             		//{
+             			//behaviour = 1;
+             		//}
+             	//}
 
                 if(rr.GetComponent<range>().inrange)
                 {
@@ -433,8 +433,8 @@ public class mouse : MonoBehaviour
 
             	// Counter until next phase
             	if(second_passed >= Time_Until_Folder_Open) {
-            		//rando = (int)Mathf.Round(Random.Range(0, 6));
-                    rando = 6;
+            		rando = (int)Mathf.Round(Random.Range(0, 6));
+                    //rando = 6;
             		behaviour = 3;
                     aud.Stop();
                     aud.loop = false;

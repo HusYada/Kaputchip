@@ -22,7 +22,7 @@ public class guy : MonoBehaviour
 
     void FixedUpdate ()
     {
-		transform.LookAt(player.transform);
+		//transform.LookAt(player.transform);
 
 		if(mos.behaviour == 1 && eyeR.transform.localScale.y > eyemin) 
 		{
