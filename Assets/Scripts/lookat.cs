@@ -24,18 +24,18 @@ public class lookat : MonoBehaviour
         transform.LookAt(plyr.transform);
     }
 
-    private void OnAnimatorIK(int layerIndex)
-    {
-        if(anim && notpickup)
-        {
-            if(ikActive)
-            {
-                if(plyr!= null)
-                {
-                    anim.SetLookAtWeight(1);
-                    anim.SetLookAtPosition(plyr.transform.position);
-                }
-            }
-        }
-    }
+    // private void OnAnimatorIK(int layerIndex)
+    // {
+    //     if(anim && notpickup)
+    //     {
+    //         if(ikActive)
+    //         {
+    //             if(plyr!= null)
+    //             {
+    //                 anim.SetLookAtWeight(1);
+    //                 anim.SetLookAtPosition(plyr.transform.position);
+    //             }
+    //         }
+    //     }
+    // }
 }
