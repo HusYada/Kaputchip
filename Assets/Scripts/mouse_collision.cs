@@ -6,12 +6,17 @@ public class mouse_collision : MonoBehaviour
 {
 	public ui_shield noshieldsforu;
     public mouse ms;
+    public AudioSource audioSource;
+    public AudioClip shieldSfx;
 
     void OnTriggerEnter(Collider col) 
     {
         if(col.gameObject.tag == "Player")
         {
             noshieldsforu.LoseShield(noshieldsforu.shields_current);
+            audioSource.Stop();
+            audioSource.clip = shieldSfx;
+            audioSource.Play();
         }
         if(col.gameObject.tag == "ExitButton")
         {
