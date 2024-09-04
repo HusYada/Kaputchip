@@ -38,7 +38,7 @@ public class game : MonoBehaviour
     void Start()
     {
         // Hus - Removed this for now, should be kept unchecked in the Inspector?
-        //player.CanCtrl = false;
+        player.CanCtrl = false;
 
         if(!player.CanCtrl) // should be not !
         {
@@ -116,6 +116,7 @@ public class game : MonoBehaviour
         yield return new WaitForSeconds(waitingTime);
 
         player.CanCtrl = true;
+        StartCoroutine(mouse.Seconds(1));
 
         for (int i = 0; i < UIelements.Length; i++)
         {

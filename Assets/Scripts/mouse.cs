@@ -79,8 +79,8 @@ public class mouse : MonoBehaviour
 	void Start()
 	{
         //bc = BChange(Time_Until_Folder_Open, 3);
-        bc = Seconds(1);
-		StartCoroutine(bc);
+        //bc = Seconds(1);
+		//StartCoroutine(bc);
 		aud = GetComponent<AudioSource>();
         Time_Until_Folder_Open = Time_Until_TutorialEnd;
 	}
@@ -456,7 +456,7 @@ public class mouse : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetpos.transform.position, speed * Time.deltaTime);
     }
 
-    IEnumerator Seconds(float waitTime)
+    public IEnumerator Seconds(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         second_passed++;
