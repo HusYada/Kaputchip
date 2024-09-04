@@ -116,6 +116,13 @@ public class mouse : MonoBehaviour
                     mouse_hand2.enabled = true;
                 }
 
+                if(rr.GetComponent<range>().inrange)
+                {
+                    pushing_d_bar = false;
+                    chasing_speed = 2;
+                    behaviour = 1;
+                }
+
                 // Testing taking the mouse off the Delete Bar
                 // if(Input.GetKey("j"))
                 // {
@@ -327,7 +334,7 @@ public class mouse : MonoBehaviour
                         Instantiate(winn5, windowspawn.transform.position, Quaternion.identity);
                         spawned_window = GameObject.Find("shield_window(Clone)");
                         //spawned_window.GetComponent<window>().bar_text.text = "Anti-Virus";
-                        cmd.UpdateCommand(21);
+                        cmd.UpdateCommand(34);
                     }
                     if (targetpos.transform.position == recylingbin.transform.position)
                     {
@@ -398,7 +405,12 @@ public class mouse : MonoBehaviour
 
 	            if(!rr.GetComponent<range>().inrange)
 		        {
-		        	behaviour = 2;
+                    if(prev_behav == 8)
+                    {
+                           behaviour = 8;
+                    } else {
+		        	      behaviour = 2;
+                    }
                     aud.loop = false;
                     aud.Stop();
 		        }
@@ -425,19 +437,24 @@ public class mouse : MonoBehaviour
 
                 if(rr.GetComponent<range>().inrange)
                 {
-                 behaviour = 1;
-                 aud.Stop();
-                 aud.clip = aud_attacking;
-                 aud.Play();
+                    behaviour = 1;
+                    aud.Stop();
+                    aud.clip = aud_attacking;
+                    aud.Play();
                 }
 
             	// Counter until next phase
             	if(second_passed >= Time_Until_Folder_Open) {
-            		rando = (int)Mathf.Round(Random.Range(0, 6));
+            		rando = (int)Mathf.Round(Random.Range(0, 7));
                     //rando = 6;
             		behaviour = 3;
                     aud.Stop();
                     aud.loop = false;
+                    mouse_model.enabled = true;
+                    mouse_wait1.enabled = false;
+                    mouse_wait2.enabled = false;
+                    mouse_hand1.enabled = false;
+                    mouse_hand2.enabled = false;
             	}
 
 	            break;
