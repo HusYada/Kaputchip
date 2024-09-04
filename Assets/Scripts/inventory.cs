@@ -113,6 +113,7 @@ public class inventory : MonoBehaviour
 
     	if(Input.GetKeyDown(k_inv))
     	{
+            Debug.Log("inventory");
         	moving = true;
         	if(state < 3)
         	{
