@@ -4984,12 +4984,14 @@ MonoBehaviour:
   mycomputer: {fileID: 0}
   solitaire: {fileID: 0}
   recylingbin: {fileID: 0}
+  tripleShield: {fileID: 0}
   rollo: {fileID: 6329214232494891451, guid: be674cb94ca843c4ba605e5c620abd48, type: 3}
   winn0: {fileID: 2458614648751362827, guid: 2946910611f7cd54fb247a00870d82dc, type: 3}
   winn1: {fileID: 2963946119529728470, guid: bf902f07ece3a1642b5c41d029780895, type: 3}
   winn2: {fileID: 207741616225325015, guid: 57ffda3a0805b0341a6c8b10a7aeb9d9, type: 3}
   winn3: {fileID: 2963946119529728470, guid: bf902f07ece3a1642b5c41d029780895, type: 3}
   winn4: {fileID: 0}
+  winn5: {fileID: 0}
   spawned_window: {fileID: 0}
   windowspawnexit: {fileID: 0}
   ad_exits: []
@@ -4999,6 +5001,8 @@ MonoBehaviour:
   st: {fileID: 0}
   open_window: {fileID: 8300000, guid: 5de025ec82e1441f58a5440bc000b65c, type: 3}
   close_window: {fileID: 8300000, guid: 5de025ec82e1441f58a5440bc000b65c, type: 3}
+  aud_chasing: {fileID: 0}
+  aud_attacking: {fileID: 0}
   d_bar: {fileID: 0}
   d_handle: {fileID: 0}
   pushing_d_bar: 0
