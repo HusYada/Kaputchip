@@ -52,6 +52,10 @@ public class window : MonoBehaviour
     	{
     		Move();
     	}
+        if (action == 0 && gameObject.name != "shield_window(Clone)")
+        {
+            Move();
+        }
     }
     void Move()
     {
