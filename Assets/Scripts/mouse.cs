@@ -44,17 +44,18 @@ public class mouse : MonoBehaviour
     circling_speed,
     radius;
 	private float speed, angle;
-	public GameObject 
-	rr,                                             // Range
-	targetpos,
+    public GameObject
+    rr,                                             // Range
+    targetpos,
     windowspawn,
-	documents,
-	internet,
-	mycomputer,
-	solitaire,
-	recylingbin,
+    documents,
+    internet,
+    mycomputer,
+    solitaire,
+    recylingbin,
+    tripleShield,
     rollo;
-    public GameObject winn0, winn1, winn2, winn3, winn4, spawned_window, windowspawnexit;
+    public GameObject winn0, winn1, winn2, winn3, winn4, winn5 ,spawned_window, windowspawnexit;
     public List<GameObject> ad_exits;
     public int ad_target;
     public bool ad_init;
@@ -226,7 +227,12 @@ public class mouse : MonoBehaviour
                     behaviour = 6;
                     speed = patrol_speed;
                 }
-        		break;
+                if (second_passed >= Time_Until_Folder_CloseDocuments && spawned_window == GameObject.Find("shield_window(Clone)"))
+                {
+                    behaviour = 6;
+                    speed = patrol_speed;
+                }
+                break;
 
             // Go infront of Window
             case 4:
@@ -250,6 +256,10 @@ public class mouse : MonoBehaviour
                 Time_Until_Folder_Open = Time_Until_Folder_Open_Original;
 
                 switch (rando) {
+                    //Shield Window
+                    case 6:
+                        targetpos.transform.position = tripleShield.transform.position;
+                        break;
                     // Rubbish Bin
                     case 5:
                         targetpos.transform.position = recylingbin.transform.position;
@@ -291,7 +301,7 @@ public class mouse : MonoBehaviour
 	            {
 	            	aud.clip = open_window;
 	            	aud.Play();
-                    if(targetpos.transform.position == documents.transform.position)
+                    if (targetpos.transform.position == documents.transform.position)
                     {
                         Instantiate(winn0, windowspawn.transform.position, Quaternion.identity);
                         spawned_window = GameObject.Find("Window2_1(Clone)");
@@ -312,7 +322,14 @@ public class mouse : MonoBehaviour
                         spawned_window = GameObject.Find("customization_window(Clone)");
                         cmd.UpdateCommand(23);
                     }
-                    if(targetpos.transform.position == recylingbin.transform.position)
+                    if (targetpos.transform.position == tripleShield.transform.position)
+                    {
+                        Instantiate(winn5, windowspawn.transform.position, Quaternion.identity);
+                        spawned_window = GameObject.Find("shield_window(Clone)");
+                        //spawned_window.GetComponent<window>().bar_text.text = "Anti-Virus";
+                        cmd.UpdateCommand(21);
+                    }
+                    if (targetpos.transform.position == recylingbin.transform.position)
                     {
                         behaviour = 2;
                         mouse_model.enabled = false;
@@ -396,15 +413,15 @@ public class mouse : MonoBehaviour
 
                 mouseIndicator.SetIcon(0);
 
-	         //    RaycastHit hit;
-          //       Debug.DrawRay(raycastpos, transform.TransformDirection(Vector3.forward), Color.red);
+	             //RaycastHit hit;
+                 //Debug.DrawRay(raycastpos, transform.TransformDirection(Vector3.forward), Color.red);
 		        // if (Physics.Raycast(raycastpos, transform.TransformDirection(Vector3.forward), out hit))
 		        // {
-          //   		if(hit.transform.tag == "Player") 
-          //   		{
-          //   			behaviour = 1;
-          //   		}
-          //   	}
+             		//if(hit.transform.tag == "Player") 
+             		//{
+             			//behaviour = 1;
+             		//}
+             	//}
 
                 if(rr.GetComponent<range>().inrange)
                 {
@@ -417,7 +434,7 @@ public class mouse : MonoBehaviour
             	// Counter until next phase
             	if(second_passed >= Time_Until_Folder_Open) {
             		rando = (int)Mathf.Round(Random.Range(0, 6));
-                    //rando = 2;
+                    //rando = 6;
             		behaviour = 3;
                     aud.Stop();
                     aud.loop = false;

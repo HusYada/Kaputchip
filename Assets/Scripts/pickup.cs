@@ -6,9 +6,10 @@ using TMPro;
 
 public class pickup : MonoBehaviour
 {
-    public GameObject UI_Shields;
+    //public GameObject UI_Shields;
     [HideInInspector] public cmd_log cmd;
     [HideInInspector] public inventory inv;
+    [HideInInspector] public ui_shield uiShield;
     public int which_pickup;            // 0 = triple shield, 1 = fire extinguisher, 2 = key, 3 = chip
     private int shields = 3;
     public AudioClip gain_sfx;
@@ -31,22 +32,24 @@ public class pickup : MonoBehaviour
         }
 
         // Triple Shield
-		if(which_pickup == 0 && col.gameObject.tag == "Player" && shields > 0) 
+        if(which_pickup == 0 && col.gameObject.tag == "Player" && shields > 0) 
 		{
             cmd = GameObject.Find("Command Text").GetComponent<cmd_log>();
             inv = GameObject.Find("Inventory").GetComponent<inventory>();
-            UI_Shields.GetComponent<ui_shield>().GainShield(UI_Shields.GetComponent<ui_shield>().shields_current);
-            Destroy(this.gameObject.transform.GetChild(0).gameObject);
-            shields--;
+            uiShield = GameObject.Find("Shield Bar").GetComponent<ui_shield>();
+            uiShield.GainShield(uiShield.shields_current);
+            //Destroy(this.gameObject.transform.GetChild(0).gameObject);
+            Destroy(this.gameObject);
+            //shields--;
             cmd.GetComponent<cmd_log>().UpdateCommand(0);
             inv.inv_icons[1].enabled = true;
-            inv.UpdateAmount(which_pickup, UI_Shields.GetComponent<ui_shield>().shields_current);
+            inv.UpdateAmount(which_pickup,uiShield.shields_current);
 		}
 
         // Hus - i can definitely clean up the code below, but for now i will not
 
         // Fire Ext
-        if(which_pickup == 9 && col.gameObject.tag == "Player") 
+        if (which_pickup == 9 && col.gameObject.tag == "Player") 
         {
             Destroy(this.gameObject);
             inv.inv_icons[2].enabled = true;
