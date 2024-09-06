@@ -431,7 +431,7 @@ public class player : MonoBehaviour
                 antiwanti.SetActive(true);
                 AntiAnim.SetTrigger("virusPlay");
                 isInSecretRoom = true;
-                aud.clip = aud_damage;
+                aud.clip = aud_antiviruswarning;
                 aud.Play();
             }
         }
