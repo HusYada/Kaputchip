@@ -17,7 +17,6 @@ public class MouseIndicator : MonoBehaviour
     private void Awake()
     {
         player = Camera.main.transform;
-        //aud = 
     }
 
     private void Update()

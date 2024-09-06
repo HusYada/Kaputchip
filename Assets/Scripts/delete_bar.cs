@@ -35,10 +35,15 @@ public class delete_bar : MonoBehaviour
     {
         plyr = GameObject.Find("Player").GetComponent<player>();
         mousywousy = GameObject.Find("Mouse Pointer (Desktop)");
+        hackerAnim = GameObject.Find("NewMainCharacter@Sitting Idle").GetComponent<Animator>();
     }
 
     void Update()
     {
+        if(mousywousy.GetComponent<mouse>().behaviour != 8 && mousywousy.GetComponent<mouse>().pushing_d_bar == false)
+        {
+            mousywousy.GetComponent<mouse>().behaviour = 8;
+        }
         if (mousywousy.GetComponent<mouse>().pushing_d_bar == false && progressBar.transform.localScale.x < 10)
         {
             Vector3 scaleChange = new Vector3(bar_scale, 0, 0);
@@ -46,7 +51,7 @@ public class delete_bar : MonoBehaviour
             //progressBar.transform.position = Vector3.MoveTowards(progressBar.transform.position,
             //new Vector3(bar_endpos, progressBar.transform.position.y, progressBar.transform.position.z), bar_spd * Time.deltaTime);
             progressBar.transform.localScale += scaleChange;
-            float _value = (progressBar.transform.localScale.x * 10);
+            float _value = (progressBar.transform.localScale.x * 2);
             SetDeleteGrabPosition(_value);
             progress.text = (int)_value + "%";
         }
@@ -57,7 +62,7 @@ public class delete_bar : MonoBehaviour
             //progressBar.transform.position = Vector3.MoveTowards(progressBar.transform.position,
             //new Vector3(bar_startpos, progressBar.transform.position.y, progressBar.transform.position.z), bar_spd * Time.deltaTime);
             progressBar.transform.localScale -= scaleChange;
-            float _value = (progressBar.transform.localScale.x * 10);
+            float _value = (progressBar.transform.localScale.x * 2);
             SetDeleteGrabPosition(_value);
             progress.text = (int)_value + "%";
         }

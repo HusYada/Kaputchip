@@ -91,11 +91,13 @@ public class FollowPathMove : MonoBehaviour
 
             StartCoroutine(MoveAlongPath(newObj));
 
-            //Destroy(newObj, lifeTime);
+            
 
             toggle = !toggle;
 
             yield return new WaitForSeconds(spawnInterval);
+
+            Destroy(newObj, lifeTime);
         }
     }
 
@@ -118,15 +120,22 @@ public class FollowPathMove : MonoBehaviour
                 Vector3 newPosition = Vector3.MoveTowards(startPosition, targetPosition, speed * Time.deltaTime);
                 newPosition.y = initialY + yOffset;
 
-                obj.transform.position = newPosition;
+                if(obj != null)
+                {
+                    obj.transform.position = newPosition;
+                }
+
 
                 yield return null;
 
-                startPosition = obj.transform.position;
+                if(obj != null)
+                {
+                    startPosition = obj.transform.position;
+                }
             }
             currentPointIndex++;
         }
 
-        //Destroy(obj);
+        Destroy(obj);
     }
 }

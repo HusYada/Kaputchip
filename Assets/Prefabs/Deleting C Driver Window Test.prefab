@@ -793,7 +793,7 @@ MonoBehaviour:
   bar_end: 0
   bar_startpos: 5.45
   bar_endpos: 0.95
-  bar_spd: 0.2
+  bar_spd: 0.002
   bar_scale: 0.015625
   mousywousy: {fileID: 0}
   fire_scene: {fileID: 6289507101742453095, guid: 619ca6099d296d543ac5561c23802f31, type: 3}

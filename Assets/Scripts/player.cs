@@ -111,7 +111,7 @@ public class player : MonoBehaviour
 
     void Start()
     {
-        CanCtrl = true;
+        //CanCtrl = true;
 
         rb = GetComponent<Rigidbody>();
         lr = GetComponent<LineRenderer>();
@@ -123,7 +123,7 @@ public class player : MonoBehaviour
 
         vol.profile.TryGet<DigitalGlitchVolume>(out digi);
 
-        antiwanti = GameObject.Find("Anti_Virus_Active_Warning");
+        antiwanti = GameObject.Find("Anti-virus overlay");
 
         // Resolution Check
         if(Screen.currentResolution.width == 800)
@@ -163,15 +163,18 @@ public class player : MonoBehaviour
                 shakeCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         }
 
-        if (!CanCtrl)
-            return;
+   
 
-        CameraLook();
-        Movement();
-        Jump();
+
         UseSprayCan();
         UseFireExtinguisher();
         UseAdAttack();
+
+        if (!CanCtrl)
+            return;
+        CameraLook();
+        Movement();
+        Jump();
     }
 
     void FixedUpdate()

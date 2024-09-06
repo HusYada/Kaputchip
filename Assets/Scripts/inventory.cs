@@ -12,16 +12,19 @@ public class inventory : MonoBehaviour
 
 	// Inputs
     private KeyCode
-    k_left = KeyCode.A,
-    k_right = KeyCode.D,
-    k_up = KeyCode.W,
-    k_down = KeyCode.S,
+    k_left = KeyCode.LeftArrow,
+    k_right = KeyCode.RightArrow,
+    k_up = KeyCode.UpArrow,
+    k_down = KeyCode.DownArrow,
     k_inv = KeyCode.Q,
     //k_inv_back = KeyCode.E,
     k_equip = KeyCode.Mouse0,
     k_desc = KeyCode.Mouse1;
 
-	// Inventory Movement
+    // Inventory Movement
+    int screenWidth;
+    int screenHeight;
+    public Animator anim;
 	private Vector3 inventory_pos;
 	public float[] inventory_xpos;		// Where the inventory is positioned on the x-axis of the UI
 	public int state;					// 0 = off, 1 = main, 2 = full, 3 = loop back around
@@ -59,6 +62,9 @@ public class inventory : MonoBehaviour
 
     void Start()
     {
+        screenHeight = Screen.height;
+        screenWidth = Screen.width;
+
     	aud = GetComponent<AudioSource>();
         inventory_pos = this.gameObject.transform.position;
         cursor_pos = cursor.transform.position;
@@ -66,22 +72,22 @@ public class inventory : MonoBehaviour
 
         for(int i = 0; i < equip_selection.Length; i++)
     	{
-            if(Screen.currentResolution.width == 1920)
+            if(true)
             {
     		  equip_selc_pos[i] = equip_selection[i].transform.position;
     		  equip_selc_pos[i].x = equip_selection[i].transform.position.x - 624;
             }
-            if(Screen.currentResolution.width == 800)
+            /*if(Screen.currentResolution.width == 800)
             {
                 equip_selc_pos[i].y = 270;
                 equip_selc_pos[i].x = 626 + (49 * i);
 
                 // y = 270
                 // 631, 680, 728, 776
-            }
+            }*/
     	}
 
-        if(Screen.currentResolution.width == 800)
+        /*if(Screen.currentResolution.width == 800)
         {
             inventory_xpos[0] = 380;
             inventory_xpos[1] = 334;
@@ -98,7 +104,7 @@ public class inventory : MonoBehaviour
               cursory[1] = 50;
               cursory[2] = 100;
               cursory[3] = 150;
-        }
+        }*/
     }
 
     void Update()
@@ -106,29 +112,30 @@ public class inventory : MonoBehaviour
     	this.gameObject.transform.position = inventory_pos;
     	cursor.transform.position = cursor_pos;
 
-        if(Screen.currentResolution.width == 800)
+        /*if(Screen.currentResolution.width == 800)
         {
             inventory_pos.y = 120;
-        }
+        }*/
 
     	if(Input.GetKeyDown(k_inv))
     	{
-            Debug.Log("inventory");
-        	moving = true;
+            moving = true;
         	if(state < 3)
         	{
-        		state++;
+                state++;
         		aud.clip = open_sfx;
 	        	aud.Play();
 	        	if(state == 2 && firstopen)
 	        	{
-	        		firstopen = false;
+                    //anim.SetTrigger("02");
+                    firstopen = false;
 	        		cmd.UpdateCommand(19);
 	        	}
         	}
         	if(state == 3)
         	{
-        		state = 0;
+                //anim.SetTrigger("03");
+                state = 0;
         		aud.clip = close_sfx;
 	        	aud.Play();
         	}
@@ -159,42 +166,28 @@ public class inventory : MonoBehaviour
     	// Cursor Movement
     	if(state == 2)
     	{
-            if(Screen.currentResolution.width == 1920)
+            if(true)
             {
-              cursor_pos = new Vector3(cursorx[current_cursor_x]+960+520-4,cursory[current_cursor_y]+540-400,0);
+              cursor_pos = new Vector3(cursorx[current_cursor_x]+screenWidth/2+520-4,cursory[current_cursor_y]+screenHeight/2-400,0);
             }
-            if(Screen.currentResolution.width == 800)
+            /*if(Screen.currentResolution.width == 800)
             {
               cursor_pos = new Vector3(
                 cursorx[current_cursor_x]+633,
                 cursory[current_cursor_y]+120, 0);
               //cursor_pos = new Vector3(629, 120, 0);
-              //
-            }
+            }*/
     		
 
-    		if(Input.GetKeyDown(k_left) && current_cursor_x > 0) { current_cursor_x--; }
-    		if(Input.GetKeyDown(k_right) && current_cursor_x < cursorx.Length-1) { current_cursor_x++; }
-    		if(Input.GetKeyDown(k_up) && current_cursor_y < cursory.Length-1) { current_cursor_y++; }
-    		if(Input.GetKeyDown(k_down) && current_cursor_y > 0) { current_cursor_y--; }
+    		if(Input.GetKeyDown(k_left) && current_cursor_x > 0) { current_cursor_x--; Equip(); }
+    		if(Input.GetKeyDown(k_right) && current_cursor_x < cursorx.Length-1) { current_cursor_x++; Equip(); }
+    		if(Input.GetKeyDown(k_up) && current_cursor_y < cursory.Length-1) { current_cursor_y++; Equip(); }
+    		if(Input.GetKeyDown(k_down) && current_cursor_y > 0) { current_cursor_y--; Equip(); } 
 
     		// Equipping
     		if(Input.GetKeyDown(k_equip))
     		{
-                if(Screen.currentResolution.width == 1920)
-                {
-    			equip_selc_pos[current_cursor_x] = new Vector3(equip_selc_pos[current_cursor_x].x, cursory[current_cursor_y]+120+20, 0);
-                }
-                if(Screen.currentResolution.width == 800)
-                {
-                equip_selc_pos[current_cursor_x] = new Vector3(equip_selc_pos[current_cursor_x].x, cursory[current_cursor_y]+120, 0);
-                }
-
-
-    			if(current_cursor_x == 0 && inv_icons[6-current_cursor_y].enabled)
-				{
-					map_sprite.sprite = inv_icons[3+current_cursor_y].sprite;
-				}
+                
     		}
 
     		// Description - prob a cleaner way of codin this
@@ -273,26 +266,26 @@ public class inventory : MonoBehaviour
     	}
     	else
     	{
-            if(Screen.currentResolution.width == 1920)
+            if(true)
             {
-    		  cursor_pos = new Vector3(960,540,0);
+    		  cursor_pos = new Vector3(screenWidth/2,screenHeight/2,0);
             }
-            if(Screen.currentResolution.width == 800)
+            /*if(Screen.currentResolution.width == 800)
             {
               cursor_pos = new Vector3(400,300,0);
-            }
+            }*/
     	}
     }
 
     void Move(int next_pos)
     {
-        if(Screen.currentResolution.width == 1920)
+        if(true)
         {
-        	if(transform.position.x > inventory_xpos[next_pos]+960 && state > 0)
+            if(transform.position.x > inventory_xpos[next_pos]+screenWidth/2 && state > 0)
         	{
         		inventory_pos.x-=8*state;
         	}
-        	else if(transform.position.x < inventory_xpos[next_pos]+960 && state == 0)
+        	else if(transform.position.x < inventory_xpos[next_pos]+screenWidth/2 && state == 0)
         	{
         		inventory_pos.x+=16;
         	}
@@ -302,7 +295,7 @@ public class inventory : MonoBehaviour
         	}
         }
 
-        if(Screen.currentResolution.width == 800)
+        /*if(Screen.currentResolution.width == 800)
         {
             if(transform.position.x > inventory_xpos[next_pos]+400 && state > 0)
             {
@@ -316,6 +309,25 @@ public class inventory : MonoBehaviour
             {
                 moving = false;
             }
+        }*/
+    }
+
+
+    public void Equip()
+    {
+        if (true)
+        {
+            equip_selc_pos[current_cursor_x] = new Vector3(equip_selc_pos[current_cursor_x].x, cursory[current_cursor_y] + 120 + 20, 0);
+        }
+        /*if(Screen.currentResolution.width == 800)
+        {
+        equip_selc_pos[current_cursor_x] = new Vector3(equip_selc_pos[current_cursor_x].x, cursory[current_cursor_y]+120, 0);
+        }*/
+
+
+        if (current_cursor_x == 0 && inv_icons[6 - current_cursor_y].enabled)
+        {
+            map_sprite.sprite = inv_icons[3 + current_cursor_y].sprite;
         }
     }
 
@@ -335,4 +347,5 @@ public class inventory : MonoBehaviour
     		fire_charges.GetComponent<TextMeshProUGUI>().text = "x" + howmuch;
     	}
     }
+
 }
