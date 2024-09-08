@@ -16,6 +16,8 @@ public class chip_cover : MonoBehaviour
 	private Rigidbody rb;
 	private AudioSource aud;
 	public AudioClip reallygoodsoundeffect;
+    private GameObject desktopcam;
+    //private bool sliding;
 
     void Start()
     {
@@ -27,6 +29,7 @@ public class chip_cover : MonoBehaviour
         {
             left_door = GameObject.Find("Left_Door");
             right_door = GameObject.Find("Right_Door");
+            desktopcam = GameObject.Find("Desktop_Camera");
         }
     }
     void OnCollisionEnter(Collision col) 
@@ -80,6 +83,7 @@ public class chip_cover : MonoBehaviour
             aud.Play();
             left_door.GetComponent<sliding_door>().enabled = true;
             right_door.GetComponent<sliding_door>().enabled = true;
+            desktopcam.GetComponent<zoomout>().zoomingout = true;
         }
 	}
 }

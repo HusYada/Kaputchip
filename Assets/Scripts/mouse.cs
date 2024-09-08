@@ -33,7 +33,8 @@ public class mouse : MonoBehaviour
 	public bool 
 	looking = true;
 	public int
-	rando = 0,										// Random Number
+    prev_rando = 3,
+	rando = 0,										// Random Number 1 solitaire, 2 computer, 3 internet, 4 folder, 5 bin, 6 shield
     prev_behav,
 	behaviour;										// 0 = find, 1 = chasing, 2 = reeling, 3 = move to folder, 4 = gotowindow, 5 = browse, 6 = close
 	public float 
@@ -447,14 +448,23 @@ public class mouse : MonoBehaviour
             	if(second_passed >= Time_Until_Folder_Open) {
             		rando = (int)Mathf.Round(Random.Range(0, 7));
                     //rando = 6;
-            		behaviour = 3;
-                    aud.Stop();
-                    aud.loop = false;
-                    mouse_model.enabled = true;
-                    mouse_wait1.enabled = false;
-                    mouse_wait2.enabled = false;
-                    mouse_hand1.enabled = false;
-                    mouse_hand2.enabled = false;
+
+                    if(rando == prev_rando)
+                    {
+                        rando = 4;
+                    } 
+                    else
+                    {
+            		    behaviour = 3;
+                        aud.Stop();
+                        aud.loop = false;
+                        mouse_model.enabled = true;
+                        mouse_wait1.enabled = false;
+                        mouse_wait2.enabled = false;
+                        mouse_hand1.enabled = false;
+                        mouse_hand2.enabled = false;
+                        prev_rando = rando;
+                    }
             	}
 
 	            break;

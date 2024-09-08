@@ -12,10 +12,10 @@ public class inventory : MonoBehaviour
 
 	// Inputs
     private KeyCode
-    k_left = KeyCode.LeftArrow,
-    k_right = KeyCode.RightArrow,
-    k_up = KeyCode.UpArrow,
-    k_down = KeyCode.DownArrow,
+    k_left = KeyCode.A,
+    k_right = KeyCode.D,
+    k_up = KeyCode.W,
+    k_down = KeyCode.S,
     k_inv = KeyCode.Q,
     //k_inv_back = KeyCode.E,
     k_equip = KeyCode.Mouse0,

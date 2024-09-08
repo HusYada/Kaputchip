@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class ending : MonoBehaviour
 {
-	public GameObject light1, light2, light3, overlay, overlay2, game_manager;
+	public GameObject light1, light2, light3, overlay, overlay1, overlay2, game_manager;
 
     public float Time_Until_Ending_Overlay;
     public int second_passed = 0;
@@ -20,6 +20,7 @@ public class ending : MonoBehaviour
     void Start()
     {
     	overlay = GameObject.Find("GameComplete_Text");
+        overlay1 = GameObject.Find("GameComplete_Text01");
     	overlay2 = GameObject.Find("GameComplete_Text02");
     	light1 = GameObject.Find("Microwave Light1");
     	light2 = GameObject.Find("Microwave Light2");
@@ -50,6 +51,7 @@ public class ending : MonoBehaviour
                 aud.clip = victory;
                 aud.Play();
                 overlay.GetComponent<TextMeshProUGUI>().enabled = true;
+                overlay1.GetComponent<TextMeshProUGUI>().enabled = true;
                 overlay2.GetComponent<TextMeshProUGUI>().enabled = true;
                 isEnded = true;
             }

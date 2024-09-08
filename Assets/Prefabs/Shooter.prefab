@@ -295,12 +295,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b9de7b470abac4ea8af632be627069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemytype: 0
+  enemytype: 3
   player: {fileID: 0}
   projectile: {fileID: 1916835839401607886, guid: 3f88d461b78e7754ba5195ed520dd6f8, type: 3}
   distance: 40
   speed: 30
-  shoottime: 0
+  shoottime: 0.5
   targetpos: {fileID: 0}
   locations: []
   movingforward: 1
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6329214232494891451}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9a915b8bb8b623459159455f47717e8, type: 3}
   m_Name: 

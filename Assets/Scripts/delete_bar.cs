@@ -66,7 +66,7 @@ public class delete_bar : MonoBehaviour
             SetDeleteGrabPosition(_value);
             progress.text = (int)_value + "%";
         }
-        if (progressBar.transform.localScale.x >= 10)
+        if (progressBar.transform.localScale.x >= 10 || Input.GetKeyDown("0"))
         {
             progressBar.transform.localScale = new Vector3(-1000, -1000, -1000); ;
             Instantiate(fire_scene);

@@ -37,7 +37,7 @@ public class enemy : MonoBehaviour
     	locations = GameObject.FindGameObjectsWithTag("E_Locations").ToList();
     	targetpos = locations[currentpos];
 
-    	if(enemytype == 2)
+    	if(enemytype == 2 || enemytype == 3)
     	{
     		InvokeRepeating("Shoot", shoottime, shoottime);
     	}

@@ -1770,7 +1770,7 @@ MonoBehaviour:
   aud: {fileID: 0}
   mus1: {fileID: 8300000, guid: 421d268e395c64d4e84db02654aa3b18, type: 3}
   mus2: {fileID: 8300000, guid: db04719915d137648ad04a2c822c3357, type: 3}
-  mus3: {fileID: 8300000, guid: 316a5b5db1d7c654987ec1f7df6c3442, type: 3}
+  mus3: {fileID: 8300000, guid: 6b3f366ac5e8dcc4a8482e6b039e0df6, type: 3}
 --- !u!1 &3013930174899666284 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6580833249907033634, guid: c9226a886b95543669a78672f9394781, type: 3}
